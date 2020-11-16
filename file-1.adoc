@@ -1,19 +1,8 @@
 
-= My README
 :toc: macro
 :toclevels: 3
-
-Welcome to my readme. This is the table of contents:
-
 toc::[]
 
-# just a test
-
-## more test heading
-
-## third item
-
-= Document Title (Level 0)
 :sectnums:
 :sectnumlevels: 5
 
