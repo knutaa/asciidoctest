@@ -7,7 +7,7 @@ A Product Order is a type of order which  can  be used to place an order between
 
 === Resource model
 
-include:Resource_ProductOrder_diagram.adoc[]
+include::Resource_ProductOrder_diagram.adoc[]
 
 [.text-center]
 [plantuml, puml, svg]
