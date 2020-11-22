@@ -1,0 +1,21 @@
+... processing rules from Product_Ordering.rules.yaml
+... converted and validated
+... remaining properties: {
+  "rules ProductOrder": {
+    "mandatory in post": "productOrderItem",
+    "pre-conditions": [
+      "When creating a product order (post) an order should not have any of the following attributes cancellationDate, cancellationReason and orderDate valued",
+      "When creating a product order (post) an order should not have the state valued",
+      "When creating a product order (post) an order item should not have the state valued",
+      "Except specific change UC at least one related party must be provided"
+    ]
+  },
+  "rules CancelProductOrder": {
+    "mandatory in post": "productOrder",
+    "pre-conditions": [
+      "product order id must exist"
+    ]
+  }
+}
+... yaml output to Product_Ordering.rules_oas3.yaml
+

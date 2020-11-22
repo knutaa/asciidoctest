@@ -1,41 +1,10 @@
-
-:toc: macro
-:toclevels: 3
-toc::[]
-
-:sectnums:
-:sectnumlevels: 5
-
-== Level 1 Section Title
-
-=== Level 2 Section Title
-
-==== Level 3 Section Title
-
-===== Level 4 Section Title
-
-====== Level 5 Section Title
-
-== Another1 Level 1 Section Title
-
-== Another2 Level 1 Section Title
-
-[plantuml, puml, svg]
-....
-include::diagram.puml[]
-....
-
-== Another3 Level 1 Section Title
-
-[plantuml, puml, svg]
-....
 @startuml
 '
 ' Resource:  Party
 ' Source:    Party_4.0.0_oas.yaml
 ' Generated: 2020-11-18 16:49:56+0100
 '
-hide circle 
+hide circle
 hide methods
 hide stereotype
 show <<Enumeration>> stereotype
@@ -286,15 +255,3 @@ TaxExemptionCertificate *-->  "0..*" TaxDefinition : taxDefinition
 'y=12 : TaxDefinition (9) CharacteristicRelationship (10) AttachmentRefOrValue (9) (seq=189)
 'y=13 : Attachment (9) AttachmentRef (8) (seq=190)
 @enduml
-....
-
-
-asdads
-
-aaaaaa
-
-
-asd
-
-
-
