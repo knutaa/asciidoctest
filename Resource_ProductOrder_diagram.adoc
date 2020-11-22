@@ -9,7 +9,7 @@ ifdef::svg[]
 image::diagrams/Resource_ProductOrder.svg[]
 endif::svg[]
 ifdef::png[]
-image::diagrams/Resource_ProductOrder.png[]
+image::../diagrams/Resource_ProductOrder.png[]
 endif::png[]
 [.text-center]
 Figure {counter:figure} - ProductOrder
