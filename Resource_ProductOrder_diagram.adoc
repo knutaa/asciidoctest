@@ -1,3 +1,9 @@
+:png:
+
+ifdef::env-github[]
+:imagesdir: diagrams/
+endif::[]
+
 [.text-center]
 ifdef::puml[]
 [plantuml, puml, svg]
