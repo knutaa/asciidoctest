@@ -1,0 +1,371 @@
+@startuml
+'
+' Resource:  ProductOrderItem
+' Source:    Product_Ordering_4.0.0_oas.yaml
+' Generated: 2020-11-18 23:09:09+0100
+'
+hide circle
+hide methods
+hide stereotype
+show <<Enumeration>> stereotype
+skinparam class {
+   backgroundColor<<Enumeration>> #E6F5F7
+   backgroundColor<<Ref>> #FFFFE0
+   backgroundColor<<Pivot>> #FFFFFFF
+   backgroundColor #FCF2E3
+   backgroundColor<<SubResource>> MistyRose
+}
+
+skinparam legend {
+   borderRoundCorner 0
+   borderColor red
+   backgroundColor white
+}
+
+'sequence: 9
+class ProductOrderItem <extends  \nEntity >  <<SubResource>> {
+    action : OrderItemActionType
+    href : Uri
+    id : String
+    quantity : Integer
+    state : ProductOrderItemStateType
+    @baseType : String
+    @schemaLocation : Uri
+    @type : String
+}
+
+'sequence: 10
+class ProductOrderItemStateType <<Enumeration>> {
+    acknowledged
+    inProgress
+    rejected
+    held
+    assessingCancellation
+    pendingCancellation
+    pending
+    cancelled
+    completed
+    failed
+}
+
+'sequence: 11
+class OrderItemActionType <<Enumeration>> {
+    add
+    modify
+    noChange
+    delete
+}
+
+'sequence: 20
+class OrderTerm <extends  \nEntity >  {
+    description : String
+    duration : Quantity
+    href : Uri
+    id : String
+    name : String
+    @baseType : String
+    @schemaLocation : Uri
+    @type : String
+}
+
+'sequence: 31
+class QuoteItemRef <extends  \nEntityRef >  <<Ref>> {
+    href : Uri
+    id : String [1]
+    name : String
+    quoteHref : String
+    quoteId : String [1]
+    quoteName : String
+    @baseType : String
+    @referredType : String
+    @schemaLocation : Uri
+    @type : String
+}
+
+'sequence: 39
+class ProductOfferingRef <extends  \nEntityRef >  <<Ref>> {
+    href : Uri
+    id : String
+    name : String
+    @baseType : String
+    @referredType : String
+    @schemaLocation : Uri
+    @type : String
+}
+
+'sequence: 49
+class ProductOfferingQualificationItemRef <extends  \nEntity >  <<Ref>> {
+    href : Uri
+    id : String [1]
+    productOfferingQualificationHref : String
+    productOfferingQualificationId : String [1]
+    productOfferingQualificationName : String
+    @baseType : String
+    @referredType : String
+    @schemaLocation : Uri
+    @type : String
+}
+
+'sequence: 58
+class BillingAccountRef <extends  \nEntity >  <<Ref>> {
+    href : String
+    id : String
+    name : String
+    ratingType : String
+    @baseType : String
+    @referredType : String
+    @schemaLocation : Uri
+    @type : String
+}
+
+'sequence: 59
+class ProductRefOrValue  {
+    {field}//                                        //
+}
+
+'sequence: 70
+class OrderPrice <extends  \nEntity >  {
+    description : String
+    href : Uri
+    id : String
+    name : String
+    priceType : String
+    recurringChargePeriod : String
+    unitOfMeasure : String
+    @baseType : String
+    @schemaLocation : Uri
+    @type : String
+}
+
+'sequence: 100
+class Product <extends  \nEntity >  {
+    agreement : AgreementItemRef [0..*]
+    billingAccount : BillingAccountRef
+    description : String
+    href : String
+    id : String
+    isBundle : Boolean
+    isCustomerVisible : Boolean
+    name : String
+    orderDate : DateTime
+    place : RelatedPlaceRefOrValue [0..*]
+    product : ProductRefOrValue [0..*]
+    productCharacteristic : Characteristic [0..*]
+    productOffering : ProductOfferingRef
+    productOrderItem : RelatedProductOrderItem [0..*]
+    productPrice : ProductPrice [0..*]
+    productRelationship : ProductRelationship [0..*]
+    productSerialNumber : String
+    productSpecification : ProductSpecificationRef
+    productTerm : ProductTerm [0..*]
+    randomAtt : String
+    realizingResource : ResourceRef [0..*]
+    realizingService : ServiceRef [0..*]
+    relatedParty : RelatedParty [0..*]
+    startDate : DateTime
+    status : ProductStatusType
+    terminationDate : DateTime
+    @baseType : String
+    @schemaLocation : Uri
+    @type : String
+}
+
+'sequence: 108
+class ProductRef <extends  \nEntityRef >  <<Ref>> {
+    href : Uri
+    id : String
+    name : String
+    @baseType : String
+    @referredType : String
+    @schemaLocation : Uri
+    @type : String
+}
+
+'sequence: 116
+class ProductOfferingQualificationRef <extends  \nEntityRef >  <<Ref>> {
+    href : Uri
+    id : String
+    name : String
+    @baseType : String
+    @referredType : String
+    @schemaLocation : Uri
+    @type : String
+}
+
+'sequence: 124
+class AppointmentRef <extends  \nEntity >  <<Ref>> {
+    description : String
+    href : String
+    id : String
+    @baseType : String
+    @referredType : String
+    @schemaLocation : Uri
+    @type : String
+}
+
+'sequence: 139
+class PriceAlteration <extends  \nEntity >  {
+    applicationDuration : Integer
+    description : String
+    href : Uri
+    id : String
+    name : String
+    price : Price [1]
+    priceType : String [1]
+    priority : Integer
+    productOfferingPrice : ProductOfferingPriceRef
+    recurringChargePeriod : String
+    unitOfMeasure : String
+    @baseType : String
+    @schemaLocation : Uri
+    @type : String
+}
+
+'sequence: 147
+class ProductOfferingPriceRef <extends  \nEntityRef >  <<Ref>> {
+    href : Uri
+    id : String
+    name : String
+    @baseType : String
+    @referredType : String
+    @schemaLocation : Uri
+    @type : String
+}
+
+'sequence: 157
+class Price <extends  \nEntity >  {
+    dutyFreeAmount : Money
+    href : Uri
+    id : String
+    percentage : Float
+    taxIncludedAmount : Money
+    taxRate : Float
+    @baseType : String
+    @schemaLocation : Uri
+    @type : String
+}
+
+'sequence: 165
+class PaymentRef <extends  \nEntityRef >  <<Ref>> {
+    href : Uri
+    id : String
+    name : String
+    @baseType : String
+    @referredType : String
+    @schemaLocation : Uri
+    @type : String
+}
+
+'sequence: 172
+class OrderItemRelationship <extends  \nEntity >  <<Ref>> {
+    href : Uri
+    id : String
+    relationshipType : String
+    @baseType : String
+    @schemaLocation : Uri
+    @type : String
+}
+
+'sequence: 9
+'processing edges for ProductOrderItem
+'sequence: 175
+'rule: Recursive (self-reference)
+ProductOrderItem *-right-> "0..*" ProductOrderItem : productOrderItem
+
+'sequence: 177
+'rule: circle rule :: effectiveCircle = ProductOrderItem BillingAccountRef OrderPrice ProductOrderItem - special case - threePart=true multiple=false - place [BELOW, RIGHT] - default to BELOW
+ProductOrderItem *-->   BillingAccountRef : billingAccount
+
+'sequence: 179
+'rule: circle rule :: effectiveCircle = ProductOrderItem BillingAccountRef OrderPrice ProductOrderItem - special case - threePart=true multiple=false - place [BELOW, RIGHT] - default to RIGHT
+BillingAccountRef  <-left-* OrderPrice : billingAccount
+
+'sequence: 181
+'rule: circle rule :: effectiveCircle = ProductOrderItem BillingAccountRef OrderPrice ProductOrderItem - special case - threePart=true multiple=false - place [BELOW, RIGHT] - default to RIGHT - override default direction - now ABOVE
+ProductOrderItem *-->  "0..*" OrderPrice : itemTotalPrice
+
+'sequence: 183
+'rule: circle rule :: effectiveCircle = ProductOrderItem BillingAccountRef OrderPrice ProductOrderItem - special case - threePart=true multiple=false - place [BELOW, RIGHT] - default to RIGHT - override default direction - now ABOVE
+ProductOrderItem *-->  "0..*" OrderPrice : itemPrice
+
+'sequence: 187
+ProductOrderItem -right[hidden]-> ProductOrderItemStateType
+
+'sequence: 189
+ProductOrderItemStateType -right[hidden]- OrderItemActionType
+
+'sequence: 191
+'rule: General below rule - either none already or unable to place left / right of currently placed
+ProductOrderItem *-->   ProductRefOrValue : product
+
+'sequence: 206
+'rule: General above rule
+OrderTerm "0..*" <--* ProductOrderItem : itemTerm
+
+'sequence: 208
+'rule: General above rule
+QuoteItemRef  <--* ProductOrderItem : quoteItem
+
+'sequence: 210
+'rule: General above rule
+ProductOfferingRef  <--* ProductOrderItem : productOffering
+
+'sequence: 212
+'rule: General above rule
+ProductOfferingQualificationItemRef  <--* ProductOrderItem : productOfferingQualificationItem
+
+'sequence: 214
+'rule: General above rule
+PaymentRef "0..*" <--* ProductOrderItem : payment
+
+'sequence: 216
+'rule: General above rule
+ProductOfferingQualificationRef "0..*" <--* ProductOrderItem : qualification
+
+'sequence: 218
+'rule: General above rule
+OrderItemRelationship "0..*" <--* ProductOrderItem : productOrderItemRelationship
+
+'sequence: 220
+'rule: General below rule - either none already or unable to place left / right of currently placed
+AppointmentRef  <-left-* ProductOrderItem : appointment
+
+'sequence: 59
+'processing edges for ProductRefOrValue
+'completed processing of edges for ProductRefOrValue
+'processing edges for ProductRefOrValue
+'sequence: 252
+'rule: General below rule
+ProductRefOrValue --|> Product : allOf
+
+'sequence: 254
+'rule: General below rule
+ProductRefOrValue --|> ProductRef : allOf
+
+'sequence: 70
+'processing edges for OrderPrice
+' finished with placeWithPlaced P02-3
+'completed processing of edges for OrderPrice
+'processing edges for OrderPrice
+' finished with placeWithPlaced P02-3
+'sequence: 259
+'rule: General right rule
+OrderPrice *-right-> "0..*" PriceAlteration : priceAlteration
+
+'sequence: 261
+'rule: General below rule
+OrderPrice *-->   ProductOfferingPriceRef : productOfferingPrice
+
+'sequence: 263
+'rule: General below rule
+OrderPrice *-->   Price : price
+
+
+
+'layout of the core: [ProductOrderItem, ProductRefOrValue, OrderPrice] (seq=173)
+'finished layout of the core (seq=199)
+'y=9 : OrderTerm (10) QuoteItemRef (10) ProductOfferingRef (10) ProductOfferingQualificationItemRef (10) ProductOfferingQualificationRef (10) PaymentRef (10) OrderItemRelationship (10) (seq=266)
+'y=10 : AppointmentRef (9) ProductOrderItem (10) ProductOrderItemStateType (11) OrderItemActionType (12) (seq=267)
+'y=11 : BillingAccountRef (10) OrderPrice (11) ProductRefOrValue (10) PriceAlteration (12) (seq=268)
+'y=12 : Product (10) ProductRef (9) ProductOfferingPriceRef (11) Price (10) (seq=269)
+@enduml
