@@ -1,4 +1,17 @@
 :puml!:
-:png:
+:png!:
 :svg!:
 
+:diagrams: diagrams
+
+ifdef::env-vscode[]
+:puml:
+:png!:
+:svg!:
+endif::env-vscode[]
+
+ifdef::env-github[]
+:puml!:
+:png:
+:svg!:
+endif::env-github[]
