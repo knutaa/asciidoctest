@@ -1,4 +1,4 @@
-:puml:
-:png!:
+:puml!:
+:png:
 :svg!:
 
