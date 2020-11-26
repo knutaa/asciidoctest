@@ -2,7 +2,8 @@
 :png!:
 :svg!:
 
-:diagrams: diagrams
+:diagrams: diagrams/
+:fragments: fragments/
 
 ifdef::env-vscode[]
 :puml:

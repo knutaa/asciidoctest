@@ -2,7 +2,7 @@
 ifdef::puml[]
 [plantuml, puml, svg]
 ....
-include::Resource_ProductOrder.puml[]
+include::{diagrams}/Resource_ProductOrder.puml[]
 ....
 endif::puml[]
 ifdef::svg[]
