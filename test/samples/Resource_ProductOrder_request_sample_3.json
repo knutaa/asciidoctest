@@ -1,0 +1,95 @@
+200
+
+{
+  "id": "3774",
+  "href": "https://host:port/productOrderingManagement/v4/productOrder/3774",
+  "category": "B2C product order",
+  "description": "Product Order change illustration sample",
+  "expectedCompletionDate": "2019-05-22T08:13:59.506Z",
+  "externalId": "PO-457",
+  "orderDate": "2019-04-30T08:13:59.506Z",
+  "priority": "1",
+  "requestedCompletionDate": "2019-05-22T08:13:59.506Z",
+  "requestedStartDate": "2019-05-22T08:13:59.506Z",
+  "channel": [
+    {
+      "id": "1",
+      "role": "Used channel for order capture",
+      "name": "Online chanel"
+    }
+  ],
+  "note": [
+    {
+      "id": "1",
+      "author": "Jean Pontus",
+      "date": "2019-05-22T08:13:59.509Z",
+      "text": "This is a TMF product order illustration to change existing product"
+    }
+  ],
+  "productOrderItem": [
+    {
+      "id": "100",
+      "quantity": 1,
+      "action": "noChange",
+      "product": {
+        "id": "6000",
+        "href": "https://host:port/productInventoryManagement/v4/product/6000"
+      },
+      "productOrderItemRelationship": [
+        {
+          "id": "110",
+          "relationshipType": "bundles"
+        }
+      ],
+      "state": "inProgress",
+      "@type": "ProductOrderItem"
+    },
+    {
+        "id": "110",
+        "quantity": 1,
+        "action": "change",
+        "product": {
+            "id": "6003",
+            "href": "https://host:port/productInventoryManagement/v4/product/6003",
+            "@type": "Product",
+            "productCharacteristic": [
+                {
+                "name": "CoverageOptions",
+                "valueType": "string",
+                "value": "International"
+                }
+            ],
+            "productRelationship": [
+                {
+                "relationshipType": "reliesOn",
+                "product": {
+                        "id": "6001",
+                        "href": "https://host:port/productInventoryManagement/v4/product/6001"
+                    }
+                }
+            ]
+        },
+        "state": "inProgress",
+        "@type": "ProductOrderItem"
+      }
+  ],
+  "relatedParty": [
+    {
+      "id": "456-dd-df45",
+      "href": "https://host:port/partyManagement/v4/individual/456-dd-df45",
+      "name": "Joe Doe",
+      "role": "Seller",
+      "@type": "RelatedParty",
+      "@referredType": "Individual"
+    },
+    {
+      "id": "ff55-hjy4",
+      "href": "https://host:port/partyRoleManagement/v4/customer/ff55-hjy4",
+      "name": "Jean Pontus",
+      "@type": "RelatedParty",
+      "@referredType": "Customer"
+    }    
+  ],
+  "state": "inProgress",
+  "@type": "ProductOrder"
+}

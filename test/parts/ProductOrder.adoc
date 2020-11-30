@@ -1,0 +1,24 @@
+include::../config/Environment.adoc[]
+
+
+[.text-center]
+ifdef::png[]
+image::Resource_ProductOrder.png[]
+endif::png[]
+[.text-center]
+Figure {counter:figure} - ProductOrder
+
+[.text-center]
+ifdef::png[]
+image::Resource_ProductOrder_ProductOrderItem.png[]
+endif::png[]
+[.text-center]
+Figure {counter:figure} - ProductOrderItem
+
+[.text-center]
+ifdef::png[]
+image::Resource_ProductOrder_Product.png[]
+endif::png[]
+[.text-center]
+Figure {counter:figure} - Product
+

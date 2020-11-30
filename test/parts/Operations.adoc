@@ -1,0 +1,309 @@
+include::../config/Environment.adoc[]
+
+=== Operations on ProductOrder
+
+==== List or find ProductOrder objects
+
+`*GET /productOrder*`
+
+*Description*
+
+This operation list ProductOrder entities.
+Attribute selection is enabled for all first level attributes.
+Filtering may be available depending on the compliance level supported by an implementation.
+					
+*Usage samples*
+
+Here&#39;s an example of a request for retrieving a list of product order(s). The given criteria is the category (B2C) and state (held).
+
+[cols="100%",stripes=even]
+|===
+| *Request*
+l|
+include::../samples/Resource_ProductOrder_request_sample_1.json[]
+
+| *Response*
+l|
+include::../samples/Resource_ProductOrder_response_sample_1.json[]
+
+|===
+
+==== Retrieves a ProductOrder by ID
+
+`*GET /productOrder/{id}?fields&#61;...&amp;{filtering}*`
+
+*Description*
+
+This operation retrieves a ProductOrder entity.
+Attribute selection is enabled for all first level attributes.
+Filtering may be available depending on the compliance level supported by an implementation.
+					
+*Usage samples*
+
+Here&#39;s an example of a request for retrieving a product order for use case 1. The given criteria is the product order id 30001.
+
+[cols="100%",stripes=even]
+|===
+| *Request*
+l|
+include::../samples/Resource_ProductOrder_request_sample_2.json[]
+
+| *Response*
+l|
+include::../samples/Resource_ProductOrder_response_sample_2.json[]
+
+|===
+
+Here&#39;s an example of a request for retrieving a product order for use case 2. The given criteria is the product order id 3774.
+
+[cols="100%",stripes=even]
+|===
+| *Request*
+l|
+include::../samples/Resource_ProductOrder_request_sample_3.json[]
+
+| *Response*
+l|
+include::../samples/Resource_ProductOrder_response_sample_3.json[]
+
+|===
+
+==== Creates a ProductOrder
+
+`*POST /productOrder*`
+
+*Description*
+
+This operation creates a ProductOrder entity.
+
+*Mandatory Attributes*
+
+[cols="35%,65%"]
+|===
+|*Mandatory Attributes*|*Rule*
+
+|productOrderItem |
+|===
+
+					
+*Usage samples*
+
+Here&#39;s an example of a request for creating a product order for use case 1 - the resulting product order is 30001.
+
+[cols="100%",stripes=even]
+|===
+| *Request*
+l|
+include::../samples/Resource_ProductOrder_request_sample_4.json[]
+
+| *Response*
+l|
+include::../samples/Resource_ProductOrder_response_sample_4.json[]
+
+|===
+
+Here&#39;s an example of a request for ordering a product described via schema and not using characteristic
+
+[cols="100%",stripes=even]
+|===
+| *Request*
+l|
+include::../samples/Resource_ProductOrder_request_sample_5.json[]
+
+| *Response*
+l|
+include::../samples/Resource_ProductOrder_response_sample_5.json[]
+
+|===
+
+==== Updates partially a ProductOrder
+
+`*PATCH /productOrder/{id}?fields&#61;...&amp;{filtering}*`
+
+*Description*
+
+This operation allows partial updates of a ProductOrder entity. Support of json/merge (https://tools.ietf.org/html/rfc7386) is mandatory, support of json/patch (http://tools.ietf.org/html/rfc5789) is optiona.
+Note: If the update operation yields to the creation of sub-resources or relationships, the same rules concerning mandatory sub-resource attributes and default value settings in the POST operation applies to the PATCH operation. Hence these tables are not repeated here.
+
+*Patchable and Non Patchable Attributes*
+
+[cols="35%,65%"]
+|===
+|*Patchable Attributes*|*Rule*
+
+|agreement |
+|billingAccount |
+|cancellationDate |
+|cancellationReason |
+|category |
+|channel |
+|completionDate |
+|description |
+|expectedCompletionDate |
+|externalId |
+|note |
+|notificationContact |
+|orderTotalPrice |
+|payment |
+|priority |
+|productOfferingQualification |
+|productOrderItem |
+|quote |
+|relatedParty |
+|requestedCompletionDate |
+|requestedStartDate |
+|state |
+|===
+
+[cols="35%,65%"]
+|===
+|*Non Patchable Attributes*|*Rule*
+
+|href |
+|id |
+|orderDate |
+|===
+
+					
+*Usage samples*
+
+Here&#39;s an example of a request for updating a product order for use case 1 - Change value for billing account id. Assumptions: the product order state allow this on the fly modification - the full resource representation is sent in PATCH response
+
+[cols="100%",stripes=even]
+|===
+| *Request*
+l|
+include::../samples/Resource_ProductOrder_request_sample_6.json[]
+
+| *Response*
+l|
+include::../samples/Resource_ProductOrder_response_sample_6.json[]
+
+|===
+
+Here&#39;s an example of a request for updating a product order for use case 1 - Change value for billing account id. Assumptions: the product order state allow this on the fly modification - the full resource representation is sent in PATCH response
+
+[cols="100%",stripes=even]
+|===
+| *Request*
+l|
+include::../samples/Resource_ProductOrder_request_sample_7.json[]
+
+| *Response*
+l|
+include::../samples/Resource_ProductOrder_response_sample_7.json[]
+
+|===
+
+==== Deletes a ProductOrder
+
+`*DELETE /productOrder/{id}?fields&#61;...&amp;{filtering}*`
+
+*Description*
+
+This operation deletes a ProductOrder entity.
+					
+*Usage samples*
+
+Here&#39;s an example of a request for deleting a product order.
+
+[cols="100%",stripes=even]
+|===
+| *Request*
+l|
+include::../samples/Resource_ProductOrder_request_sample_8.json[]
+
+| *Response*
+l|
+include::../samples/Resource_ProductOrder_response_sample_8.json[]
+
+|===
+
+=== Operations on CancelProductOrder
+
+==== List or find CancelProductOrder objects
+
+`*GET /cancelProductOrder*`
+
+*Description*
+
+This operation list CancelProductOrder entities.
+Attribute selection is enabled for all first level attributes.
+Filtering may be available depending on the compliance level supported by an implementation.
+					
+*Usage samples*
+
+Here&#39;s an example of a request for retrieving a list of product order cancel request(s). The given criteria is the cancel request state (done).
+
+[cols="100%",stripes=even]
+|===
+| *Request*
+l|
+include::../samples/Resource_CancelProductOrder_request_sample_1.json[]
+
+| *Response*
+l|
+include::../samples/Resource_CancelProductOrder_response_sample_1.json[]
+
+|===
+
+==== Retrieves a CancelProductOrder by ID
+
+`*GET /cancelProductOrder/{id}?fields&#61;...&amp;{filtering}*`
+
+*Description*
+
+This operation retrieves a CancelProductOrder entity.
+Attribute selection is enabled for all first level attributes.
+Filtering may be available depending on the compliance level supported by an implementation.
+					
+*Usage samples*
+
+Here&#39;s an example of a cancel product order request retrieval. The given criteria is the product order request cancel id 789-fsds5-kjp.
+
+[cols="100%",stripes=even]
+|===
+| *Request*
+l|
+include::../samples/Resource_CancelProductOrder_request_sample_2.json[]
+
+| *Response*
+l|
+include::../samples/Resource_CancelProductOrder_response_sample_2.json[]
+
+|===
+
+==== Creates a CancelProductOrder
+
+`*POST /cancelProductOrder*`
+
+*Description*
+
+This operation creates a CancelProductOrder entity.
+
+*Mandatory Attributes*
+
+[cols="35%,65%"]
+|===
+|*Mandatory Attributes*|*Rule*
+
+|productOrder |
+|===
+
+					
+*Usage samples*
+
+Here&#39;s an example of a request for cancel a product order  - the resulting product order cancellation request is 789-fsds5-kjp.
+
+[cols="100%",stripes=even]
+|===
+| *Request*
+l|
+include::../samples/Resource_CancelProductOrder_request_sample_3.json[]
+
+| *Response*
+l|
+include::../samples/Resource_CancelProductOrder_response_sample_3.json[]
+
+|===
+

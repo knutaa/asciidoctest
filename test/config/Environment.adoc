@@ -1,0 +1,14 @@
+:puml!:
+:png:
+:svg!:
+
+ifndef::maindoc[]
+:parts: ../parts
+:imagesdir: ../diagrams/
+endif::[]
+
+ifdef::maindoc[]
+:parts: ./
+:imagesdir: diagrams/
+endif::[]
+
