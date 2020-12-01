@@ -16,8 +16,6 @@ toc::[]
 
 :sectnums:
 
-== TEST
-
 :puml!:
 :png:
 :svg!:
