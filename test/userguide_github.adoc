@@ -1,0 +1,2771 @@
+:maindoc:
+:puml!:
+:png:
+:svg!:
+
+
+:parts: ./
+:imagesdir: diagrams/
+:parts: parts
+
+:docbook:
+:toc: macro
+:toclevels: 3
+
+toc::[]
+
+:sectnums:
+
+:puml!:
+:png:
+:svg!:
+
+
+:parts: ./
+:imagesdir: diagrams/
+
+== RESOURCE MODEL
+
+=== Managed Entity and Task Resource Models
+
+==== ProductOrder resource
+
+A Product Order is a type of order which  can  be used to place an order between a customer and a service provider or between a service provider and a partner and vice versa,.
+
+*Resource model*
+
+:puml!:
+:png:
+:svg!:
+
+
+:parts: ./
+:imagesdir: diagrams/
+
+
+[.text-center]
+image::Resource_ProductOrder.png[]
+[.text-center]
+Figure {counter:figure} - ProductOrder
+
+[.text-center]
+image::Resource_ProductOrder_ProductOrderItem.png[]
+[.text-center]
+Figure {counter:figure} - ProductOrderItem
+
+[.text-center]
+image::Resource_ProductOrder_Product.png[]
+[.text-center]
+Figure {counter:figure} - Product
+
+*Field descriptions*
+
+pass:q[<u>ProductOrder fields</u>]
+
+[cols="35%,65%"]
+|===
+|agreement |An AgreementRef. A reference to an agreement defined in the context of the product order. Agreement reference. An agreement represents a contract or arrangement, either written or verbal and sometimes enforceable by law, such as a service level agreement or a customer price agreement. An agreement involves a number of other business entities, such as products, services, and resources and/or their specifications.
+|billingAccount |A BillingAccountRef.  BillingAccount reference. A BillingAccount is a detailed description of a bill structure.
+|cancellationDate |A DateTime. Date when the order is cancelled. This is used when order is cancelled.
+|cancellationReason |A String. Reason why the order is cancelled. This is used when order is cancelled.
+|category |A String. Used to categorize the order from a business perspective that can be useful for the OM system (e.g. &quot;enterprise&quot;, &quot;residential&quot;, ...).
+|channel |A RelatedChannel.  Related channel to another entity. May be online web, mobile app, social ,etc.
+|completionDate |A DateTime. Date when the order was completed.
+|description |A String. Description of the product order.
+|expectedCompletionDate |A DateTime. Expected delivery date amended by the provider.
+|externalId |A String. ID given by the consumer and only understandable by him (to facilitate his searches afterwards).
+|href |A String. Hyperlink to access the order.
+|id |A String. ID created on repository side (OM system).
+|note |A Note.  Extra information about a given entity.
+|notificationContact |A String. Contact attached to the order to send back information regarding this order.
+|orderDate |A DateTime. Date when the order was created.
+|orderTotalPrice |An OrderPrice.  An amount, usually of money, that represents the actual price paid by the Customer for this item or this order.
+|payment |A PaymentRef.  If an immediate payment has been done at the product order submission, the payment information are captured and stored (as a reference) in the order.
+|priority |A String. A way that can be used by consumers to prioritize orders in OM system (from 0 to 4 : 0 is the highest priority, and 4 the lowest).
+|productOfferingQualification |A ProductOfferingQualificationRef.  It&#39;s a productOfferingQualification that has been executed previously.
+|productOrderItem |A ProductOrderItem.  An identified part of the order. A product order is decomposed into one or more order items.
+|quote |A QuoteRef.  It&#39;s a Quote that has been executed previously.
+|relatedParty |A RelatedParty.  Related Entity reference. A related party defines party or party role linked to a specific entity.
+|requestedCompletionDate |A DateTime. Requested delivery date from the requestor perspective.
+|requestedStartDate |A DateTime. Order fulfillment start date wished by the requestor. This is used when, for any reason, requestor cannot allow seller to begin to operationally begin the fulfillment before a date.
+|state |A ProductOrderStateType.  Possible values for the state of the order.
+|===
+
+pass:q[<u>AgreementItemRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|agreementItemId |A String. Identifier of the agreement.
+|href |A Uri. Hyperlink reference.
+|id |A String. Unique identifier.
+|name |A String. Name of the related entity.
+|@referredType |A String. The actual type of the target instance when needed for disambiguation.
+|===
+
+pass:q[<u>AgreementRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference.
+|id |A String. Unique identifier.
+|name |A String. Name of the agreement.
+|@referredType |A String. The actual type of the target instance when needed for disambiguation.
+|===
+
+pass:q[<u>AppointmentRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|description |A String. An explanatory text regarding the appointment made with a party.
+|href |A String. The reference of the appointment.
+|id |A String. The identifier of the referred appointment.
+|@referredType |A String. The actual type of the target instance when needed for disambiguation.
+|===
+
+pass:q[<u>BillingAccountRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A String. Reference of the billing account.
+|id |A String. Unique identifier of the billing account.
+|name |A String. Name of the billing account.
+|ratingType |A String. Indicates whether the account follows a specific payment option such as prepaid or postpaid.
+|@referredType |A String. The actual type of the target instance when needed for disambiguation.
+|===
+
+pass:q[<u>Characteristic sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|characteristicRelationship |A CharacteristicRelationship.  Another Characteristic that is related to the current Characteristic;.
+|id |A String. Unique identifier of the characteristic.
+|name |A String. Name of the characteristic.
+|value |An Any.
+|valueType |A String. Data type of the value of the characteristic.
+|===
+
+pass:q[<u>CharacteristicRelationship sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference.
+|id |A String. Unique identifier of the characteristic.
+|relationshipType |A String. The type of relationship.
+|===
+
+pass:q[<u>Note sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|author |A String. Author of the note.
+|date |A DateTime. Date of the note.
+|id |A String. Identifier of the note within its containing entity.
+|text |A String. Text of the note.
+|===
+
+pass:q[<u>OrderItemRelationship sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference.
+|id |A String.
+|relationshipType |A String. The type of order item relationship.
+|===
+
+pass:q[<u>OrderPrice sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|billingAccount |A BillingAccountRef.  BillingAccount reference. A BillingAccount is a detailed description of a bill structure.
+|description |A String. A narrative that explains in detail the semantics of this order item price.
+|href |A Uri. Hyperlink reference.
+|id |A String. Unique identifier.
+|name |A String. A short descriptive name such as &quot;Subscription price&quot;.
+|price |A Price.  Provides all amounts (tax included, duty free, tax rate), used currency and percentage to apply for Price Alteration.
+|priceAlteration |A PriceAlteration. A strucuture used to describe a price alteration. Is an amount, usually of money, that modifies the price charged for an order item.
+|priceType |A String. A category that describes the price, such as recurring, discount, allowance, penalty, and so forth.
+|productOfferingPrice |A ProductOfferingPriceRef.  ProductPriceOffering reference. An amount, usually of money, that is asked for or allowed when a ProductOffering is bought, rented, or leased.
+|recurringChargePeriod |A String. Could be month, week...
+|unitOfMeasure |A String. Could be minutes, GB...
+|===
+
+pass:q[<u>OrderTerm sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|description |A String. Description of the productOrderTerm.
+|duration |A Quantity.  An amount in a given unit.
+|href |A Uri. Hyperlink reference.
+|id |A String. Unique identifier.
+|name |A String. Name of the productOrderTerm.
+|===
+
+pass:q[<u>PaymentRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference.
+|id |A String. Unique identifier.
+|name |A String. A name for the payment.
+|@referredType |A String. The actual type of the target instance when needed for disambiguation.
+|===
+
+pass:q[<u>Place sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A String. Unique reference of the place.
+|id |A String. Unique identifier of the place.
+|name |A String. A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home].
+|===
+
+pass:q[<u>PlaceRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference.
+|id |A String. Unique identifier.
+|name |A String. Name of the related entity.
+|@referredType |A String. The actual type of the target instance when needed for disambiguation.
+|===
+
+pass:q[<u>Price sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|dutyFreeAmount |A Money.  A base / value business entity used to represent money.
+|href |A Uri. Hyperlink reference.
+|id |A String. Unique identifier.
+|percentage |A Float. Percentage to apply for ProdOfferPriceAlteration.
+|taxIncludedAmount |A Money.  A base / value business entity used to represent money.
+|taxRate |A Float. Tax rate.
+|===
+
+pass:q[<u>PriceAlteration sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|applicationDuration |An Integer. Duration during which the alteration applies on the order item price (for instance 2 months free of charge for the recurring charge).
+|description |A String. A narrative that explains in detail the semantics of this order item price alteration.
+|href |A Uri. Hyperlink reference.
+|id |A String. Unique identifier.
+|name |A String. Name of the order item price alteration.
+|price |A Price.  Provides all amounts (tax included, duty free, tax rate), used currency and percentage to apply for Price Alteration.
+|priceType |A String. A category that describes the price such as recurring, one time and usage.
+|priority |An Integer. Priority level for applying this alteration among all the defined alterations on the order item price.
+|productOfferingPrice |A ProductOfferingPriceRef.  ProductPriceOffering reference. An amount, usually of money, that is asked for or allowed when a ProductOffering is bought, rented, or leased.
+|recurringChargePeriod |A String. Could be month, week...
+|unitOfMeasure |A String. Could be minutes, GB...
+|===
+
+pass:q[<u>Product sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|agreement |An AgreementItemRef.  Agreement reference. An agreement represents a contract or arrangement, either written or verbal and sometimes enforceable by law, such as a service level agreement or a customer price agreement. An agreement involves a number of other business entities, such as products, services, and resources and/or their specifications.
+|billingAccount |A BillingAccountRef.  BillingAccount reference. A BillingAccount is a detailed description of a bill structure.
+|description |A String. Is the description of the product. It could be copied from the description of the Product Offering.
+|href |A String. Reference of the product.
+|id |A String. Unique identifier of the product.
+|isBundle |A Boolean. If true, the product is a ProductBundle which is an instantiation of a BundledProductOffering. If false, the product is a ProductComponent which is an instantiation of a SimpleProductOffering.
+|isCustomerVisible |A Boolean. If true, the product is visible by the customer.
+|name |A String. Name of the product. It could be the same as the name of the product offering.
+|orderDate |A DateTime. Is the date when the product was ordered.
+|place |A RelatedPlaceRefOrValue.  Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation &amp; @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself.
+|product |A ProductRefOrValue.  A product to be created defined by value or existing defined by reference. The polymorphic attributes @type, @schemaLocation &amp; @referredType are related to the product entity and not the RelatedProductRefOrValue class itself.
+|productCharacteristic |A Characteristic.  Describes a given characteristic of an object or entity through a name/value pair.
+|productOffering |A ProductOfferingRef.  ProductOffering reference. A product offering represents entities that are orderable from the provider of the catalog, this resource includes pricing information.
+|productOrderItem |A RelatedProductOrderItem.  RelatedProductOrderItem (ProductOrder item) .The product order item which triggered product creation/change/termination.
+|productPrice |A ProductPrice.  An amount, usually of money, that represents the actual price paid by a Customer for a purchase, a rent or a lease of a Product. The price is valid for a defined period of time.
+|productRelationship |A ProductRelationship.  Linked products to the one instantiate, such as [bundled] if the product is a bundle and you want to describe the bundled products inside this bundle; [reliesOn] if the product needs another already owned product to rely on (e.g. an option on an already owned mobile access product) [targets] or [isTargeted] (depending on the way of expressing the link) for any other kind of links that may be useful.
+|productSerialNumber |A String. Is the serial number for the product. This is typically applicable to tangible products e.g. Broadband Router.
+|productSpecification |A ProductSpecificationRef.  Product specification reference: A ProductSpecification is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role.
+|productTerm |A ProductTerm.  Description of a productTerm linked to this product. This represent a commitment with a duration.
+|randomAtt |A String.
+|realizingResource |A ResourceRef.
+|realizingService |A ServiceRef.  Service reference, for when Service is used by other entities.
+|relatedParty |A RelatedParty.  Related Entity reference. A related party defines party or party role linked to a specific entity.
+|startDate |A DateTime. Is the date from which the product starts.
+|status |A ProductStatusType.  Possible values for the status of the product.
+|terminationDate |A DateTime. Is the date when the product was terminated.
+|===
+
+pass:q[<u>ProductOfferingPriceRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference.
+|id |A String. Unique identifier.
+|name |A String. Name of the related entity.
+|@referredType |A String. The actual type of the target instance when needed for disambiguation.
+|===
+
+pass:q[<u>ProductOfferingQualificationItemRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference.
+|id |A String. Id of an item of a product offering qualification.
+|productOfferingQualificationHref |A String. Reference of the related entity.
+|productOfferingQualificationId |A String. Unique identifier of a related entity.
+|productOfferingQualificationName |A String. Name of the related entity.
+|@referredType |A String. The actual type of the target instance when needed for disambiguation.
+|===
+
+pass:q[<u>ProductOfferingQualificationRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference.
+|id |A String. Unique identifier.
+|name |A String. Name of the related entity.
+|@referredType |A String. The actual type of the target instance when needed for disambiguation.
+|===
+
+pass:q[<u>ProductOfferingRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference.
+|id |A String. Unique identifier.
+|name |A String. Name of the related entity.
+|@referredType |A String. The actual type of the target instance when needed for disambiguation.
+|===
+
+pass:q[<u>ProductOrderItem sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|action |An OrderItemActionType.  Action to be performed on the product.
+|appointment |An AppointmentRef.  Refers an appointment, such as a Customer presentation or internal meeting or site visit.
+|billingAccount |A BillingAccountRef.  BillingAccount reference. A BillingAccount is a detailed description of a bill structure.
+|href |A Uri. Hyperlink reference.
+|id |A String. Identifier of the line item (generally it is a sequence number 01, 02, 03, ...).
+|itemPrice |An OrderPrice.  An amount, usually of money, that represents the actual price paid by the Customer for this item or this order.
+|itemTerm |An OrderTerm.  Description of a productTerm linked to this orderItem. This represent a commitment with a duration.
+|itemTotalPrice |An OrderPrice.  An amount, usually of money, that represents the actual price paid by the Customer for this item or this order.
+|payment |A PaymentRef.  If an immediate payment has been done at the product order submission, the payment information are captured and stored (as a reference) in the order.
+|product |A ProductRefOrValue.  A product to be created defined by value or existing defined by reference. The polymorphic attributes @type, @schemaLocation &amp; @referredType are related to the product entity and not the RelatedProductRefOrValue class itself.
+|productOffering |A ProductOfferingRef.  ProductOffering reference. A product offering represents entities that are orderable from the provider of the catalog, this resource includes pricing information.
+|productOfferingQualificationItem |A ProductOfferingQualificationItemRef.  It&#39;s a productOfferingQualification item that has been executed previously.
+|productOrderItem |A ProductOrderItem.  An identified part of the order. A product order is decomposed into one or more order items.
+|productOrderItemRelationship |An OrderItemRelationship.
+|qualification |A ProductOfferingQualificationRef.  It&#39;s a productOfferingQualification that has been executed previously.
+|quantity |An Integer. Quantity ordered.
+|quoteItem |A QuoteItemRef.  It&#39;s a Quote item that has been executed previously.
+|state |A ProductOrderItemStateType.  Possible values for the state of the product order item.
+|===
+
+pass:q[<u>ProductPrice sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|billingAccount |A BillingAccountRef.  BillingAccount reference. A BillingAccount is a detailed description of a bill structure.
+|description |A String. A narrative that explains in detail the semantics of this product price.
+|href |A Uri. Hyperlink reference.
+|id |A String. Unique identifier.
+|name |A String. A short descriptive name such as &quot;Subscription price&quot;.
+|price |A Price.  Provides all amounts (tax included, duty free, tax rate), used currency and percentage to apply for Price Alteration.
+|priceType |A String. A category that describes the price, such as recurring, discount, allowance, penalty, and so forth.
+|productOfferingPrice |A ProductOfferingPriceRef.  ProductPriceOffering reference. An amount, usually of money, that is asked for or allowed when a ProductOffering is bought, rented, or leased.
+|productPriceAlteration |A PriceAlteration.  Is an amount, usually of money, that modifies the price charged for an order item.
+|recurringChargePeriod |A String. Could be month, week...
+|unitOfMeasure |A String. Could be minutes, GB...
+|===
+
+pass:q[<u>ProductRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference.
+|id |A String. Unique identifier.
+|name |A String. Name of the related entity.
+|@referredType |A String. The actual type of the target instance when needed for disambiguation.
+|===
+
+pass:q[<u>ProductRelationship sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference.
+|id |A String. Unique identifier.
+|product |A ProductRefOrValue.  A product to be created defined by value or existing defined by reference. The polymorphic attributes @type, @schemaLocation &amp; @referredType are related to the product entity and not the RelatedProductRefOrValue class itself.
+|relationshipType |A String. Type of the product relationship, such as [bundled] if the product is a bundle and you want to describe the bundled products inside this bundle; [reliesOn] if the product needs another already owned product to rely on (e.g. an option on an already owned mobile access product) [targets] or [isTargeted] (depending on the way of expressing the link) for any other kind of links that may be useful.
+|===
+
+pass:q[<u>ProductSpecificationRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference.
+|id |A String. Unique identifier.
+|name |A String. Name of the related entity.
+|targetProductSchema |A TargetProductSchema.  The reference object to the schema and type of target product which is described by product specification.
+|version |A String. Version of the product specification.
+|@referredType |A String. The actual type of the target instance when needed for disambiguation.
+|===
+
+pass:q[<u>ProductTerm sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|description |A String. Description of the productTerm.
+|duration |A Quantity.  An amount in a given unit.
+|href |A Uri. Hyperlink reference.
+|id |A String. Unique identifier.
+|name |A String. Name of the productTerm.
+|validFor |A TimePeriod.  A period of time, either as a deadline (endDateTime only) a startDateTime only, or both.
+|===
+
+pass:q[<u>QuoteItemRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference.
+|id |A String. Id of an item of a quote.
+|name |A String. Name of the related entity.
+|quoteHref |A String. Reference of the related entity.
+|quoteId |A String. Unique identifier of a related entity.
+|quoteName |A String. Name of the related entity.
+|@referredType |A String. The actual type of the target instance when needed for disambiguation.
+|===
+
+pass:q[<u>QuoteRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference.
+|id |A String. Unique identifier.
+|name |A String. Name of the related entity.
+|@referredType |A String. The actual type of the target instance when needed for disambiguation.
+|===
+
+pass:q[<u>RelatedChannel sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference.
+|id |A String. Unique identifier.
+|name |A String. Name of the channel.
+|role |A String. Role playing by the channel.
+|@referredType |A String. The actual type of the target instance when needed for disambiguation.
+|===
+
+pass:q[<u>RelatedParty sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference.
+|id |A String. Unique identifier.
+|name |A String. Name of the related entity.
+|role |A String. Role played by the related party.
+|@referredType |A String. The actual type of the target instance when needed for disambiguation.
+|===
+
+pass:q[<u>RelatedPlaceRefOrValue sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|role |A String.
+|===
+
+pass:q[<u>RelatedProductOrderItem sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference.
+|id |A String. Unique identifier.
+|orderItemAction |A String. Action of the order item for this product.
+|orderItemId |A String. Identifier of the order item where the product was managed.
+|productOrderHref |A String. Reference of the related entity.
+|productOrderId |A String. Unique identifier of a related entity.
+|role |A String. Role of the product order item for this product.
+|@referredType |A String. The actual type of the target instance when needed for disambiguation.
+|===
+
+pass:q[<u>ResourceRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference.
+|id |A String. Unique identifier.
+|name |A String. Name of the related entity.
+|@referredType |A String. The actual type of the target instance when needed for disambiguation.
+|===
+
+pass:q[<u>ServiceRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference.
+|id |A String. Unique identifier.
+|name |A String. Name of the related entity.
+|@referredType |A String. The actual type of the target instance when needed for disambiguation.
+|===
+
+pass:q[<u>TargetProductSchema sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|@schemaLocation |A Uri. This field provides a link to the schema describing the target product.
+|@type |A String. Class type of the target product.
+|===
+
+
+
+*Json representation sample*
+
+We provide below the json representation of an example of a 'ProductOrder' resource object.
+
+[cols="100%",stripes=all]
+|===
+l|
+{
+  "note": [{
+    "date": "2019-04-30T08:13:59.509Z",
+    "author": "Jean Pontus",
+    "id": "1",
+    "text": "This is a TMF product order illustration"
+  }],
+  "@type": "ProductOrder",
+  "channel": [{
+    "role": "Used channel for order capture",
+    "name": "Online chanel",
+    "id": "1"
+  }],
+  "description": "Product Order illustration sample",
+  "externalId": "PO-456",
+  "priority": "1",
+  "productOrderItem": [
+    {
+      "product": {
+        "isBundle": true,
+        "@type": "Product"
+      },
+      "quantity": 1,
+      "productOffering": {
+        "name": "TMF25",
+        "id": "14277",
+        "href": "https://host:port/productCatalogManagement/v4/productOffering/14277"
+      },
+      "@type": "ProductOrderItem",
+      "action": "add",
+      "id": "100",
+      "state": "completed",
+      "productOrderItemRelationship": [
+        {
+          "relationshipType": "bundles",
+          "id": "110"
+        },
+        {
+          "relationshipType": "bundles",
+          "id": "120"
+        },
+        {
+          "relationshipType": "bundles",
+          "id": "130"
+        }
+      ]
+    },
+    {
+      "product": {
+        "isBundle": false,
+        "productSpecification": {
+          "@type": "ProductSpecificationRef",
+          "name": "Mobile Telephony",
+          "id": "14307",
+          "href": "https://host:port/productCatalogManagement/v4/productSpecification/14307",
+          "version": "1"
+        },
+        "@type": "Product",
+        "productCharacteristic": [{
+          "valueType": "string",
+          "name": "TEL_MSISDN",
+          "value": "415 279 7439"
+        }]
+      },
+      "quantity": 1,
+      "productOffering": {
+        "name": "TMF Mobile Telephony",
+        "id": "14305",
+        "href": "https://host:port/productCatalogManagement/v4/productOffering/14305"
+      },
+      "@type": "ProductOrderItem",
+      "action": "add",
+      "itemPrice": [{
+        "price": {
+          "taxRate": 0,
+          "taxIncludedAmount": {
+            "unit": "EUR",
+            "value": 0.99
+          },
+          "dutyFreeAmount": {
+            "unit": "EUR",
+            "value": 0.99
+          }
+        },
+        "name": "Access Fee",
+        "priceType": "nonRecurring",
+        "description": "Access Fee"
+      }],
+      "payment": [{
+        "@referredType": "Payment",
+        "@type": "CashPayment",
+        "name": "Cash payment for access fee",
+        "id": "2365",
+        "href": "https://host:port/paymentManagement/v4/cashPayment/2365"
+      }],
+      "id": "110",
+      "state": "completed"
+    },
+    {
+      "itemTerm": [{
+        "duration": {
+          "amount": 12,
+          "units": "month"
+        },
+        "name": "12Months",
+        "description": "Tariff plan 12 Months commitment"
+      }],
+      "product": {
+        "isBundle": false,
+        "productSpecification": {
+          "@type": "ProductSpecificationRef",
+          "name": "TMF Tariff plan",
+          "id": "14395",
+          "href": "https://host:port/productCatalogManagement/v4/productSpecification/14395",
+          "version": "1"
+        },
+        "@type": "Product"
+      },
+      "quantity": 1,
+      "productOffering": {
+        "name": "TMF Tariff Plan",
+        "id": "14344",
+        "href": "https://host:port/productCatalogManagement/v4/productOffering/14344"
+      },
+      "@type": "ProductOrderItem",
+      "action": "add",
+      "itemPrice": [{
+        "price": {
+          "taxRate": 0,
+          "taxIncludedAmount": {
+            "unit": "EUR",
+            "value": 20
+          },
+          "dutyFreeAmount": {
+            "unit": "EUR",
+            "value": 20
+          }
+        },
+        "name": "MonthlyFee",
+        "priceType": "recurring",
+        "description": "Tariff plan monthly fee",
+        "recurringChargePeriod": "month",
+        "priceAlteration": [{
+          "applicationDuration": 3,
+          "price": {
+            "taxRate": 0,
+            "@type": "price",
+            "percentage": 20
+          },
+          "name": "WelcomeDiscount",
+          "priceType": "recurring",
+          "description": "20% for first 3 months",
+          "priority": 1,
+          "recurringChargePeriod": "month"
+        }]
+      }],
+      "id": "120",
+      "state": "completed",
+      "billingAccount": {
+        "@type": "BillingAccount",
+        "id": "1513",
+        "href": "https://host:port/billingAccountManagement/v4/billingAccount/1513"
+      },
+      "productOrderItemRelationship": [{
+        "relationshipType": "reliesOn",
+        "id": "110"
+      }]
+    },
+    {
+      "product": {
+        "isBundle": false,
+        "productSpecification": {
+          "@type": "ProductSpecificationRef",
+          "name": "Coverage",
+          "id": "14353",
+          "href": "https://host:port/productCatalogManagement/v4/productSpecification/14353",
+          "version": "1"
+        },
+        "@type": "Product",
+        "productCharacteristic": [{
+          "valueType": "string",
+          "name": "CoverageOptions",
+          "value": "National"
+        }]
+      },
+      "quantity": 1,
+      "productOffering": {
+        "name": "Coverage Options",
+        "id": "14354",
+        "href": "https://host:port/productCatalogManagement/v4/productOffering/14354"
+      },
+      "@type": "ProductOrderItem",
+      "action": "add",
+      "id": "130",
+      "state": "completed",
+      "productOrderItemRelationship": [{
+        "relationshipType": "reliesOn",
+        "id": "110"
+      }]
+    }
+  ],
+  "relatedParty": [
+    {
+      "@referredType": "Individual",
+      "role": "Seller",
+      "@type": "RelatedParty",
+      "name": "Joe Doe",
+      "id": "456-dd-df45",
+      "href": "https://host:port/partyManagement/v4/individual/456-dd-df45"
+    },
+    {
+      "@referredType": "Customer",
+      "@type": "RelatedParty",
+      "name": "Jean Pontus",
+      "id": "ff55-hjy4",
+      "href": "https://host:port/partyRoleManagement/v4/customer/ff55-hjy4"
+    }
+  ],
+  "requestedStartDate": "2019-05-03T08:13:59.506Z",
+  "completionDate": "2019-05-02T08:13:59.506Z",
+  "expectedCompletionDate": "2019-05-02T08:13:59.506Z",
+  "id": "30001",
+  "href": "https://host:port/productOrderingManagement/v4/productOrder/30001",
+  "state": "completed",
+  "category": "B2C product order",
+  "orderDate": "2019-04-30T08:13:59.506Z",
+  "requestedCompletionDate": "2019-05-02T08:13:59.506Z"
+}
+|===
+
+==== CancelProductOrder resource
+
+Request for cancellation an existing product order.
+
+*Resource model*
+
+:puml!:
+:png:
+:svg!:
+
+
+:parts: ./
+:imagesdir: diagrams/
+
+
+[.text-center]
+image::Resource_CancelProductOrder.png[]
+[.text-center]
+Figure {counter:figure} - CancelProductOrder
+
+*Field descriptions*
+
+pass:q[<u>CancelProductOrder fields</u>]
+
+[cols="35%,65%"]
+|===
+|productOrder |A ProductOrderRef.  ProductOrder (ProductOrder) .The product order which the recommendation is related with.
+|===
+
+pass:q[<u>CancelOrder sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|cancellationReason |A String. Reason why the order is cancelled.
+|effectiveCancellationDate |A DateTime. Date when the order is cancelled.
+|href |A String. Hyperlink to access the cancellation request.
+|id |A String. Id of the cancellation request (this is not an order id).
+|requestedCancellationDate |A DateTime. Date when the submitter wants the order to be cancelled.
+|state |A TaskStateType.  Possible values for the state of a task.
+|===
+
+pass:q[<u>ProductOrderRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference.
+|id |A String. Unique identifier.
+|name |A String. Name of the related entity.
+|@referredType |A String. The actual type of the target instance when needed for disambiguation.
+|===
+
+
+
+*Json representation sample*
+
+We provide below the json representation of an example of a 'CancelProductOrder' resource object.
+
+[cols="100%",stripes=all]
+|===
+l|
+{
+  "requestedCancellationDate": "2019-04-30T12:56:21.931Z",
+  "cancellationReason": "Duplicate order",
+  "@type": "CancelProductOrder",
+  "productOrder": {
+    "@referredType": "ProductOrder",
+    "id": "45f-98f-ss45",
+    "href": "https://host:port/productOrderingManagement/v4/productOrder/45f-98f-ss45"
+  },
+  "id": "789-fsds5-kjp",
+  "href": "https://host:port/productOrderingManagement/v4/cancelProductOrder/789-fsds5-kjp",
+  "state": "done",
+  "effectiveCancellationDate": "2019-04-30T12:58:35.489Z"
+}
+|===
+
+:puml!:
+:png:
+:svg!:
+
+
+:parts: ./
+:imagesdir: diagrams/
+
+=== Notification Resource Models
+
+8 notifications are defined for this API.
+
+Notifications related to ProductOrder:
+
+* Product Order Create Event
+* Product Order Statechange Event
+* Product Order Delete Event
+* Product Order Attributevaluechange Event
+* Product Order Informationrequired Event
+
+Notifications related to CancelProductOrder:
+
+* Cancel Product Order Create Event
+* Cancel Product Order Statechange Event
+* Cancel Product Order Informationrequired Event
+
+
+The notification structure for all notifications in this API follow the pattern depicted by the figure below.
+A notification event resource (depicted by "SpecificEvent" placeholder) is a sub class of a generic Event structure containing at least an id of the event occurrence (eventId), an event timestamp (eventTime), and the name of the resource (eventType).
+This notification structure owns an event payload structure ("SpecificEventPayload" placeholder) linked to the resource concerned by the notification using the resource name as access field ("resourceName" placeholder).
+
+[.text-center]
+image::NotificationsPattern.png[]
+[.text-center]
+Figure {counter:figure} - Notification Pattern
+
+
+==== Product Order Create Event
+
+Notification ProductOrderCreateEvent case for resource ProductOrder.
+
+*Json representation sample*
+
+We provide below the json representation of an example of a 'ProductOrderCreateEvent' notification event object.
+
+
+[cols="100%",stripes=all]
+|===
+l|
+{
+    "eventId": "00001",
+    "eventTime": "2020-11-30 14:12:36+0100",
+    "eventType": "ProductOrderCreateEvent",
+    "event": {
+        "productOrder":
+            {-- SEE ProductOrder RESOURCE SAMPLE --}
+    }
+}
+|===
+
+==== Product Order Statechange Event
+
+Notification ProductOrderStatechangeEvent case for resource ProductOrder.
+
+*Json representation sample*
+
+We provide below the json representation of an example of a 'ProductOrderStatechangeEvent' notification event object.
+
+
+[cols="100%",stripes=all]
+|===
+l|
+{
+    "eventId": "00001",
+    "eventTime": "2020-11-30 14:12:36+0100",
+    "eventType": "ProductOrderStatechangeEvent",
+    "event": {
+        "productOrder":
+            {-- SEE ProductOrder RESOURCE SAMPLE --}
+    }
+}
+|===
+
+==== Product Order Delete Event
+
+Notification ProductOrderDeleteEvent case for resource ProductOrder.
+
+*Json representation sample*
+
+We provide below the json representation of an example of a 'ProductOrderDeleteEvent' notification event object.
+
+
+[cols="100%",stripes=all]
+|===
+l|
+{
+    "eventId": "00001",
+    "eventTime": "2020-11-30 14:12:36+0100",
+    "eventType": "ProductOrderDeleteEvent",
+    "event": {
+        "productOrder":
+            {-- SEE ProductOrder RESOURCE SAMPLE --}
+    }
+}
+|===
+
+==== Product Order Attributevaluechange Event
+
+Notification ProductOrderAttributevaluechangeEvent case for resource ProductOrder.
+
+*Json representation sample*
+
+We provide below the json representation of an example of a 'ProductOrderAttributevaluechangeEvent' notification event object.
+
+
+[cols="100%",stripes=all]
+|===
+l|
+{
+    "eventId": "00001",
+    "eventTime": "2020-11-30 14:12:36+0100",
+    "eventType": "ProductOrderAttributevaluechangeEvent",
+    "event": {
+        "productOrder":
+            {-- SEE ProductOrder RESOURCE SAMPLE --}
+    }
+}
+|===
+
+==== Product Order Informationrequired Event
+
+Notification ProductOrderInformationrequiredEvent case for resource ProductOrder.
+
+*Json representation sample*
+
+We provide below the json representation of an example of a 'ProductOrderInformationrequiredEvent' notification event object.
+
+
+[cols="100%",stripes=all]
+|===
+l|
+{
+    "eventId": "00001",
+    "eventTime": "2020-11-30 14:12:36+0100",
+    "eventType": "ProductOrderInformationrequiredEvent",
+    "event": {
+        "productOrder":
+            {-- SEE ProductOrder RESOURCE SAMPLE --}
+    }
+}
+|===
+
+
+
+==== Cancel Product Order Create Event
+
+Notification CancelProductOrderCreateEvent case for resource CancelProductOrder.
+
+*Json representation sample*
+
+We provide below the json representation of an example of a 'CancelProductOrderCreateEvent' notification event object.
+
+
+[cols="100%",stripes=all]
+|===
+l|
+{
+    "eventId": "00001",
+    "eventTime": "2020-11-30 14:12:36+0100",
+    "eventType": "CancelProductOrderCreateEvent",
+    "event": {
+        "cancelProductOrder":
+            {-- SEE CancelProductOrder RESOURCE SAMPLE --}
+    }
+}
+|===
+
+==== Cancel Product Order Statechange Event
+
+Notification CancelProductOrderStatechangeEvent case for resource CancelProductOrder.
+
+*Json representation sample*
+
+We provide below the json representation of an example of a 'CancelProductOrderStatechangeEvent' notification event object.
+
+
+[cols="100%",stripes=all]
+|===
+l|
+{
+    "eventId": "00001",
+    "eventTime": "2020-11-30 14:12:36+0100",
+    "eventType": "CancelProductOrderStatechangeEvent",
+    "event": {
+        "cancelProductOrder":
+            {-- SEE CancelProductOrder RESOURCE SAMPLE --}
+    }
+}
+|===
+
+==== Cancel Product Order Informationrequired Event
+
+Notification CancelProductOrderInformationrequiredEvent case for resource CancelProductOrder.
+
+*Json representation sample*
+
+We provide below the json representation of an example of a 'CancelProductOrderInformationrequiredEvent' notification event object.
+
+
+[cols="100%",stripes=all]
+|===
+l|
+{
+    "eventId": "00001",
+    "eventTime": "2020-11-30 14:12:36+0100",
+    "eventType": "CancelProductOrderInformationrequiredEvent",
+    "event": {
+        "cancelProductOrder":
+            {-- SEE CancelProductOrder RESOURCE SAMPLE --}
+    }
+}
+|===
+
+== API OPERATIONS
+
+Remember the following Uniform Contract:
+
+[cols=",,",options="header",]
+|===
+|Operation on Entities |Uniform API Operation |Description
+|Query Entities |GET Resource |GET must be used to retrieve a
+representation of a resource.
+
+|Create Entity |POST Resource |POST must be used to create a new
+resource
+
+|Partial Update of an Entity |PATCH Resource |PATCH must be used to
+partially update a resource
+
+|Remove an Entity |DELETE Resource |DELETE must be used to remove a
+resource
+
+|Execute an Action on an Entity |POST on TASK Resource |POST must be
+used to execute Task Resources
+
+|Other Request Methods |POST on TASK Resource |GET and POST must not be
+used to tunnel other request methods.
+|===
+
+Filtering and attribute selection rules are described in the TMF REST
+Design Guidelines.
+
+Notifications are also described in a subsequent section.
+
+:puml!:
+:png:
+:svg!:
+
+
+:parts: ./
+:imagesdir: diagrams/
+
+=== Operations on ProductOrder
+
+==== List or find ProductOrder objects
+
+`*GET /productOrder*`
+
+*Description*
+
+This operation list ProductOrder entities.
+Attribute selection is enabled for all first level attributes.
+Filtering may be available depending on the compliance level supported by an implementation.
+
+*Usage samples*
+
+Here&#39;s an example of a request for retrieving a list of product order(s). The given criteria is the category (B2C) and state (held).
+
+[cols="100%",stripes=even]
+|===
+| *Request*
+l|
+200
+
+[
+{
+    "id": "6987",
+    "href": ".../productOrderingManagement/v4/productOrder/6987",
+    "expectedCompletionDate": "2019-04-11T14:52:21.823Z" 
+  },
+  {
+    "id": "7412",
+    "href": ".../productOrderingManagement/v4/productOrder/7412",
+    "expectedCompletionDate": "2019-04-18T14:21:31.325Z"  
+  },
+  {
+    "id": "3214",
+    "href": ".../productOrderingManagement/v4/productOrder/3214",
+    "expectedCompletionDate": "2019-04-21T18:08:31.325Z"
+  },
+  {
+    "id": "6547",
+    "href": ".../productOrderingManagement/v4/productOrder/6547",
+    "expectedCompletionDate": "2019-04-29T10:48:28.325Z"
+  }
+]
+
+| *Response*
+l|
+Unresolved directive in parts/Operations.adoc - include::../samples/Resource_ProductOrder_response_sample_1.json[]
+
+|===
+
+==== Retrieves a ProductOrder by ID
+
+`*GET /productOrder/{id}?fields&#61;...&amp;{filtering}*`
+
+*Description*
+
+This operation retrieves a ProductOrder entity.
+Attribute selection is enabled for all first level attributes.
+Filtering may be available depending on the compliance level supported by an implementation.
+
+*Usage samples*
+
+Here&#39;s an example of a request for retrieving a product order for use case 1. The given criteria is the product order id 30001.
+
+[cols="100%",stripes=even]
+|===
+| *Request*
+l|
+200
+
+{
+  "id": "30001",
+  "href": "https://host:port/productOrderingManagement/v4/productOrder/30001",
+  "category": "B2C product order",
+  "completionDate": "2019-05-02T08:13:59.506Z",
+  "description": "Product Order illustration sample",
+  "expectedCompletionDate": "2019-05-02T08:13:59.506Z",
+  "externalId": "PO-456",
+  "orderDate": "2019-04-30T08:13:59.506Z",
+  "priority": "1",
+  "requestedCompletionDate": "2019-05-02T08:13:59.506Z",
+  "requestedStartDate": "2019-05-03T08:13:59.506Z",
+  "channel": [
+    {
+      "id": "1",
+      "role": "Used channel for order capture",
+      "name": "Online chanel"
+    }
+  ],
+  "note": [
+    {
+      "id": "1",
+      "author": "Jean Pontus",
+      "date": "2019-04-30T08:13:59.509Z",
+      "text": "This is a TMF product order illustration"
+    }
+  ],
+  "productOrderItem": [
+    {
+      "id": "100",
+      "quantity": 1,
+      "action": "add",
+      "productOffering": {
+        "id": "14277",
+        "href": "https://host:port/productCatalogManagement/v4/productOffering/14277",
+        "name": "TMF25"
+      },
+      "productOrderItemRelationship": [
+        {
+          "id": "110",
+          "relationshipType": "bundles"
+        },
+        {
+            "id": "120",
+            "relationshipType": "bundles"
+        },
+        {
+            "id": "130",
+            "relationshipType": "bundles"
+        }
+      ],
+      "state": "completed",
+      "@type": "ProductOrderItem"
+    },
+    {
+        "id": "110",
+        "quantity": 1,
+        "action": "add",
+        "itemPrice": [
+          {
+            "description": "Access Fee",
+            "name": "Access Fee",
+            "priceType": "nonRecurring",
+            "price": {
+              "taxRate": 0,
+              "dutyFreeAmount": {
+                "unit": "EUR",
+                "value": 0.99
+              },
+              "taxIncludedAmount": {
+                "unit": "EUT",
+                "value": 0.99
+              }
+            }
+          }
+        ],
+        "payment": [
+          {
+            "id": "2365",
+            "href": "https://host:port/paymentManagement/v4/cashPayment/2365",
+            "name": "Cash payment for access fee",
+            "@type": "CashPayment",
+            "@referredType": "Payment"
+          }
+        ],
+        "product": {
+          "isBundle": false,
+          "@type": "Product",
+          "productCharacteristic": [
+                {
+                "name": "TEL_MSISDN",
+                "valueType": "string",
+                "value": "415 279 7439"
+                }
+            ],
+          "productSpecification": {
+            "id": "14307",
+            "href": "https://host:port/productCatalogManagement/v4/productSpecification/14307",
+            "name": "Mobile Telephony",
+            "version": "1",
+            "@type": "ProductSpecificationRef"
+          }
+        },
+        "productOffering": {
+          "id": "14305",
+          "href": "https://host:port/productCatalogManagement/v4/productOffering/14305",
+          "name": "TMF Mobile Telephony"
+        },
+        "state": "completed",
+        "@type": "ProductOrderItem"
+      },
+      {
+        "id": "120",
+        "quantity": 1,
+        "action": "add", 
+        "billingAccount": {
+            "id": "1513",
+            "href": "https://host:port/billingAccountManagement/v4/billingAccount/1513",
+            "@type": "BillingAccount"
+          },
+        "itemPrice": [
+          {
+            "description": "Tariff plan monthly fee",
+            "name": "MonthlyFee",
+            "priceType": "recurring",
+            "recurringChargePeriod": "month",
+            "price": {
+              "taxRate": 0,
+              "dutyFreeAmount": {
+                "unit": "EUR",
+                "value": 20
+              },
+              "taxIncludedAmount": {
+                "unit": "EUR",
+                "value": 20
+              }
+            },
+            "priceAlteration": [
+              {
+                "applicationDuration": 3,
+                "description": "20% for first 3 months",
+                "name": "WelcomeDiscount",
+                "priceType": "recurring",
+                "priority": 1,
+                "recurringChargePeriod": "month",
+                "price": {
+                  "percentage": 20,
+                  "taxRate": 0,
+                  "@type": "price"
+                }
+              }
+            ]
+          }
+        ],
+        "itemTerm": [
+          {
+            "description": "Tariff plan 12 Months commitment",
+            "name": "12Months",
+            "duration": {
+              "amount": 12,
+              "units": "month"
+            }
+          }
+        ],
+        "product": {
+          "isBundle": false,
+          "@type": "Product",
+          "productSpecification": {
+            "id": "14395",
+            "href": "https://host:port/productCatalogManagement/v4/productSpecification/14395",
+            "name": "TMF Tariff plan",
+            "version": "1",
+            "@type": "ProductSpecificationRef"
+          }
+        },
+        "productOffering": {
+          "id": "14344",
+          "href": "https://host:port/productCatalogManagement/v4/productOffering/14344",
+          "name": "TMF Tariff Plan"
+        },
+        "productOrderItemRelationship": [
+          {
+            "id": "110",
+            "relationshipType": "reliesOn"
+          }
+        ],
+        "state": "completed",
+        "@type": "ProductOrderItem"
+      },      
+      {
+        "id": "130",
+        "quantity": 1,
+        "action": "add",
+        "product": {
+          "isBundle": false,
+          "@type": "Product",
+          "productCharacteristic": [
+            {
+              "name": "CoverageOptions",
+              "valueType": "string",
+              "value": "National"
+            }
+          ],
+          "productSpecification": {
+            "id": "14353",
+            "href": "https://host:port/productCatalogManagement/v4/productSpecification/14353",
+            "name": "Coverage",
+            "version": "1",
+            "@type": "ProductSpecificationRef"
+          }
+        },
+        "productOffering": {
+          "id": "14354",
+          "href": "https://host:port/productCatalogManagement/v4/productOffering/14354",
+          "name": "Coverage Options"
+        },
+        "productOrderItemRelationship": [
+          {
+            "id": "110",
+            "relationshipType": "reliesOn"
+          }
+        ],
+        "state": "completed",
+        "@type": "ProductOrderItem"
+      }
+  ],
+  "relatedParty": [
+    {
+      "id": "456-dd-df45",
+      "href": "https://host:port/partyManagement/v4/individual/456-dd-df45",
+      "name": "Joe Doe",
+      "role": "Seller",
+      "@type": "RelatedParty",
+      "@referredType": "Individual"
+    },
+    {
+      "id": "ff55-hjy4",
+      "href": "https://host:port/partyRoleManagement/v4/customer/ff55-hjy4",
+      "name": "Jean Pontus",
+      "@type": "RelatedParty",
+      "@referredType": "Customer"
+    }    
+  ],
+  "state": "completed",
+  "@type": "ProductOrder"
+}
+
+| *Response*
+l|
+Unresolved directive in parts/Operations.adoc - include::../samples/Resource_ProductOrder_response_sample_2.json[]
+
+|===
+
+Here&#39;s an example of a request for retrieving a product order for use case 2. The given criteria is the product order id 3774.
+
+[cols="100%",stripes=even]
+|===
+| *Request*
+l|
+200
+
+{
+  "id": "3774",
+  "href": "https://host:port/productOrderingManagement/v4/productOrder/3774",
+  "category": "B2C product order",
+  "description": "Product Order change illustration sample",
+  "expectedCompletionDate": "2019-05-22T08:13:59.506Z",
+  "externalId": "PO-457",
+  "orderDate": "2019-04-30T08:13:59.506Z",
+  "priority": "1",
+  "requestedCompletionDate": "2019-05-22T08:13:59.506Z",
+  "requestedStartDate": "2019-05-22T08:13:59.506Z",
+  "channel": [
+    {
+      "id": "1",
+      "role": "Used channel for order capture",
+      "name": "Online chanel"
+    }
+  ],
+  "note": [
+    {
+      "id": "1",
+      "author": "Jean Pontus",
+      "date": "2019-05-22T08:13:59.509Z",
+      "text": "This is a TMF product order illustration to change existing product"
+    }
+  ],
+  "productOrderItem": [
+    {
+      "id": "100",
+      "quantity": 1,
+      "action": "noChange",
+      "product": {
+        "id": "6000",
+        "href": "https://host:port/productInventoryManagement/v4/product/6000"
+      },
+      "productOrderItemRelationship": [
+        {
+          "id": "110",
+          "relationshipType": "bundles"
+        }
+      ],
+      "state": "inProgress",
+      "@type": "ProductOrderItem"
+    },
+    {
+        "id": "110",
+        "quantity": 1,
+        "action": "change",
+        "product": {
+            "id": "6003",
+            "href": "https://host:port/productInventoryManagement/v4/product/6003",
+            "@type": "Product",
+            "productCharacteristic": [
+                {
+                "name": "CoverageOptions",
+                "valueType": "string",
+                "value": "International"
+                }
+            ],
+            "productRelationship": [
+                {
+                "relationshipType": "reliesOn",
+                "product": {
+                        "id": "6001",
+                        "href": "https://host:port/productInventoryManagement/v4/product/6001"
+                    }
+                }
+            ]
+        },
+        "state": "inProgress",
+        "@type": "ProductOrderItem"
+      }
+  ],
+  "relatedParty": [
+    {
+      "id": "456-dd-df45",
+      "href": "https://host:port/partyManagement/v4/individual/456-dd-df45",
+      "name": "Joe Doe",
+      "role": "Seller",
+      "@type": "RelatedParty",
+      "@referredType": "Individual"
+    },
+    {
+      "id": "ff55-hjy4",
+      "href": "https://host:port/partyRoleManagement/v4/customer/ff55-hjy4",
+      "name": "Jean Pontus",
+      "@type": "RelatedParty",
+      "@referredType": "Customer"
+    }    
+  ],
+  "state": "inProgress",
+  "@type": "ProductOrder"
+}
+
+| *Response*
+l|
+Unresolved directive in parts/Operations.adoc - include::../samples/Resource_ProductOrder_response_sample_3.json[]
+
+|===
+
+==== Creates a ProductOrder
+
+`*POST /productOrder*`
+
+*Description*
+
+This operation creates a ProductOrder entity.
+
+*Mandatory Attributes*
+
+[cols="35%,65%"]
+|===
+|*Mandatory Attributes*|*Rule*
+
+|productOrderItem |
+|===
+
+
+*Usage samples*
+
+Here&#39;s an example of a request for creating a product order for use case 1 - the resulting product order is 30001.
+
+[cols="100%",stripes=even]
+|===
+| *Request*
+l|
+201
+
+{
+  "id": "30001",
+  "href": "https://host:port/productOrderingManagement/v4/productOrder/30001",
+  "category": "B2C product order",
+  "description": "Product Order illustration sample",
+  "expectedCompletionDate": "2019-05-02T08:13:59.506Z",
+  "externalId": "PO-456",
+  "orderDate": "2019-04-30T08:13:59.506Z",
+  "priority": "1",
+  "requestedCompletionDate": "2019-05-02T08:13:59.506Z",
+  "requestedStartDate": "2019-05-03T08:13:59.506Z",
+  "channel": [
+    {
+      "id": "1",
+      "role": "Used channel for order capture",
+      "name": "Online chanel"
+    }
+  ],
+  "note": [
+    {
+      "id": "1",
+      "author": "Jean Pontus",
+      "date": "2019-04-30T08:13:59.509Z",
+      "text": "This is a TMF product order illustration"
+    }
+  ],
+  "productOrderItem": [
+    {
+      "id": "100",
+      "quantity": 1,
+      "action": "add",
+      "productOffering": {
+        "id": "14277",
+        "href": "https://host:port/productCatalogManagement/v4/productOffering/14277",
+        "name": "TMF25"
+      },
+      "productOrderItemRelationship": [
+        {
+          "id": "110",
+          "relationshipType": "bundles"
+        },
+        {
+            "id": "120",
+            "relationshipType": "bundles"
+        },
+        {
+            "id": "130",
+            "relationshipType": "bundles"
+        }
+      ],
+      "state": "acknowledged",
+      "@type": "ProductOrderItem"
+    },
+    {
+        "id": "110",
+        "quantity": 1,
+        "action": "add",
+        "itemPrice": [
+          {
+            "description": "Access Fee",
+            "name": "Access Fee",
+            "priceType": "nonRecurring",
+            "price": {
+              "taxRate": 0,
+              "dutyFreeAmount": {
+                "unit": "EUR",
+                "value": 0.99
+              },
+              "taxIncludedAmount": {
+                "unit": "EUT",
+                "value": 0.99
+              }
+            }
+          }
+        ],
+        "payment": [
+          {
+            "id": "2365",
+            "href": "https://host:port/paymentManagement/v4/cashPayment/2365",
+            "name": "Cash payment for access fee",
+            "@type": "CashPayment",
+            "@referredType": "Payment"
+          }
+        ],
+        "product": {
+          "isBundle": false,
+          "@type": "Product",
+          "productCharacteristic": [
+                {
+                "name": "TEL_MSISDN",
+                "valueType": "string",
+                "value": "415 279 7439"
+                }
+            ],
+          "productSpecification": {
+            "id": "14307",
+            "href": "https://host:port/productCatalogManagement/v4/productSpecification/14307",
+            "name": "Mobile Telephony",
+            "version": "1",
+            "@type": "ProductSpecificationRef"
+          }
+        },
+        "productOffering": {
+          "id": "14305",
+          "href": "https://host:port/productCatalogManagement/v4/productOffering/14305",
+          "name": "TMF Mobile Telephony"
+        },
+        "state": "acknowledged",
+        "@type": "ProductOrderItem"
+      },
+      {
+        "id": "120",
+        "quantity": 1,
+        "action": "add", 
+        "billingAccount": {
+            "id": "1513",
+            "href": "https://host:port/billingAccountManagement/v4/billingAccount/1513",
+            "@type": "BillingAccount"
+          },
+        "itemPrice": [
+          {
+            "description": "Tariff plan monthly fee",
+            "name": "MonthlyFee",
+            "priceType": "recurring",
+            "recurringChargePeriod": "month",
+            "price": {
+              "taxRate": 0,
+              "dutyFreeAmount": {
+                "unit": "EUR",
+                "value": 20
+              },
+              "taxIncludedAmount": {
+                "unit": "EUR",
+                "value": 20
+              }
+            },
+            "priceAlteration": [
+              {
+                "applicationDuration": 3,
+                "description": "20% for first 3 months",
+                "name": "WelcomeDiscount",
+                "priceType": "recurring",
+                "priority": 1,
+                "recurringChargePeriod": "month",
+                "price": {
+                  "percentage": 20,
+                  "taxRate": 0,
+                  "@type": "price"
+                }
+              }
+            ]
+          }
+        ],
+        "itemTerm": [
+          {
+            "description": "Tariff plan 12 Months commitment",
+            "name": "12Months",
+            "duration": {
+              "amount": 12,
+              "units": "month"
+            }
+          }
+        ],
+        "product": {
+          "isBundle": false,
+          "@type": "Product",
+          "productSpecification": {
+            "id": "14395",
+            "href": "https://host:port/productCatalogManagement/v4/productSpecification/14395",
+            "name": "TMF Tariff plan",
+            "version": "1",
+            "@type": "ProductSpecificationRef"
+          }
+        },
+        "productOffering": {
+          "id": "14344",
+          "href": "https://host:port/productCatalogManagement/v4/productOffering/14344",
+          "name": "TMF Tariff Plan"
+        },
+        "productOrderItemRelationship": [
+          {
+            "id": "110",
+            "relationshipType": "reliesOn"
+          }
+        ],
+        "state": "acknowledged",
+        "@type": "ProductOrderItem"
+      },      
+      {
+        "id": "130",
+        "quantity": 1,
+        "action": "add",
+        "product": {
+          "isBundle": false,
+          "@type": "Product",
+          "productCharacteristic": [
+            {
+              "name": "CoverageOptions",
+              "valueType": "string",
+              "value": "National"
+            }
+          ],
+          "productSpecification": {
+            "id": "14353",
+            "href": "https://host:port/productCatalogManagement/v4/productSpecification/14353",
+            "name": "Coverage",
+            "version": "1",
+            "@type": "ProductSpecificationRef"
+          }
+        },
+        "productOffering": {
+          "id": "14354",
+          "href": "https://host:port/productCatalogManagement/v4/productOffering/14354",
+          "name": "Coverage Options"
+        },
+        "productOrderItemRelationship": [
+          {
+            "id": "110",
+            "relationshipType": "reliesOn"
+          }
+        ],
+        "state": "acknowledged",
+        "@type": "ProductOrderItem"
+      }
+  ],
+  "relatedParty": [
+    {
+      "id": "456-dd-df45",
+      "href": "https://host:port/partyManagement/v4/individual/456-dd-df45",
+      "name": "Joe Doe",
+      "role": "Seller",
+      "@type": "RelatedParty",
+      "@referredType": "Individual"
+    },
+    {
+      "id": "ff55-hjy4",
+      "href": "https://host:port/partyRoleManagement/v4/customer/ff55-hjy4",
+      "name": "Jean Pontus",
+      "@type": "RelatedParty",
+      "@referredType": "Customer"
+    }    
+  ],
+  "state": "acknowledged",
+  "@type": "ProductOrder"
+}
+
+| *Response*
+l|
+Unresolved directive in parts/Operations.adoc - include::../samples/Resource_ProductOrder_response_sample_4.json[]
+
+|===
+
+Here&#39;s an example of a request for ordering a product described via schema and not using characteristic
+
+[cols="100%",stripes=even]
+|===
+| *Request*
+l|
+201
+
+{
+  "id": "30002",
+  "href": "https://host:port/productOrderingManagement/v4/productOrder/30002",
+  "category": "B2B product order",
+  "description": "Product Order illustration sample",
+  "expectedCompletionDate": "2019-05-02T08:13:59.506Z",
+  "externalId": "PO-785",
+  "orderDate": "2019-04-30T08:13:59.506Z",
+  "priority": "1",
+  "requestedCompletionDate": "2019-05-02T08:13:59.506Z",
+  "requestedStartDate": "2019-05-03T08:13:59.506Z",
+  "productOrderItem": [
+    {
+        "id": "110",
+        "quantity": 1,
+        "action": "add",
+        "product": {
+          " isBundle": false,
+          "@type": "UNI",
+            "productSpecification": {
+                "id": "dfg-56d",
+                "href": "https...",
+                "version": "v2",
+                "name": "UNI specification",
+                "targetProductSchema": {
+                  "@type": "UNI",
+                  "@schemaLocation": "https://github.com/..UNISpec.json"
+                }
+            },
+            "buyerId": "AF001",
+            "physicalLayer": "10BASE-T",
+            "synchronousModeEnabled": true,
+            "numberOfLinks": 1,
+            "tokenShareEnabled": true,
+            "uniResiliency": "NONE",
+            "maxServiceFrameSize": 1256   
+            },
+        "state": "acknowledged",
+        "@type": "ProductOrderItem"
+      }
+  ],
+  "relatedParty": [
+    {
+      "id": "456-dd-df45",
+      "href": "https://host:port/partyManagement/v4/individual/456-dd-df45",
+      "name": "Joe Doe",
+      "role": "Seller",
+      "@type": "RelatedParty",
+      "@referredType": "Individual"
+    },
+    {
+      "id": "ff55-hjy4",
+      "href": "https://host:port/partyRoleManagement/v4/customer/ff55-hjy4",
+      "name": "Jean Pontus",
+      "@type": "RelatedParty",
+      "@referredType": "Customer"
+    }    
+  ],
+  "state": "acknowledged",
+  "@type": "ProductOrder"
+}
+
+| *Response*
+l|
+Unresolved directive in parts/Operations.adoc - include::../samples/Resource_ProductOrder_response_sample_5.json[]
+
+|===
+
+==== Updates partially a ProductOrder
+
+`*PATCH /productOrder/{id}?fields&#61;...&amp;{filtering}*`
+
+*Description*
+
+This operation allows partial updates of a ProductOrder entity. Support of json/merge (https://tools.ietf.org/html/rfc7386) is mandatory, support of json/patch (http://tools.ietf.org/html/rfc5789) is optiona.
+Note: If the update operation yields to the creation of sub-resources or relationships, the same rules concerning mandatory sub-resource attributes and default value settings in the POST operation applies to the PATCH operation. Hence these tables are not repeated here.
+
+*Patchable and Non Patchable Attributes*
+
+[cols="35%,65%"]
+|===
+|*Patchable Attributes*|*Rule*
+
+|agreement |
+|billingAccount |
+|cancellationDate |
+|cancellationReason |
+|category |
+|channel |
+|completionDate |
+|description |
+|expectedCompletionDate |
+|externalId |
+|note |
+|notificationContact |
+|orderTotalPrice |
+|payment |
+|priority |
+|productOfferingQualification |
+|productOrderItem |
+|quote |
+|relatedParty |
+|requestedCompletionDate |
+|requestedStartDate |
+|state |
+|===
+
+[cols="35%,65%"]
+|===
+|*Non Patchable Attributes*|*Rule*
+
+|href |
+|id |
+|orderDate |
+|===
+
+
+*Usage samples*
+
+Here&#39;s an example of a request for updating a product order for use case 1 - Change value for billing account id. Assumptions: the product order state allow this on the fly modification - the full resource representation is sent in PATCH response
+
+[cols="100%",stripes=even]
+|===
+| *Request*
+l|
+200
+
+{
+  "id": "30001",
+  "href": "https://host:port/productOrderingManagement/v4/productOrder/30001",
+  "category": "B2C product order",
+  "description": "Product Order illustration sample",
+  "expectedCompletionDate": "2019-05-02T08:13:59.506Z",
+  "externalId": "PO-456",
+  "orderDate": "2019-04-30T08:13:59.506Z",
+  "priority": "1",
+  "requestedCompletionDate": "2019-05-02T08:13:59.506Z",
+  "requestedStartDate": "2019-05-03T08:13:59.506Z",
+  "channel": [
+    {
+      "id": "1",
+      "name": "Online chanel"
+    }
+  ],
+  "note": [
+    {
+      "id": "1",
+      "author": "Jean Pontus",
+      "date": "2019-04-30T08:13:59.509Z",
+      "text": "This is a TMF product order illustration"
+    }
+  ],
+  "productOrderItem": [
+    {
+      "id": "100",
+      "quantity": 1,
+      "action": "add",
+      "productOffering": {
+        "id": "14277",
+        "href": "https://host:port/productCatalogManagement/v4/productOffering/14277",
+        "name": "TMF25"
+      },
+      "productOrderItemRelationship": [
+        {
+          "id": "110",
+          "relationshipType": "bundles"
+        },
+        {
+            "id": "120",
+            "relationshipType": "bundles"
+        },
+        {
+            "id": "130",
+            "relationshipType": "bundles"
+        }
+      ],
+      "state": "acknowledged",
+      "@type": "ProductOrderItem"
+    },
+    {
+        "id": "110",
+        "quantity": 1,
+        "action": "add",
+        "itemPrice": [
+          {
+            "description": "Access Fee",
+            "name": "Access Fee",
+            "priceType": "nonRecurring",
+            "price": {
+              "taxRate": 0,
+              "dutyFreeAmount": {
+                "unit": "EUR",
+                "value": 0.99
+              },
+              "taxIncludedAmount": {
+                "unit": "EUT",
+                "value": 0.99
+              }
+            }
+          }
+        ],
+        "payment": [
+          {
+            "id": "2365",
+            "href": "https://host:port/paymentManagement/v4/cashPayment/2365",
+            "name": "Cash payment for access fee",
+            "@type": "CashPayment",
+            "@referredType": "Payment"
+          }
+        ],
+        "product": {
+          "isBundle": false,
+          "@type": "Product",
+          "productCharacteristic": [
+                {
+                "name": "TEL_MSISDN",
+                "valueType": "string",
+                "value": "415 279 7439"
+                }
+            ],
+          "productSpecification": {
+            "id": "14307",
+            "href": "https://host:port/productCatalogManagement/v4/productSpecification/14307",
+            "name": "Mobile Telephony",
+            "version": "1",
+            "@type": "ProductSpecificationRef"
+          }
+        },
+        "productOffering": {
+          "id": "14305",
+          "href": "https://host:port/productCatalogManagement/v4/productOffering/14305",
+          "name": "TMF Mobile Telephony"
+        },
+        "state": "acknowledged",
+        "@type": "ProductOrderItem"
+      },
+      {
+        "id": "120",
+        "quantity": 1,
+        "action": "add", 
+        "billingAccount": {
+            "id": "1889",
+            "href": "https://host:port/billingAccountManagement/v4/billingAccount/1889",
+            "@type": "BillingAccount"
+          },
+        "itemPrice": [
+          {
+            "description": "Tariff plan monthly fee",
+            "name": "MonthlyFee",
+            "priceType": "recurring",
+            "recurringChargePeriod": "month",
+            "price": {
+              "taxRate": 0,
+              "dutyFreeAmount": {
+                "unit": "EUR",
+                "value": 20
+              },
+              "taxIncludedAmount": {
+                "unit": "EUR",
+                "value": 20
+              }
+            },
+            "priceAlteration": [
+              {
+                "applicationDuration": 3,
+                "description": "20% for first 3 months",
+                "name": "WelcomeDiscount",
+                "priceType": "recurring",
+                "priority": 1,
+                "recurringChargePeriod": "month",
+                "price": {
+                  "percentage": 20,
+                  "taxRate": 0,
+                  "@baseType": "string",
+                  "@schemaLocation": "string",
+                  "@type": "string"
+                }
+              }
+            ]
+          }
+        ],
+        "itemTerm": [
+          {
+            "description": "Tariff plan 12 Months commitment",
+            "name": "12Months",
+            "duration": {
+              "amount": 12,
+              "units": "month"
+            }
+          }
+        ],
+        "product": {
+          "isBundle": false,
+          "@type": "Product",
+          "productSpecification": {
+            "id": "14395",
+            "href": "https://host:port/productCatalogManagement/v4/productSpecification/14395",
+            "name": "TMF Tariff plan",
+            "version": "1",
+            "@type": "ProductSpecificationRef"
+          }
+        },
+        "productOffering": {
+          "id": "14344",
+          "href": "https://host:port/productCatalogManagement/v4/productOffering/14344",
+          "name": "TMF Tariff Plan"
+        },
+        "productOrderItemRelationship": [
+          {
+            "id": "110",
+            "relationshipType": "reliesOn"
+          }
+        ],
+        "state": "acknowledged",
+        "@type": "ProductOrderItem"
+      },      
+      {
+        "id": "130",
+        "quantity": 1,
+        "action": "add",
+        "product": {
+          "isBundle": false,
+          "@type": "Product",
+          "productCharacteristic": [
+            {
+              "name": "CoverageOptions",
+              "valueType": "string",
+              "value": "National"
+            }
+          ],
+          "productSpecification": {
+            "id": "14353",
+            "href": "https://host:port/productCatalogManagement/v4/productSpecification/14353",
+            "name": "Coverage",
+            "version": "1",
+            "@type": "ProductSpecificationRef"
+          }
+        },
+        "productOffering": {
+          "id": "14354",
+          "href": "https://host:port/productCatalogManagement/v4/productOffering/14354",
+          "name": "Coverage Options"
+        },
+        "productOrderItemRelationship": [
+          {
+            "id": "110",
+            "relationshipType": "reliesOn"
+          }
+        ],
+        "state": "acknowledged",
+        "@type": "ProductOrderItem"
+      }
+  ],
+  "relatedParty": [
+    {
+      "id": "456-dd-df45",
+      "href": "https://host:port/partyManagement/v4/individual/456-dd-df45",
+      "name": "Joe Doe",
+      "role": "Seller",
+      "@type": "Individual"
+    },
+    {
+      "id": "ff55-hjy4",
+      "href": "https://host:port/partyRoleManagement/v4/customer/ff55-hjy4",
+      "name": "Jean Pontus",
+      "@type": "Customer",
+      "@referredType": "PartyRole"
+    }    
+  ],
+  "state": "acknowledged",
+  "@type": "ProductOrder"
+}
+
+| *Response*
+l|
+Unresolved directive in parts/Operations.adoc - include::../samples/Resource_ProductOrder_response_sample_6.json[]
+
+|===
+
+Here&#39;s an example of a request for updating a product order for use case 1 - Change value for billing account id. Assumptions: the product order state allow this on the fly modification - the full resource representation is sent in PATCH response
+
+[cols="100%",stripes=even]
+|===
+| *Request*
+l|
+200
+
+{
+  "id": "30001",
+  "href": "https://host:port/productOrderingManagement/v4/productOrder/30001",
+  "category": "B2C product order",
+  "description": "Product Order illustration sample",
+  "expectedCompletionDate": "2019-05-02T08:13:59.506Z",
+  "externalId": "PO-456",
+  "orderDate": "2019-04-30T08:13:59.506Z",
+  "priority": "1",
+  "requestedCompletionDate": "2019-05-02T08:13:59.506Z",
+  "requestedStartDate": "2019-05-03T08:13:59.506Z",
+  "channel": [
+    {
+      "id": "1",
+      "name": "Online chanel"
+    }
+  ],
+  "note": [
+    {
+      "id": "1",
+      "author": "Jean Pontus",
+      "date": "2019-04-30T08:13:59.509Z",
+      "text": "This is a TMF product order illustration"
+    }
+  ],
+  "productOrderItem": [
+    {
+      "id": "100",
+      "quantity": 1,
+      "action": "add",
+      "productOffering": {
+        "id": "14277",
+        "href": "https://host:port/productCatalogManagement/v4/productOffering/14277",
+        "name": "TMF25"
+      },
+      "productOrderItemRelationship": [
+        {
+          "id": "110",
+          "relationshipType": "bundles"
+        },
+        {
+            "id": "120",
+            "relationshipType": "bundles"
+        },
+        {
+            "id": "130",
+            "relationshipType": "bundles"
+        }
+      ],
+      "state": "acknowledged",
+      "@type": "ProductOrderItem"
+    },
+    {
+        "id": "110",
+        "quantity": 1,
+        "action": "add",
+        "itemPrice": [
+          {
+            "description": "Access Fee",
+            "name": "Access Fee",
+            "priceType": "nonRecurring",
+            "price": {
+              "taxRate": 0,
+              "dutyFreeAmount": {
+                "unit": "EUR",
+                "value": 0.99
+              },
+              "taxIncludedAmount": {
+                "unit": "EUT",
+                "value": 0.99
+              }
+            }
+          }
+        ],
+        "payment": [
+          {
+            "id": "2365",
+            "href": "https://host:port/paymentManagement/v4/cashPayment/2365",
+            "name": "Cash payment for access fee",
+            "@type": "CashPayment",
+            "@referredType": "Payment"
+          }
+        ],
+        "product": {
+          "isBundle": false,
+          "@type": "Product",
+          "productCharacteristic": [
+                {
+                "name": "TEL_MSISDN",
+                "valueType": "string",
+                "value": "415 279 7439"
+                }
+            ],
+          "productSpecification": {
+            "id": "14307",
+            "href": "https://host:port/productCatalogManagement/v4/productSpecification/14307",
+            "name": "Mobile Telephony",
+            "version": "1",
+            "@type": "ProductSpecificationRef"
+          }
+        },
+        "productOffering": {
+          "id": "14305",
+          "href": "https://host:port/productCatalogManagement/v4/productOffering/14305",
+          "name": "TMF Mobile Telephony"
+        },
+        "state": "acknowledged",
+        "@type": "ProductOrderItem"
+      },
+      {
+        "id": "120",
+        "quantity": 1,
+        "action": "add", 
+        "billingAccount": {
+            "id": "1889",
+            "href": "https://host:port/billingAccountManagement/v4/billingAccount/1889",
+            "@type": "BillingAccount"
+          },
+        "itemPrice": [
+          {
+            "description": "Tariff plan monthly fee",
+            "name": "MonthlyFee",
+            "priceType": "recurring",
+            "recurringChargePeriod": "month",
+            "price": {
+              "taxRate": 0,
+              "dutyFreeAmount": {
+                "unit": "EUR",
+                "value": 20
+              },
+              "taxIncludedAmount": {
+                "unit": "EUR",
+                "value": 20
+              }
+            },
+            "priceAlteration": [
+              {
+                "applicationDuration": 3,
+                "description": "20% for first 3 months",
+                "name": "WelcomeDiscount",
+                "priceType": "recurring",
+                "priority": 1,
+                "recurringChargePeriod": "month",
+                "price": {
+                  "percentage": 20,
+                  "taxRate": 0,
+                  "@baseType": "string",
+                  "@schemaLocation": "string",
+                  "@type": "string"
+                }
+              }
+            ]
+          }
+        ],
+        "itemTerm": [
+          {
+            "description": "Tariff plan 12 Months commitment",
+            "name": "12Months",
+            "duration": {
+              "amount": 12,
+              "units": "month"
+            }
+          }
+        ],
+        "product": {
+          "isBundle": false,
+          "@type": "Product",
+          "productSpecification": {
+            "id": "14395",
+            "href": "https://host:port/productCatalogManagement/v4/productSpecification/14395",
+            "name": "TMF Tariff plan",
+            "version": "1",
+            "@type": "ProductSpecificationRef"
+          }
+        },
+        "productOffering": {
+          "id": "14344",
+          "href": "https://host:port/productCatalogManagement/v4/productOffering/14344",
+          "name": "TMF Tariff Plan"
+        },
+        "productOrderItemRelationship": [
+          {
+            "id": "110",
+            "relationshipType": "reliesOn"
+          }
+        ],
+        "state": "acknowledged",
+        "@type": "ProductOrderItem"
+      },      
+      {
+        "id": "130",
+        "quantity": 1,
+        "action": "add",
+        "product": {
+          "isBundle": false,
+          "@type": "Product",
+          "productCharacteristic": [
+            {
+              "name": "CoverageOptions",
+              "valueType": "string",
+              "value": "National"
+            }
+          ],
+          "productSpecification": {
+            "id": "14353",
+            "href": "https://host:port/productCatalogManagement/v4/productSpecification/14353",
+            "name": "Coverage",
+            "version": "1",
+            "@type": "ProductSpecificationRef"
+          }
+        },
+        "productOffering": {
+          "id": "14354",
+          "href": "https://host:port/productCatalogManagement/v4/productOffering/14354",
+          "name": "Coverage Options"
+        },
+        "productOrderItemRelationship": [
+          {
+            "id": "110",
+            "relationshipType": "reliesOn"
+          }
+        ],
+        "state": "acknowledged",
+        "@type": "ProductOrderItem"
+      }
+  ],
+  "relatedParty": [
+    {
+      "id": "456-dd-df45",
+      "href": "https://host:port/partyManagement/v4/individual/456-dd-df45",
+      "name": "Joe Doe",
+      "role": "Seller",
+      "@type": "Individual"
+    },
+    {
+      "id": "ff55-hjy4",
+      "href": "https://host:port/partyRoleManagement/v4/customer/ff55-hjy4",
+      "name": "Jean Pontus",
+      "@type": "Customer",
+      "@referredType": "PartyRole"
+    }    
+  ],
+  "state": "acknowledged",
+  "@type": "ProductOrder"
+}
+
+| *Response*
+l|
+Unresolved directive in parts/Operations.adoc - include::../samples/Resource_ProductOrder_response_sample_7.json[]
+
+|===
+
+==== Deletes a ProductOrder
+
+`*DELETE /productOrder/{id}?fields&#61;...&amp;{filtering}*`
+
+*Description*
+
+This operation deletes a ProductOrder entity.
+
+*Usage samples*
+
+Here&#39;s an example of a request for deleting a product order.
+
+[cols="100%",stripes=even]
+|===
+| *Request*
+l|
+204
+
+| *Response*
+l|
+Unresolved directive in parts/Operations.adoc - include::../samples/Resource_ProductOrder_response_sample_8.json[]
+
+|===
+
+=== Operations on CancelProductOrder
+
+==== List or find CancelProductOrder objects
+
+`*GET /cancelProductOrder*`
+
+*Description*
+
+This operation list CancelProductOrder entities.
+Attribute selection is enabled for all first level attributes.
+Filtering may be available depending on the compliance level supported by an implementation.
+
+*Usage samples*
+
+Here&#39;s an example of a request for retrieving a list of product order cancel request(s). The given criteria is the cancel request state (done).
+
+[cols="100%",stripes=even]
+|===
+| *Request*
+l|
+200
+
+[
+    {
+    "id": "6987",
+    "productOrder": {
+        "id": "45f-98f-ss45",
+        "href": "https://host:port/productOrderingManagement/v4/productOrder/45f-98f-ss45"
+        }
+    },
+    {
+    "id": "7412",
+    "productOrder": {
+        "id": "45f-789-sdre",
+        "href": "https://host:port/productOrderingManagement/v4/productOrder/45f-789-sdre"
+        }  
+     },
+     {
+    "id": "3214",
+    "productOrder": {
+        "id": "45f-as4-os3f",
+        "href": "https://host:port/productOrderingManagement/v4/productOrder/45f-as4-os3f"
+        }
+    }
+]
+
+| *Response*
+l|
+Unresolved directive in parts/Operations.adoc - include::../samples/Resource_CancelProductOrder_response_sample_1.json[]
+
+|===
+
+==== Retrieves a CancelProductOrder by ID
+
+`*GET /cancelProductOrder/{id}?fields&#61;...&amp;{filtering}*`
+
+*Description*
+
+This operation retrieves a CancelProductOrder entity.
+Attribute selection is enabled for all first level attributes.
+Filtering may be available depending on the compliance level supported by an implementation.
+
+*Usage samples*
+
+Here&#39;s an example of a cancel product order request retrieval. The given criteria is the product order request cancel id 789-fsds5-kjp.
+
+[cols="100%",stripes=even]
+|===
+| *Request*
+l|
+200
+
+{
+  "id": "789-fsds5-kjp",
+  "href": "https://host:port/productOrderingManagement/v4/cancelProductOrder/789-fsds5-kjp",
+  "cancellationReason": "Duplicate order",
+  "effectiveCancellationDate": "2019-04-30T12:58:35.489Z",
+  "requestedCancellationDate": "2019-04-30T12:56:21.931Z",
+  "productOrder": {
+    "id": "45f-98f-ss45",
+    "href": "https://host:port/productOrderingManagement/v4/productOrder/45f-98f-ss45",
+    "@referredType": "ProductOrder"
+  },
+  "state": "done",
+  "@type": "CancelProductorder"
+}
+
+| *Response*
+l|
+Unresolved directive in parts/Operations.adoc - include::../samples/Resource_CancelProductOrder_response_sample_2.json[]
+
+|===
+
+==== Creates a CancelProductOrder
+
+`*POST /cancelProductOrder*`
+
+*Description*
+
+This operation creates a CancelProductOrder entity.
+
+*Mandatory Attributes*
+
+[cols="35%,65%"]
+|===
+|*Mandatory Attributes*|*Rule*
+
+|productOrder |
+|===
+
+
+*Usage samples*
+
+Here&#39;s an example of a request for cancel a product order  - the resulting product order cancellation request is 789-fsds5-kjp.
+
+[cols="100%",stripes=even]
+|===
+| *Request*
+l|
+201
+
+{
+  "id": "789-fsds5-kjp",
+  "href": "https://host:port/productOrderingManagement/v4/cancelProductOrder/789-fsds5-kjp",
+  "cancellationReason": "Duplicate order",
+  "requestedCancellationDate": "2019-04-30T12:56:21.931Z",
+  "productOrder": {
+    "id": "45f-98f-ss45",
+    "href": "https://host:port/productOrderingManagement/v4/productOrder/45f-98f-ss45",
+    "@referredType": "ProductOrder"
+  },
+  "state": "done",
+  "@type": "CancelProductorder"
+}
+
+| *Response*
+l|
+Unresolved directive in parts/Operations.adoc - include::../samples/Resource_CancelProductOrder_response_sample_3.json[]
+
+|===
+
+== API NOTIFICATIONS
+
+For every single of operation on the entities use the following
+templates and provide sample REST notification POST calls.
+
+It is assumed that the Pub/Sub uses the Register and UnRegister
+mechanisms described in the REST Guidelines reproduced below.
+
+=== Register listener
+
+*POST /hub*
+
+*Description*
+
+Sets the communication endpoint address the service instance must use to
+deliver information about its health state, execution state, failures
+and metrics. Subsequent POST calls will be rejected by the service if it
+does not support multiple listeners. In this case DELETE /api/hub/\{id}
+must be called before an endpoint can be created again.
+
+*Behavior*
+
+Returns HTTP/1.1 status code 204 if the request was successful.
+
+Returns HTTP/1.1 status code 409 if request is not successful.
+
+*Usage Samples*
+
+Here's an example of a request for registering a listener.
+
+[cols="",options="header",stripes=even]
+|===
+|*Request*
+l|
+POST /api/hub
+
+Accept: application/json
+
+{
+    "callback": "http://in.listener.com"
+}
+
+|*Response*
+l|
+201
+
+Content-Type: application/json
+
+Location: /api/hub/42
+
+{
+    "id":"42",
+    "callback": "http://in.listener.com",
+    "query":""
+}
+
+|===
+
+=== Unregister listener
+
+*DELETE /hub/\{id}*
+
+*Description*
+
+Clears the communication endpoint address that was set by creating the
+Hub..
+
+*Behavior*
+
+Returns HTTP/1.1 status code 204 if the request was successful.
+
+Returns HTTP/1.1 status code 404 if the resource is not found.
+
+*Usage Samples*
+
+Here's an example of a request for un-registering a listener.
+
+[cols="",options="header",stripes=even]
+|===
+|*Request*
+l|
+DELETE /api/hub/42
+
+Accept: application/json
+
+|*Response*
+l|
+204
+|===
+
+=== Publish Event to listener
+
+*POST /client/listener*
+
+*Description*
+
+Clears the communication endpoint address that was set by creating the
+Hub.
+
+Provides to a registered listener the description of the event that was
+raised. The /client/listener url is the callback url passed when
+registering the listener.
+
+*Behavior*
+
+Returns HTTP/1.1 status code 201 if the service is able to set the
+configuration.
+
+*Usage Samples*
+
+Here's an example of a notification received by the listener. In this
+example “EVENT TYPE” should be replaced by one of the notification types
+supported by this API (see Notification resources Models section) and
+EVENT BODY refers to the data structure of the given notification type.
+
+[cols="",options="header",stripes=even]
+|===
+|*Request*
+l|
+POST /client/listener
+
+Accept: application/json
+
+{
+    "event": {
+        EVENT BODY
+    },
+    "eventType": "EVENT_TYPE"
+}
+
+|*Response*
+l|201
+|===
+
+For detailed examples on the general TM Forum notification mechanism,
+see the TMF REST Design Guidelines.
+
+== Acknowledgements
+
+=== Release History
+
+[cols="15%,15%,30%,40%",]
+|===
+|*Release Number* |*Date* |*Release led by:* |*Description*
+|                 |       |                  |
+
+|                 |       |                  |
+
+|===
+
+=== Contributors to Document
+
+[cols=",",]
+|===
+| |
+| |
+|===

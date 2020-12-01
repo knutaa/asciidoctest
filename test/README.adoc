@@ -1,1 +1,1 @@
-../README.adoc
+userguide_github.adoc
