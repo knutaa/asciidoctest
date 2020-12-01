@@ -33,4 +33,7 @@ jobs:
     #  run: bundle exec rake
     - name: Generate combined adoc for Github presentation
       run: ruby combine.ry userguide.adoc > userguide_github.adoc
+    - name: test
+      run: wc userguide.adoc
+
        
