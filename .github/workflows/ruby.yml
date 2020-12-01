@@ -37,9 +37,10 @@ jobs:
       run: wc userguide.adoc
     - name: Update resources
       uses: test-room-7/action-update-file@v1
-          with:
-              file-path: userguide_github.adoc
-                  commit-msg: Update resources
-                  github-token: ${{ secrets.GITHUB_TOKEN }}
+      with:
+          file-path: userguide_github.adoc
+          commit-msg: Update resources
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
 
        
