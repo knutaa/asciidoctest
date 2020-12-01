@@ -1,0 +1,218 @@
+include::../config/Environment.adoc[]
+
+=== Notification Resource Models
+
+8 notifications are defined for this API.
+
+Notifications related to ProductOrder:
+
+* Product Order Create Event
+* Product Order Statechange Event
+* Product Order Delete Event
+* Product Order Attributevaluechange Event
+* Product Order Informationrequired Event
+
+Notifications related to CancelProductOrder:
+
+* Cancel Product Order Create Event
+* Cancel Product Order Statechange Event
+* Cancel Product Order Informationrequired Event
+
+
+The notification structure for all notifications in this API follow the pattern depicted by the figure below.
+A notification event resource (depicted by "SpecificEvent" placeholder) is a sub class of a generic Event structure containing at least an id of the event occurrence (eventId), an event timestamp (eventTime), and the name of the resource (eventType). 
+This notification structure owns an event payload structure ("SpecificEventPayload" placeholder) linked to the resource concerned by the notification using the resource name as access field ("resourceName" placeholder).
+
+[.text-center]
+image::NotificationsPattern.png[]
+[.text-center]
+Figure {counter:figure} - Notification Pattern
+
+
+==== Product Order Create Event
+
+Notification ProductOrderCreateEvent case for resource ProductOrder.
+
+*Json representation sample*
+
+We provide below the json representation of an example of a 'ProductOrderCreateEvent' notification event object.
+
+
+[cols="100%",stripes=all]
+|===
+l|
+{
+    "eventId": "00001",
+    "eventTime": "2020-11-30 14:12:36+0100",
+    "eventType": "ProductOrderCreateEvent",
+    "event": {
+        "productOrder":
+            {-- SEE ProductOrder RESOURCE SAMPLE --}
+    }
+}
+|===
+
+==== Product Order Statechange Event
+
+Notification ProductOrderStatechangeEvent case for resource ProductOrder.
+
+*Json representation sample*
+
+We provide below the json representation of an example of a 'ProductOrderStatechangeEvent' notification event object.
+
+
+[cols="100%",stripes=all]
+|===
+l|
+{
+    "eventId": "00001",
+    "eventTime": "2020-11-30 14:12:36+0100",
+    "eventType": "ProductOrderStatechangeEvent",
+    "event": {
+        "productOrder":
+            {-- SEE ProductOrder RESOURCE SAMPLE --}
+    }
+}
+|===
+
+==== Product Order Delete Event
+
+Notification ProductOrderDeleteEvent case for resource ProductOrder.
+
+*Json representation sample*
+
+We provide below the json representation of an example of a 'ProductOrderDeleteEvent' notification event object.
+
+
+[cols="100%",stripes=all]
+|===
+l|
+{
+    "eventId": "00001",
+    "eventTime": "2020-11-30 14:12:36+0100",
+    "eventType": "ProductOrderDeleteEvent",
+    "event": {
+        "productOrder":
+            {-- SEE ProductOrder RESOURCE SAMPLE --}
+    }
+}
+|===
+
+==== Product Order Attributevaluechange Event
+
+Notification ProductOrderAttributevaluechangeEvent case for resource ProductOrder.
+
+*Json representation sample*
+
+We provide below the json representation of an example of a 'ProductOrderAttributevaluechangeEvent' notification event object.
+
+
+[cols="100%",stripes=all]
+|===
+l|
+{
+    "eventId": "00001",
+    "eventTime": "2020-11-30 14:12:36+0100",
+    "eventType": "ProductOrderAttributevaluechangeEvent",
+    "event": {
+        "productOrder":
+            {-- SEE ProductOrder RESOURCE SAMPLE --}
+    }
+}
+|===
+
+==== Product Order Informationrequired Event
+
+Notification ProductOrderInformationrequiredEvent case for resource ProductOrder.
+
+*Json representation sample*
+
+We provide below the json representation of an example of a 'ProductOrderInformationrequiredEvent' notification event object.
+
+
+[cols="100%",stripes=all]
+|===
+l|
+{
+    "eventId": "00001",
+    "eventTime": "2020-11-30 14:12:36+0100",
+    "eventType": "ProductOrderInformationrequiredEvent",
+    "event": {
+        "productOrder":
+            {-- SEE ProductOrder RESOURCE SAMPLE --}
+    }
+}
+|===
+
+
+
+==== Cancel Product Order Create Event
+
+Notification CancelProductOrderCreateEvent case for resource CancelProductOrder.
+
+*Json representation sample*
+
+We provide below the json representation of an example of a 'CancelProductOrderCreateEvent' notification event object.
+
+
+[cols="100%",stripes=all]
+|===
+l|
+{
+    "eventId": "00001",
+    "eventTime": "2020-11-30 14:12:36+0100",
+    "eventType": "CancelProductOrderCreateEvent",
+    "event": {
+        "cancelProductOrder":
+            {-- SEE CancelProductOrder RESOURCE SAMPLE --}
+    }
+}
+|===
+
+==== Cancel Product Order Statechange Event
+
+Notification CancelProductOrderStatechangeEvent case for resource CancelProductOrder.
+
+*Json representation sample*
+
+We provide below the json representation of an example of a 'CancelProductOrderStatechangeEvent' notification event object.
+
+
+[cols="100%",stripes=all]
+|===
+l|
+{
+    "eventId": "00001",
+    "eventTime": "2020-11-30 14:12:36+0100",
+    "eventType": "CancelProductOrderStatechangeEvent",
+    "event": {
+        "cancelProductOrder":
+            {-- SEE CancelProductOrder RESOURCE SAMPLE --}
+    }
+}
+|===
+
+==== Cancel Product Order Informationrequired Event
+
+Notification CancelProductOrderInformationrequiredEvent case for resource CancelProductOrder.
+
+*Json representation sample*
+
+We provide below the json representation of an example of a 'CancelProductOrderInformationrequiredEvent' notification event object.
+
+
+[cols="100%",stripes=all]
+|===
+l|
+{
+    "eventId": "00001",
+    "eventTime": "2020-11-30 14:12:36+0100",
+    "eventType": "CancelProductOrderInformationrequiredEvent",
+    "event": {
+        "cancelProductOrder":
+            {-- SEE CancelProductOrder RESOURCE SAMPLE --}
+    }
+}
+|===
+
+

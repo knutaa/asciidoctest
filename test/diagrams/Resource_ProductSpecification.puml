@@ -1,0 +1,265 @@
+@startuml
+'
+' Resource:  ProductSpecification
+' Source:    Product_Catalog_Management_4.1.0_oas.yaml
+' Generated: 2020-11-18 16:35:42+0100
+'
+hide circle
+hide methods
+hide stereotype
+show <<Enumeration>> stereotype
+skinparam class {
+   backgroundColor<<Enumeration>> #E6F5F7
+   backgroundColor<<Ref>> #FFFFE0
+   backgroundColor<<Pivot>> #FFFFFFF
+   backgroundColor #FCF2E3
+   backgroundColor<<SubResource>> MistyRose
+}
+
+skinparam legend {
+   borderRoundCorner 0
+   borderColor red
+   backgroundColor white
+}
+
+'sequence: 15
+class ProductSpecification <extends  \nExtensible \nAddressable >  <<Pivot>> {
+    brand : String
+    description : String
+    href : String
+    id : String
+    isBundle : Boolean
+    lastUpdate : DateTime
+    lifecycleStatus : String
+    name : String
+    productNumber : String
+    validFor : TimePeriod
+    version : String
+    @baseType : String
+    @schemaLocation : Uri
+    @type : String
+}
+
+'sequence: 23
+class ProductSpecificationRelationship <extends  \nExtensible >  <<Ref>> {
+    href : String
+    id : String
+    relationshipType : String
+    validFor : TimePeriod
+    @baseType : String
+    @schemaLocation : Uri
+    @type : String
+}
+
+'sequence: 32
+class ServiceSpecificationRef <extends  \nEntityRef >  <<Ref>> {
+    href : Uri
+    id : String
+    name : String
+    version : String
+    @baseType : String
+    @referredType : String
+    @schemaLocation : Uri
+    @type : String
+}
+
+'sequence: 46
+class Attachment <extends  \nEntity >  {
+    attachmentType : String
+    content : Base64
+    description : String
+    href : Uri
+    id : String
+    mimeType : String
+    name : String
+    size : Quantity
+    url : Uri
+    validFor : TimePeriod
+    @baseType : String
+    @schemaLocation : Uri
+    @type : String
+}
+
+'sequence: 49
+class TargetProductSchema  {
+    @schemaLocation : Uri [1]
+    @type : String [1]
+}
+
+'sequence: 57
+class BundledProductSpecification <extends  \nExtensible >  {
+    href : String
+    id : String
+    lifecycleStatus : String
+    name : String
+    @baseType : String
+    @schemaLocation : Uri
+    @type : String
+}
+
+'sequence: 66
+class RelatedParty <extends  \nEntityRef >  {
+    href : Uri
+    id : String [1]
+    name : String
+    role : String
+    @baseType : String
+    @referredType : String [1]
+    @schemaLocation : Uri
+    @type : String
+}
+
+'sequence: 75
+class ResourceSpecificationRef <extends  \nEntityRef >  <<Ref>> {
+    href : Uri
+    id : String
+    name : String
+    version : String
+    @baseType : String
+    @referredType : String
+    @schemaLocation : Uri
+    @type : String
+}
+
+'sequence: 85
+class ProductSpecificationCharacteristicRelationship <extends  \nExtensible >  <<Ref>> {
+    charSpecSeq : Integer
+    href : String
+    id : String
+    name : String
+    relationshipType : String
+    validFor : TimePeriod
+    @baseType : String
+    @schemaLocation : Uri
+    @type : String
+}
+
+'sequence: 86
+class AttachmentRefOrValue  {
+    {field}//                                        //
+}
+
+'sequence: 87
+class ProductSpecificationCharacteristic  {
+    {field}//                                        //
+}
+
+'sequence: 103
+class CharacteristicSpecificationBase <extends  \nExtensible >  {
+    configurable : Boolean
+    description : String
+    extensible : Boolean
+    id : String
+    isUnique : Boolean
+    maxCardinality : Integer
+    minCardinality : Integer
+    name : String
+    regex : String
+    validFor : TimePeriod
+    valueType : String
+    @baseType : String
+    @schemaLocation : Uri
+    @type : String
+    @valueSchemaLocation : String
+}
+
+'sequence: 113
+class AttachmentRef <extends  \nEntityRef >  <<Ref>> {
+    description : String
+    href : Uri
+    id : String
+    name : String
+    url : Uri
+    @baseType : String
+    @referredType : String
+    @schemaLocation : Uri
+    @type : String
+}
+
+'sequence: 126
+class CharacteristicValueSpecification <extends  \nExtensible >  {
+    isDefault : Boolean
+    rangeInterval : String
+    regex : String
+    unitOfMeasure : String
+    validFor : TimePeriod
+    value : Any
+    valueFrom : Integer
+    valueTo : Integer
+    valueType : String
+    @baseType : String
+    @schemaLocation : Uri
+    @type : String
+}
+
+'sequence: 15
+'processing edges for ProductSpecification
+'sequence: 129
+'rule: General below rule
+ProductSpecification *-->  "0..*" AttachmentRefOrValue : attachment
+
+'sequence: 131
+'rule: General below rule
+ProductSpecification *-->  "0..*" ProductSpecificationCharacteristic : productSpecCharacteristic
+
+'sequence: 142
+'rule: General left rule
+TargetProductSchema  <-left-* ProductSpecification : targetProductSchema
+
+'sequence: 144
+'rule: General right rule
+ProductSpecification *-right-> "0..*" ProductSpecificationRelationship : productSpecificationRelationship
+
+'sequence: 146
+'rule: General above rule
+ServiceSpecificationRef "0..*" <--* ProductSpecification : serviceSpecification
+
+'sequence: 148
+'rule: General above rule
+BundledProductSpecification "0..*" <--* ProductSpecification : bundledProductSpecification
+
+'sequence: 150
+'rule: General above rule
+RelatedParty "0..*" <--* ProductSpecification : relatedParty
+
+'sequence: 152
+'rule: General below rule - either none already or unable to place left / right of currently placed
+ProductSpecification *-->  "0..*" ResourceSpecificationRef : resourceSpecification
+
+'sequence: 86
+'processing edges for AttachmentRefOrValue
+'completed processing of edges for AttachmentRefOrValue
+'processing edges for AttachmentRefOrValue
+'sequence: 178
+'rule: General below rule
+AttachmentRefOrValue --|> Attachment : allOf
+
+'sequence: 180
+'rule: General below rule
+AttachmentRefOrValue --|> AttachmentRef : allOf
+
+'sequence: 87
+'processing edges for ProductSpecificationCharacteristic
+'completed processing of edges for ProductSpecificationCharacteristic
+'processing edges for ProductSpecificationCharacteristic
+'sequence: 184
+'rule: General left rule
+ProductSpecificationCharacteristicRelationship "0..*" <-left-* ProductSpecificationCharacteristic : productSpecCharRelationship
+
+'sequence: 186
+'rule: General right rule
+ProductSpecificationCharacteristic -left-|> CharacteristicSpecificationBase : allOf
+
+'sequence: 188
+'rule: General below rule
+ProductSpecificationCharacteristic *-->  "0..*" CharacteristicValueSpecification : productSpecCharacteristicValue
+
+
+
+'layout of the core: [ProductSpecification, AttachmentRefOrValue, ProductSpecificationCharacteristic] (seq=127)
+'finished layout of the core (seq=138)
+'y=9 : ServiceSpecificationRef (10) BundledProductSpecification (10) RelatedParty (10) (seq=191)
+'y=10 : ProductSpecificationRelationship (11) ProductSpecification (10) TargetProductSchema (9) (seq=192)
+'y=11 : ResourceSpecificationRef (10) ProductSpecificationCharacteristicRelationship (8) AttachmentRefOrValue (10) ProductSpecificationCharacteristic (9) CharacteristicSpecificationBase (10) (seq=193)
+'y=12 : Attachment (10) AttachmentRef (9) CharacteristicValueSpecification (9) (seq=194)
+@enduml

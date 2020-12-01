@@ -1,0 +1,531 @@
+include::../config/Environment.adoc[]
+
+== RESOURCE MODEL
+
+=== Managed Entity and Task Resource Models
+
+==== ProductOrder resource
+
+A Product Order is a type of order which  can  be used to place an order between a customer and a service provider or between a service provider and a partner and vice versa,.
+
+*Resource model*
+
+include::../parts/ProductOrder.adoc[]
+
+*Field descriptions*
+
+pass:q[<u>ProductOrder fields</u>]
+
+[cols="35%,65%"]
+|===
+|agreement |An AgreementRef. A reference to an agreement defined in the context of the product order. Agreement reference. An agreement represents a contract or arrangement, either written or verbal and sometimes enforceable by law, such as a service level agreement or a customer price agreement. An agreement involves a number of other business entities, such as products, services, and resources and/or their specifications.
+|billingAccount |A BillingAccountRef.  BillingAccount reference. A BillingAccount is a detailed description of a bill structure.
+|cancellationDate |A DateTime. Date when the order is cancelled. This is used when order is cancelled. 
+|cancellationReason |A String. Reason why the order is cancelled. This is used when order is cancelled. 
+|category |A String. Used to categorize the order from a business perspective that can be useful for the OM system (e.g. &quot;enterprise&quot;, &quot;residential&quot;, ...). 
+|channel |A RelatedChannel.  Related channel to another entity. May be online web, mobile app, social ,etc.
+|completionDate |A DateTime. Date when the order was completed. 
+|description |A String. Description of the product order. 
+|expectedCompletionDate |A DateTime. Expected delivery date amended by the provider. 
+|externalId |A String. ID given by the consumer and only understandable by him (to facilitate his searches afterwards). 
+|href |A String. Hyperlink to access the order. 
+|id |A String. ID created on repository side (OM system). 
+|note |A Note.  Extra information about a given entity.
+|notificationContact |A String. Contact attached to the order to send back information regarding this order. 
+|orderDate |A DateTime. Date when the order was created. 
+|orderTotalPrice |An OrderPrice.  An amount, usually of money, that represents the actual price paid by the Customer for this item or this order.
+|payment |A PaymentRef.  If an immediate payment has been done at the product order submission, the payment information are captured and stored (as a reference) in the order.
+|priority |A String. A way that can be used by consumers to prioritize orders in OM system (from 0 to 4 : 0 is the highest priority, and 4 the lowest). 
+|productOfferingQualification |A ProductOfferingQualificationRef.  It&#39;s a productOfferingQualification that has been executed previously.
+|productOrderItem |A ProductOrderItem.  An identified part of the order. A product order is decomposed into one or more order items.
+|quote |A QuoteRef.  It&#39;s a Quote that has been executed previously.
+|relatedParty |A RelatedParty.  Related Entity reference. A related party defines party or party role linked to a specific entity.
+|requestedCompletionDate |A DateTime. Requested delivery date from the requestor perspective. 
+|requestedStartDate |A DateTime. Order fulfillment start date wished by the requestor. This is used when, for any reason, requestor cannot allow seller to begin to operationally begin the fulfillment before a date. 
+|state |A ProductOrderStateType.  Possible values for the state of the order.
+|===
+
+pass:q[<u>AgreementItemRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|agreementItemId |A String. Identifier of the agreement. 
+|href |A Uri. Hyperlink reference. 
+|id |A String. Unique identifier. 
+|name |A String. Name of the related entity. 
+|@referredType |A String. The actual type of the target instance when needed for disambiguation. 
+|===
+
+pass:q[<u>AgreementRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference. 
+|id |A String. Unique identifier. 
+|name |A String. Name of the agreement. 
+|@referredType |A String. The actual type of the target instance when needed for disambiguation. 
+|===
+
+pass:q[<u>AppointmentRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|description |A String. An explanatory text regarding the appointment made with a party. 
+|href |A String. The reference of the appointment. 
+|id |A String. The identifier of the referred appointment. 
+|@referredType |A String. The actual type of the target instance when needed for disambiguation. 
+|===
+
+pass:q[<u>BillingAccountRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A String. Reference of the billing account. 
+|id |A String. Unique identifier of the billing account. 
+|name |A String. Name of the billing account. 
+|ratingType |A String. Indicates whether the account follows a specific payment option such as prepaid or postpaid. 
+|@referredType |A String. The actual type of the target instance when needed for disambiguation. 
+|===
+
+pass:q[<u>Characteristic sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|characteristicRelationship |A CharacteristicRelationship.  Another Characteristic that is related to the current Characteristic;.
+|id |A String. Unique identifier of the characteristic. 
+|name |A String. Name of the characteristic. 
+|value |An Any.  
+|valueType |A String. Data type of the value of the characteristic. 
+|===
+
+pass:q[<u>CharacteristicRelationship sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference. 
+|id |A String. Unique identifier of the characteristic. 
+|relationshipType |A String. The type of relationship. 
+|===
+
+pass:q[<u>Note sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|author |A String. Author of the note. 
+|date |A DateTime. Date of the note. 
+|id |A String. Identifier of the note within its containing entity. 
+|text |A String. Text of the note. 
+|===
+
+pass:q[<u>OrderItemRelationship sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference. 
+|id |A String.  
+|relationshipType |A String. The type of order item relationship. 
+|===
+
+pass:q[<u>OrderPrice sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|billingAccount |A BillingAccountRef.  BillingAccount reference. A BillingAccount is a detailed description of a bill structure.
+|description |A String. A narrative that explains in detail the semantics of this order item price. 
+|href |A Uri. Hyperlink reference. 
+|id |A String. Unique identifier. 
+|name |A String. A short descriptive name such as &quot;Subscription price&quot;. 
+|price |A Price.  Provides all amounts (tax included, duty free, tax rate), used currency and percentage to apply for Price Alteration.
+|priceAlteration |A PriceAlteration. A strucuture used to describe a price alteration. Is an amount, usually of money, that modifies the price charged for an order item.
+|priceType |A String. A category that describes the price, such as recurring, discount, allowance, penalty, and so forth. 
+|productOfferingPrice |A ProductOfferingPriceRef.  ProductPriceOffering reference. An amount, usually of money, that is asked for or allowed when a ProductOffering is bought, rented, or leased.
+|recurringChargePeriod |A String. Could be month, week... 
+|unitOfMeasure |A String. Could be minutes, GB... 
+|===
+
+pass:q[<u>OrderTerm sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|description |A String. Description of the productOrderTerm. 
+|duration |A Quantity.  An amount in a given unit.
+|href |A Uri. Hyperlink reference. 
+|id |A String. Unique identifier. 
+|name |A String. Name of the productOrderTerm. 
+|===
+
+pass:q[<u>PaymentRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference. 
+|id |A String. Unique identifier. 
+|name |A String. A name for the payment. 
+|@referredType |A String. The actual type of the target instance when needed for disambiguation. 
+|===
+
+pass:q[<u>Place sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A String. Unique reference of the place. 
+|id |A String. Unique identifier of the place. 
+|name |A String. A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]. 
+|===
+
+pass:q[<u>PlaceRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference. 
+|id |A String. Unique identifier. 
+|name |A String. Name of the related entity. 
+|@referredType |A String. The actual type of the target instance when needed for disambiguation. 
+|===
+
+pass:q[<u>Price sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|dutyFreeAmount |A Money.  A base / value business entity used to represent money.
+|href |A Uri. Hyperlink reference. 
+|id |A String. Unique identifier. 
+|percentage |A Float. Percentage to apply for ProdOfferPriceAlteration. 
+|taxIncludedAmount |A Money.  A base / value business entity used to represent money.
+|taxRate |A Float. Tax rate. 
+|===
+
+pass:q[<u>PriceAlteration sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|applicationDuration |An Integer. Duration during which the alteration applies on the order item price (for instance 2 months free of charge for the recurring charge). 
+|description |A String. A narrative that explains in detail the semantics of this order item price alteration. 
+|href |A Uri. Hyperlink reference. 
+|id |A String. Unique identifier. 
+|name |A String. Name of the order item price alteration. 
+|price |A Price.  Provides all amounts (tax included, duty free, tax rate), used currency and percentage to apply for Price Alteration.
+|priceType |A String. A category that describes the price such as recurring, one time and usage. 
+|priority |An Integer. Priority level for applying this alteration among all the defined alterations on the order item price. 
+|productOfferingPrice |A ProductOfferingPriceRef.  ProductPriceOffering reference. An amount, usually of money, that is asked for or allowed when a ProductOffering is bought, rented, or leased.
+|recurringChargePeriod |A String. Could be month, week... 
+|unitOfMeasure |A String. Could be minutes, GB... 
+|===
+
+pass:q[<u>Product sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|agreement |An AgreementItemRef.  Agreement reference. An agreement represents a contract or arrangement, either written or verbal and sometimes enforceable by law, such as a service level agreement or a customer price agreement. An agreement involves a number of other business entities, such as products, services, and resources and/or their specifications.
+|billingAccount |A BillingAccountRef.  BillingAccount reference. A BillingAccount is a detailed description of a bill structure.
+|description |A String. Is the description of the product. It could be copied from the description of the Product Offering. 
+|href |A String. Reference of the product. 
+|id |A String. Unique identifier of the product. 
+|isBundle |A Boolean. If true, the product is a ProductBundle which is an instantiation of a BundledProductOffering. If false, the product is a ProductComponent which is an instantiation of a SimpleProductOffering. 
+|isCustomerVisible |A Boolean. If true, the product is visible by the customer. 
+|name |A String. Name of the product. It could be the same as the name of the product offering. 
+|orderDate |A DateTime. Is the date when the product was ordered. 
+|place |A RelatedPlaceRefOrValue.  Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation &amp; @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself.
+|product |A ProductRefOrValue.  A product to be created defined by value or existing defined by reference. The polymorphic attributes @type, @schemaLocation &amp; @referredType are related to the product entity and not the RelatedProductRefOrValue class itself.
+|productCharacteristic |A Characteristic.  Describes a given characteristic of an object or entity through a name/value pair.
+|productOffering |A ProductOfferingRef.  ProductOffering reference. A product offering represents entities that are orderable from the provider of the catalog, this resource includes pricing information.
+|productOrderItem |A RelatedProductOrderItem.  RelatedProductOrderItem (ProductOrder item) .The product order item which triggered product creation/change/termination.
+|productPrice |A ProductPrice.  An amount, usually of money, that represents the actual price paid by a Customer for a purchase, a rent or a lease of a Product. The price is valid for a defined period of time.
+|productRelationship |A ProductRelationship.  Linked products to the one instantiate, such as [bundled] if the product is a bundle and you want to describe the bundled products inside this bundle; [reliesOn] if the product needs another already owned product to rely on (e.g. an option on an already owned mobile access product) [targets] or [isTargeted] (depending on the way of expressing the link) for any other kind of links that may be useful.
+|productSerialNumber |A String. Is the serial number for the product. This is typically applicable to tangible products e.g. Broadband Router. 
+|productSpecification |A ProductSpecificationRef.  Product specification reference: A ProductSpecification is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role.
+|productTerm |A ProductTerm.  Description of a productTerm linked to this product. This represent a commitment with a duration.
+|randomAtt |A String.  
+|realizingResource |A ResourceRef.  
+|realizingService |A ServiceRef.  Service reference, for when Service is used by other entities.
+|relatedParty |A RelatedParty.  Related Entity reference. A related party defines party or party role linked to a specific entity.
+|startDate |A DateTime. Is the date from which the product starts. 
+|status |A ProductStatusType.  Possible values for the status of the product.
+|terminationDate |A DateTime. Is the date when the product was terminated. 
+|===
+
+pass:q[<u>ProductOfferingPriceRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference. 
+|id |A String. Unique identifier. 
+|name |A String. Name of the related entity. 
+|@referredType |A String. The actual type of the target instance when needed for disambiguation. 
+|===
+
+pass:q[<u>ProductOfferingQualificationItemRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference. 
+|id |A String. Id of an item of a product offering qualification. 
+|productOfferingQualificationHref |A String. Reference of the related entity. 
+|productOfferingQualificationId |A String. Unique identifier of a related entity. 
+|productOfferingQualificationName |A String. Name of the related entity. 
+|@referredType |A String. The actual type of the target instance when needed for disambiguation. 
+|===
+
+pass:q[<u>ProductOfferingQualificationRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference. 
+|id |A String. Unique identifier. 
+|name |A String. Name of the related entity. 
+|@referredType |A String. The actual type of the target instance when needed for disambiguation. 
+|===
+
+pass:q[<u>ProductOfferingRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference. 
+|id |A String. Unique identifier. 
+|name |A String. Name of the related entity. 
+|@referredType |A String. The actual type of the target instance when needed for disambiguation. 
+|===
+
+pass:q[<u>ProductOrderItem sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|action |An OrderItemActionType.  Action to be performed on the product.
+|appointment |An AppointmentRef.  Refers an appointment, such as a Customer presentation or internal meeting or site visit.
+|billingAccount |A BillingAccountRef.  BillingAccount reference. A BillingAccount is a detailed description of a bill structure.
+|href |A Uri. Hyperlink reference. 
+|id |A String. Identifier of the line item (generally it is a sequence number 01, 02, 03, ...). 
+|itemPrice |An OrderPrice.  An amount, usually of money, that represents the actual price paid by the Customer for this item or this order.
+|itemTerm |An OrderTerm.  Description of a productTerm linked to this orderItem. This represent a commitment with a duration.
+|itemTotalPrice |An OrderPrice.  An amount, usually of money, that represents the actual price paid by the Customer for this item or this order.
+|payment |A PaymentRef.  If an immediate payment has been done at the product order submission, the payment information are captured and stored (as a reference) in the order.
+|product |A ProductRefOrValue.  A product to be created defined by value or existing defined by reference. The polymorphic attributes @type, @schemaLocation &amp; @referredType are related to the product entity and not the RelatedProductRefOrValue class itself.
+|productOffering |A ProductOfferingRef.  ProductOffering reference. A product offering represents entities that are orderable from the provider of the catalog, this resource includes pricing information.
+|productOfferingQualificationItem |A ProductOfferingQualificationItemRef.  It&#39;s a productOfferingQualification item that has been executed previously.
+|productOrderItem |A ProductOrderItem.  An identified part of the order. A product order is decomposed into one or more order items.
+|productOrderItemRelationship |An OrderItemRelationship.  
+|qualification |A ProductOfferingQualificationRef.  It&#39;s a productOfferingQualification that has been executed previously.
+|quantity |An Integer. Quantity ordered. 
+|quoteItem |A QuoteItemRef.  It&#39;s a Quote item that has been executed previously.
+|state |A ProductOrderItemStateType.  Possible values for the state of the product order item.
+|===
+
+pass:q[<u>ProductPrice sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|billingAccount |A BillingAccountRef.  BillingAccount reference. A BillingAccount is a detailed description of a bill structure.
+|description |A String. A narrative that explains in detail the semantics of this product price. 
+|href |A Uri. Hyperlink reference. 
+|id |A String. Unique identifier. 
+|name |A String. A short descriptive name such as &quot;Subscription price&quot;. 
+|price |A Price.  Provides all amounts (tax included, duty free, tax rate), used currency and percentage to apply for Price Alteration.
+|priceType |A String. A category that describes the price, such as recurring, discount, allowance, penalty, and so forth. 
+|productOfferingPrice |A ProductOfferingPriceRef.  ProductPriceOffering reference. An amount, usually of money, that is asked for or allowed when a ProductOffering is bought, rented, or leased.
+|productPriceAlteration |A PriceAlteration.  Is an amount, usually of money, that modifies the price charged for an order item.
+|recurringChargePeriod |A String. Could be month, week... 
+|unitOfMeasure |A String. Could be minutes, GB... 
+|===
+
+pass:q[<u>ProductRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference. 
+|id |A String. Unique identifier. 
+|name |A String. Name of the related entity. 
+|@referredType |A String. The actual type of the target instance when needed for disambiguation. 
+|===
+
+pass:q[<u>ProductRelationship sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference. 
+|id |A String. Unique identifier. 
+|product |A ProductRefOrValue.  A product to be created defined by value or existing defined by reference. The polymorphic attributes @type, @schemaLocation &amp; @referredType are related to the product entity and not the RelatedProductRefOrValue class itself.
+|relationshipType |A String. Type of the product relationship, such as [bundled] if the product is a bundle and you want to describe the bundled products inside this bundle; [reliesOn] if the product needs another already owned product to rely on (e.g. an option on an already owned mobile access product) [targets] or [isTargeted] (depending on the way of expressing the link) for any other kind of links that may be useful. 
+|===
+
+pass:q[<u>ProductSpecificationRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference. 
+|id |A String. Unique identifier. 
+|name |A String. Name of the related entity. 
+|targetProductSchema |A TargetProductSchema.  The reference object to the schema and type of target product which is described by product specification.
+|version |A String. Version of the product specification. 
+|@referredType |A String. The actual type of the target instance when needed for disambiguation. 
+|===
+
+pass:q[<u>ProductTerm sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|description |A String. Description of the productTerm. 
+|duration |A Quantity.  An amount in a given unit.
+|href |A Uri. Hyperlink reference. 
+|id |A String. Unique identifier. 
+|name |A String. Name of the productTerm. 
+|validFor |A TimePeriod.  A period of time, either as a deadline (endDateTime only) a startDateTime only, or both.
+|===
+
+pass:q[<u>QuoteItemRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference. 
+|id |A String. Id of an item of a quote. 
+|name |A String. Name of the related entity. 
+|quoteHref |A String. Reference of the related entity. 
+|quoteId |A String. Unique identifier of a related entity. 
+|quoteName |A String. Name of the related entity. 
+|@referredType |A String. The actual type of the target instance when needed for disambiguation. 
+|===
+
+pass:q[<u>QuoteRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference. 
+|id |A String. Unique identifier. 
+|name |A String. Name of the related entity. 
+|@referredType |A String. The actual type of the target instance when needed for disambiguation. 
+|===
+
+pass:q[<u>RelatedChannel sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference. 
+|id |A String. Unique identifier. 
+|name |A String. Name of the channel. 
+|role |A String. Role playing by the channel. 
+|@referredType |A String. The actual type of the target instance when needed for disambiguation. 
+|===
+
+pass:q[<u>RelatedParty sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference. 
+|id |A String. Unique identifier. 
+|name |A String. Name of the related entity. 
+|role |A String. Role played by the related party. 
+|@referredType |A String. The actual type of the target instance when needed for disambiguation. 
+|===
+
+pass:q[<u>RelatedPlaceRefOrValue sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|role |A String.  
+|===
+
+pass:q[<u>RelatedProductOrderItem sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference. 
+|id |A String. Unique identifier. 
+|orderItemAction |A String. Action of the order item for this product. 
+|orderItemId |A String. Identifier of the order item where the product was managed. 
+|productOrderHref |A String. Reference of the related entity. 
+|productOrderId |A String. Unique identifier of a related entity. 
+|role |A String. Role of the product order item for this product. 
+|@referredType |A String. The actual type of the target instance when needed for disambiguation. 
+|===
+
+pass:q[<u>ResourceRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference. 
+|id |A String. Unique identifier. 
+|name |A String. Name of the related entity. 
+|@referredType |A String. The actual type of the target instance when needed for disambiguation. 
+|===
+
+pass:q[<u>ServiceRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference. 
+|id |A String. Unique identifier. 
+|name |A String. Name of the related entity. 
+|@referredType |A String. The actual type of the target instance when needed for disambiguation. 
+|===
+
+pass:q[<u>TargetProductSchema sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|@schemaLocation |A Uri. This field provides a link to the schema describing the target product. 
+|@type |A String. Class type of the target product. 
+|===
+
+
+
+*Json representation sample*
+
+We provide below the json representation of an example of a 'ProductOrder' resource object.
+
+[cols="100%",stripes=all]
+|===
+l|
+include::../samples/Sample_ProductOrder.json[]
+|===
+
+==== CancelProductOrder resource
+
+Request for cancellation an existing product order.
+
+*Resource model*
+
+include::../parts/CancelProductOrder.adoc[]
+
+*Field descriptions*
+
+pass:q[<u>CancelProductOrder fields</u>]
+
+[cols="35%,65%"]
+|===
+|productOrder |A ProductOrderRef.  ProductOrder (ProductOrder) .The product order which the recommendation is related with.
+|===
+
+pass:q[<u>CancelOrder sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|cancellationReason |A String. Reason why the order is cancelled. 
+|effectiveCancellationDate |A DateTime. Date when the order is cancelled. 
+|href |A String. Hyperlink to access the cancellation request. 
+|id |A String. Id of the cancellation request (this is not an order id). 
+|requestedCancellationDate |A DateTime. Date when the submitter wants the order to be cancelled. 
+|state |A TaskStateType.  Possible values for the state of a task.
+|===
+
+pass:q[<u>ProductOrderRef sub-resource fields</u>]
+
+[cols="35%,65%"]
+|===
+|href |A Uri. Hyperlink reference. 
+|id |A String. Unique identifier. 
+|name |A String. Name of the related entity. 
+|@referredType |A String. The actual type of the target instance when needed for disambiguation. 
+|===
+
+
+
+*Json representation sample*
+
+We provide below the json representation of an example of a 'CancelProductOrder' resource object.
+
+[cols="100%",stripes=all]
+|===
+l|
+include::../samples/Sample_CancelProductOrder.json[]
+|===
+
+

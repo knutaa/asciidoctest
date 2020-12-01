@@ -1,0 +1,67 @@
+{
+  "rulesVersion": "2.0.0",
+  "api": {
+    "name": "Product Ordering",
+    "shortName": "Product Ordering",
+    "description": "**TMF API Reference : TMF 622 - Product Ordering Management**\nThe Product Ordering API provides a standardized mechanism for placing a product order with all of the necessary order parameters. The API consists of a simple set of operations that interact with CRM/Order Negotiation systems in a consistent manner. A product order is created based on a product offer that is defined in a catalog. The product offer identifies the product or set of products that are available to a customer, and includes characteristics such as pricing, product options and market. This API provide a task based resource to request order cancellation.\nThe product order references the product offer and identifies any specific requests made by the customer.\n**Product Order resource**\nA Product Order is a type of order which can be used to place an order between a customer and a service provider or between a service provider and a partner and vice versa. Main Product Order attributes are its identifier, state, priority category (mass market, Enterprise, etc.) related dates (start, completion, etc.), related billing account, related parties and order items. Main Order Items (aka order lines) attributes are the ordered offering and product characteristics with the related action to be performed (e.g. add or delete the products), state, location information for delivery, order item price and price alteration.\nProduct Order API performs the following operations on product order :\n   -Retrieval of a product order or a collection of product orders depending on filter criteria\n    -Partial update of a product order (including updating rules)\n   -Creation of a product order (including default values and creation rules)\n   -Deletion of product order (for administration purposes)\n    -Notification of events on product order.\n**cancelProductOrder resource**\nThis resource is used to request a product order cancellation.\nProduct Order API performs the following operations on product order :\n   -Retrieval of a cancel product order or a collection of cancel product orders \n   -Creation of a cancel product order \n   -Notification of events on cancel product order.",
+    "tmfId": "TMF622",
+    "hostUrl": "https://serverRoot",
+    "basePath": "/tmf-api/productOrderingManagement/v4/",
+    "version": "4.0.0",
+    "resources": [
+      {
+        "name": "ProductOrder",
+        "supportedHttpMethods": {
+          "GET": {},
+          "PATCH": {
+            "parameterRestrictions": {
+              "excludedParameters": [
+                "id",
+                "href",
+                "orderDate"
+              ]
+            }
+          },
+          "POST": {
+            "parameterRestrictions": {
+              "excludedParameters": [
+                "completionDate",
+                "orderDate",
+                "state",
+                "expectedCompletionDate",
+                "productOrderItem.state"
+              ]
+            }
+          },
+          "DELETE": {}
+        },
+        "notifications": [
+          "create",
+          "attributeValueChange",
+          "delete",
+          "stateChange",
+          "informationRequired"
+        ]
+      },
+      {
+        "name": "CancelProductOrder",
+        "supportedHttpMethods": {
+          "GET": {},
+          "POST": {
+            "parameterRestrictions": {
+              "excludedParameters": [
+                "state",
+                "effectiveCancellationDate"
+              ]
+            }
+          }
+        },
+        "notifications": [
+          "create",
+          "stateChange",
+          "informationRequired"
+        ]
+      }
+    ]
+  }
+}

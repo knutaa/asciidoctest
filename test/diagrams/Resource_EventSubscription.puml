@@ -1,0 +1,37 @@
+@startuml
+'
+' Resource:  EventSubscription
+' Source:    Product_Ordering_4.0.0_oas.yaml
+' Generated: 2020-11-18 23:09:09+0100
+'
+hide circle
+hide methods
+hide stereotype
+show <<Enumeration>> stereotype
+skinparam class {
+   backgroundColor<<Enumeration>> #E6F5F7
+   backgroundColor<<Ref>> #FFFFE0
+   backgroundColor<<Pivot>> #FFFFFFF
+   backgroundColor #FCF2E3
+   backgroundColor<<SubResource>> MistyRose
+}
+
+skinparam legend {
+   borderRoundCorner 0
+   borderColor red
+   backgroundColor white
+}
+
+'sequence: 4
+class EventSubscription  <<Pivot>> {
+    callback : String [1]
+    id : String [1]
+    query : String
+}
+
+
+
+'layout of the core: [EventSubscription] (seq=5)
+'finished layout of the core (seq=8)
+'y=10 : EventSubscription (10) (seq=11)
+@enduml

@@ -1,0 +1,10 @@
+include::../config/Environment.adoc[]
+
+
+[.text-center]
+ifdef::png[]
+image::Resource_CancelProductOrder.png[]
+endif::png[]
+[.text-center]
+Figure {counter:figure} - CancelProductOrder
+
