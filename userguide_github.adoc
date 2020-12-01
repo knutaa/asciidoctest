@@ -1,1064 +1,62 @@
-:doctype: book
+:maindoc:
 :puml!:
-:png!:
+:png:
 :svg!:
 
-:diagrams: diagrams/
-:fragments: fragments/
+
+:parts: ./
+:imagesdir: diagrams/
+:parts: parts
+
+:docbook:
+:toc: macro
+:toclevels: 3
+
+toc::[]
+
+:sectnums:
+
+:puml!:
+:png:
+:svg!:
 
 
+:parts: ./
+:imagesdir: diagrams/
 
-== ProductOrder resource
+== RESOURCE MODEL
+
+=== Managed Entity and Task Resource Models
+
+==== ProductOrder resource
 
 A Product Order is a type of order which  can  be used to place an order between a customer and a service provider or between a service provider and a partner and vice versa,.
 
-=== Resource model
+*Resource model*
 
-@startuml
-'
-' Resource:  ProductOrder
-' Source:    Product_Ordering_4.0.0_oas.yaml
-' Generated: 2020-11-18 23:09:09+0100
-'
-hide circle
-hide methods
-hide stereotype
-show <<Enumeration>> stereotype
-skinparam class {
-   backgroundColor<<Enumeration>> #E6F5F7
-   backgroundColor<<Ref>> #FFFFE0
-   backgroundColor<<Pivot>> #FFFFFFF
-   backgroundColor #FCF2E3
-   backgroundColor<<SubResource>> MistyRose
-}
+:puml!:
+:png:
+:svg!:
 
-skinparam legend {
-   borderRoundCorner 0
-   borderColor red
-   backgroundColor white
-}
 
-'sequence: 19
-class ProductOrder <extends  \nEntity >  <<Pivot>> {
-    cancellationDate : DateTime
-    cancellationReason : String
-    category : String
-    completionDate : DateTime
-    description : String
-    expectedCompletionDate : DateTime
-    externalId : String
-    href : String
-    id : String
-    notificationContact : String
-    orderDate : DateTime
-    priority : String
-    requestedCompletionDate : DateTime
-    requestedStartDate : DateTime
-    state : ProductOrderStateType
-    @baseType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 20
-class ProductOrderStateType <<Enumeration>> {
-    acknowledged
-    inProgress
-    rejected
-    held
-    assessingCancellation
-    pendingCancellation
-    pending
-    cancelled
-    completed
-    failed
-    partial
-}
-
-'sequence: 42
-class ProductOrderItem <extends  \nEntity >  {
-    action : OrderItemActionType
-    appointment : AppointmentRef
-    billingAccount : BillingAccountRef
-    href : Uri
-    id : String
-    itemPrice : OrderPrice [0..*]
-    itemTerm : OrderTerm [0..*]
-    itemTotalPrice : OrderPrice [0..*]
-    payment : PaymentRef [0..*]
-    product : ProductRefOrValue
-    productOffering : ProductOfferingRef
-    productOfferingQualificationItem : ProductOfferingQualificationItemRef
-    productOrderItem : ProductOrderItem [0..*]
-    productOrderItemRelationship : OrderItemRelationship [0..*]
-    qualification : ProductOfferingQualificationRef [0..*]
-    quantity : Integer
-    quoteItem : QuoteItemRef
-    state : ProductOrderItemStateType
-    @baseType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 50
-class QuoteRef <extends  \nEntityRef >  <<Ref>> {
-    href : Uri
-    id : String
-    name : String
-    @baseType : String
-    @referredType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 59
-class BillingAccountRef <extends  \nEntity >  <<Ref>> {
-    href : String
-    id : String
-    name : String
-    ratingType : String
-    @baseType : String
-    @referredType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 67
-class AgreementRef <extends  \nEntityRef >  <<Ref>> {
-    href : Uri
-    id : String
-    name : String
-    @baseType : String
-    @referredType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 75
-class Note <extends  \nExtensible >  {
-    author : String
-    date : DateTime
-    id : String
-    text : String
-    @baseType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 90
-class OrderPrice <extends  \nEntity >  {
-    billingAccount : BillingAccountRef
-    description : String
-    href : Uri
-    id : String
-    name : String
-    price : Price
-    priceAlteration : PriceAlteration [0..*]
-    priceType : String
-    productOfferingPrice : ProductOfferingPriceRef
-    recurringChargePeriod : String
-    unitOfMeasure : String
-    @baseType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 98
-class PaymentRef <extends  \nEntityRef >  <<Ref>> {
-    href : Uri
-    id : String
-    name : String
-    @baseType : String
-    @referredType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 107
-class RelatedParty <extends  \nEntityRef >  {
-    href : Uri
-    id : String [1]
-    name : String
-    role : String
-    @baseType : String
-    @referredType : String [1]
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 115
-class ProductOfferingQualificationRef <extends  \nEntityRef >  <<Ref>> {
-    href : Uri
-    id : String
-    name : String
-    @baseType : String
-    @referredType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 124
-class RelatedChannel <extends  \nEntityRef >  {
-    href : Uri
-    id : String
-    name : String
-    role : String
-    @baseType : String
-    @referredType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 19
-'processing edges for ProductOrder
-'sequence: 127
-'rule: Item special case
-ProductOrder *-right-> "1..*" ProductOrderItem : productOrderItem
-
-'sequence: 130
-ProductOrderStateType <-left[hidden]- ProductOrder
-
-'sequence: 139
-'rule: General above rule
-QuoteRef "0..*" <--* ProductOrder : quote
-
-'sequence: 141
-'rule: General above rule
-BillingAccountRef  <--* ProductOrder : billingAccount
-
-'sequence: 143
-'rule: General above rule
-Note "0..*" <--* ProductOrder : note
-
-'sequence: 145
-'rule: General above rule
-AgreementRef "0..*" <--* ProductOrder : agreement
-
-'sequence: 147
-'rule: General below rule
-ProductOrder *-->  "0..*" OrderPrice : orderTotalPrice
-
-'sequence: 149
-'rule: General below rule
-ProductOrder *-->  "0..*" PaymentRef : payment
-
-'sequence: 151
-'rule: General below rule
-ProductOrder *-->  "0..*" RelatedParty : relatedParty
-
-'sequence: 153
-'rule: General below rule
-ProductOrder *-->  "0..*" ProductOfferingQualificationRef : productOfferingQualification
-
-'sequence: 155
-'rule: General below rule
-ProductOrder *-->  "0..*" RelatedChannel : channel
-
-
-
-'layout of the core: [ProductOrder, ProductOrderItem] (seq=125)
-'finished layout of the core (seq=135)
-'y=9 : QuoteRef (10) BillingAccountRef (10) Note (10) AgreementRef (10) (seq=178)
-'y=10 : ProductOrderItem (11) ProductOrderStateType (9) ProductOrder (10) (seq=179)
-'y=11 : OrderPrice (10) PaymentRef (9) RelatedParty (8) ProductOfferingQualificationRef (7) RelatedChannel (6) (seq=180)
-@enduml
-
-[.text-center]
-[plantuml, puml, svg]
-....
-@startuml
-'
-' Resource:  ProductOrderItem
-' Source:    Product_Ordering_4.0.0_oas.yaml
-' Generated: 2020-11-18 23:09:09+0100
-'
-hide circle
-hide methods
-hide stereotype
-show <<Enumeration>> stereotype
-skinparam class {
-   backgroundColor<<Enumeration>> #E6F5F7
-   backgroundColor<<Ref>> #FFFFE0
-   backgroundColor<<Pivot>> #FFFFFFF
-   backgroundColor #FCF2E3
-   backgroundColor<<SubResource>> MistyRose
-}
-
-skinparam legend {
-   borderRoundCorner 0
-   borderColor red
-   backgroundColor white
-}
-
-'sequence: 9
-class ProductOrderItem <extends  \nEntity >  <<SubResource>> {
-    action : OrderItemActionType
-    href : Uri
-    id : String
-    quantity : Integer
-    state : ProductOrderItemStateType
-    @baseType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 10
-class ProductOrderItemStateType <<Enumeration>> {
-    acknowledged
-    inProgress
-    rejected
-    held
-    assessingCancellation
-    pendingCancellation
-    pending
-    cancelled
-    completed
-    failed
-}
-
-'sequence: 11
-class OrderItemActionType <<Enumeration>> {
-    add
-    modify
-    noChange
-    delete
-}
-
-'sequence: 20
-class OrderTerm <extends  \nEntity >  {
-    description : String
-    duration : Quantity
-    href : Uri
-    id : String
-    name : String
-    @baseType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 31
-class QuoteItemRef <extends  \nEntityRef >  <<Ref>> {
-    href : Uri
-    id : String [1]
-    name : String
-    quoteHref : String
-    quoteId : String [1]
-    quoteName : String
-    @baseType : String
-    @referredType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 39
-class ProductOfferingRef <extends  \nEntityRef >  <<Ref>> {
-    href : Uri
-    id : String
-    name : String
-    @baseType : String
-    @referredType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 49
-class ProductOfferingQualificationItemRef <extends  \nEntity >  <<Ref>> {
-    href : Uri
-    id : String [1]
-    productOfferingQualificationHref : String
-    productOfferingQualificationId : String [1]
-    productOfferingQualificationName : String
-    @baseType : String
-    @referredType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 58
-class BillingAccountRef <extends  \nEntity >  <<Ref>> {
-    href : String
-    id : String
-    name : String
-    ratingType : String
-    @baseType : String
-    @referredType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 59
-class ProductRefOrValue  {
-    {field}//                                        //
-}
-
-'sequence: 70
-class OrderPrice <extends  \nEntity >  {
-    description : String
-    href : Uri
-    id : String
-    name : String
-    priceType : String
-    recurringChargePeriod : String
-    unitOfMeasure : String
-    @baseType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 100
-class Product <extends  \nEntity >  {
-    agreement : AgreementItemRef [0..*]
-    billingAccount : BillingAccountRef
-    description : String
-    href : String
-    id : String
-    isBundle : Boolean
-    isCustomerVisible : Boolean
-    name : String
-    orderDate : DateTime
-    place : RelatedPlaceRefOrValue [0..*]
-    product : ProductRefOrValue [0..*]
-    productCharacteristic : Characteristic [0..*]
-    productOffering : ProductOfferingRef
-    productOrderItem : RelatedProductOrderItem [0..*]
-    productPrice : ProductPrice [0..*]
-    productRelationship : ProductRelationship [0..*]
-    productSerialNumber : String
-    productSpecification : ProductSpecificationRef
-    productTerm : ProductTerm [0..*]
-    randomAtt : String
-    realizingResource : ResourceRef [0..*]
-    realizingService : ServiceRef [0..*]
-    relatedParty : RelatedParty [0..*]
-    startDate : DateTime
-    status : ProductStatusType
-    terminationDate : DateTime
-    @baseType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 108
-class ProductRef <extends  \nEntityRef >  <<Ref>> {
-    href : Uri
-    id : String
-    name : String
-    @baseType : String
-    @referredType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 116
-class ProductOfferingQualificationRef <extends  \nEntityRef >  <<Ref>> {
-    href : Uri
-    id : String
-    name : String
-    @baseType : String
-    @referredType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 124
-class AppointmentRef <extends  \nEntity >  <<Ref>> {
-    description : String
-    href : String
-    id : String
-    @baseType : String
-    @referredType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 139
-class PriceAlteration <extends  \nEntity >  {
-    applicationDuration : Integer
-    description : String
-    href : Uri
-    id : String
-    name : String
-    price : Price [1]
-    priceType : String [1]
-    priority : Integer
-    productOfferingPrice : ProductOfferingPriceRef
-    recurringChargePeriod : String
-    unitOfMeasure : String
-    @baseType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 147
-class ProductOfferingPriceRef <extends  \nEntityRef >  <<Ref>> {
-    href : Uri
-    id : String
-    name : String
-    @baseType : String
-    @referredType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 157
-class Price <extends  \nEntity >  {
-    dutyFreeAmount : Money
-    href : Uri
-    id : String
-    percentage : Float
-    taxIncludedAmount : Money
-    taxRate : Float
-    @baseType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 165
-class PaymentRef <extends  \nEntityRef >  <<Ref>> {
-    href : Uri
-    id : String
-    name : String
-    @baseType : String
-    @referredType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 172
-class OrderItemRelationship <extends  \nEntity >  <<Ref>> {
-    href : Uri
-    id : String
-    relationshipType : String
-    @baseType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 9
-'processing edges for ProductOrderItem
-'sequence: 175
-'rule: Recursive (self-reference)
-ProductOrderItem *-right-> "0..*" ProductOrderItem : productOrderItem
-
-'sequence: 177
-'rule: circle rule :: effectiveCircle = ProductOrderItem BillingAccountRef OrderPrice ProductOrderItem - special case - threePart=true multiple=false - place [BELOW, RIGHT] - default to BELOW
-ProductOrderItem *-->   BillingAccountRef : billingAccount
-
-'sequence: 179
-'rule: circle rule :: effectiveCircle = ProductOrderItem BillingAccountRef OrderPrice ProductOrderItem - special case - threePart=true multiple=false - place [BELOW, RIGHT] - default to RIGHT
-BillingAccountRef  <-left-* OrderPrice : billingAccount
-
-'sequence: 181
-'rule: circle rule :: effectiveCircle = ProductOrderItem BillingAccountRef OrderPrice ProductOrderItem - special case - threePart=true multiple=false - place [BELOW, RIGHT] - default to RIGHT - override default direction - now ABOVE
-ProductOrderItem *-->  "0..*" OrderPrice : itemTotalPrice
-
-'sequence: 183
-'rule: circle rule :: effectiveCircle = ProductOrderItem BillingAccountRef OrderPrice ProductOrderItem - special case - threePart=true multiple=false - place [BELOW, RIGHT] - default to RIGHT - override default direction - now ABOVE
-ProductOrderItem *-->  "0..*" OrderPrice : itemPrice
-
-'sequence: 187
-ProductOrderItem -right[hidden]-> ProductOrderItemStateType
-
-'sequence: 189
-ProductOrderItemStateType -right[hidden]- OrderItemActionType
-
-'sequence: 191
-'rule: General below rule - either none already or unable to place left / right of currently placed
-ProductOrderItem *-->   ProductRefOrValue : product
-
-'sequence: 206
-'rule: General above rule
-OrderTerm "0..*" <--* ProductOrderItem : itemTerm
-
-'sequence: 208
-'rule: General above rule
-QuoteItemRef  <--* ProductOrderItem : quoteItem
-
-'sequence: 210
-'rule: General above rule
-ProductOfferingRef  <--* ProductOrderItem : productOffering
-
-'sequence: 212
-'rule: General above rule
-ProductOfferingQualificationItemRef  <--* ProductOrderItem : productOfferingQualificationItem
-
-'sequence: 214
-'rule: General above rule
-PaymentRef "0..*" <--* ProductOrderItem : payment
-
-'sequence: 216
-'rule: General above rule
-ProductOfferingQualificationRef "0..*" <--* ProductOrderItem : qualification
-
-'sequence: 218
-'rule: General above rule
-OrderItemRelationship "0..*" <--* ProductOrderItem : productOrderItemRelationship
-
-'sequence: 220
-'rule: General below rule - either none already or unable to place left / right of currently placed
-AppointmentRef  <-left-* ProductOrderItem : appointment
-
-'sequence: 59
-'processing edges for ProductRefOrValue
-'completed processing of edges for ProductRefOrValue
-'processing edges for ProductRefOrValue
-'sequence: 252
-'rule: General below rule
-ProductRefOrValue --|> Product : allOf
-
-'sequence: 254
-'rule: General below rule
-ProductRefOrValue --|> ProductRef : allOf
-
-'sequence: 70
-'processing edges for OrderPrice
-' finished with placeWithPlaced P02-3
-'completed processing of edges for OrderPrice
-'processing edges for OrderPrice
-' finished with placeWithPlaced P02-3
-'sequence: 259
-'rule: General right rule
-OrderPrice *-right-> "0..*" PriceAlteration : priceAlteration
-
-'sequence: 261
-'rule: General below rule
-OrderPrice *-->   ProductOfferingPriceRef : productOfferingPrice
-
-'sequence: 263
-'rule: General below rule
-OrderPrice *-->   Price : price
-
-
-
-'layout of the core: [ProductOrderItem, ProductRefOrValue, OrderPrice] (seq=173)
-'finished layout of the core (seq=199)
-'y=9 : OrderTerm (10) QuoteItemRef (10) ProductOfferingRef (10) ProductOfferingQualificationItemRef (10) ProductOfferingQualificationRef (10) PaymentRef (10) OrderItemRelationship (10) (seq=266)
-'y=10 : AppointmentRef (9) ProductOrderItem (10) ProductOrderItemStateType (11) OrderItemActionType (12) (seq=267)
-'y=11 : BillingAccountRef (10) OrderPrice (11) ProductRefOrValue (10) PriceAlteration (12) (seq=268)
-'y=12 : Product (10) ProductRef (9) ProductOfferingPriceRef (11) Price (10) (seq=269)
-@enduml
-....
-[.text-center]
-Figure {counter:figure} - ProductOrder_ProductOrderItem
+:parts: ./
+:imagesdir: diagrams/
 
 
 [.text-center]
-[plantuml, puml, svg]
-....
-@startuml
-'
-' Resource:  Product
-' Source:    Product_Ordering_4.0.0_oas.yaml
-' Generated: 2020-11-18 23:09:09+0100
-'
-hide circle
-hide methods
-hide stereotype
-show <<Enumeration>> stereotype
-skinparam class {
-   backgroundColor<<Enumeration>> #E6F5F7
-   backgroundColor<<Ref>> #FFFFE0
-   backgroundColor<<Pivot>> #FFFFFFF
-   backgroundColor #FCF2E3
-   backgroundColor<<SubResource>> MistyRose
-}
-
-skinparam legend {
-   borderRoundCorner 0
-   borderColor red
-   backgroundColor white
-}
-
-'sequence: 17
-class Product <extends  \nEntity >  <<SubResource>> {
-    description : String
-    href : String
-    id : String
-    isBundle : Boolean
-    isCustomerVisible : Boolean
-    name : String
-    orderDate : DateTime
-    product : ProductRefOrValue [0..*]
-    productSerialNumber : String
-    randomAtt : String
-    startDate : DateTime
-    status : ProductStatusType
-    terminationDate : DateTime
-    @baseType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 18
-class ProductStatusType <<Enumeration>> {
-    pendingTerminate
-    created
-    cancelled
-    active
-    pendingActive
-    aborted
-    terminated
-    suspended
-}
-
-'sequence: 30
-class RelatedProductOrderItem <extends  \nEntity >  {
-    href : Uri
-    id : String
-    orderItemAction : String
-    orderItemId : String [1]
-    productOrderHref : String
-    productOrderId : String [1]
-    role : String
-    @baseType : String
-    @referredType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 38
-class ProductOfferingRef <extends  \nEntityRef >  <<Ref>> {
-    href : Uri
-    id : String
-    name : String
-    @baseType : String
-    @referredType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 45
-class CharacteristicRelationship <extends  \nEntity >  <<Ref>> {
-    href : Uri
-    id : String
-    relationshipType : String
-    @baseType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 54
-class BillingAccountRef <extends  \nEntity >  <<Ref>> {
-    href : String
-    id : String
-    name : String
-    ratingType : String
-    @baseType : String
-    @referredType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 62
-class Characteristic <extends  \nExtensible >  {
-    id : String
-    name : String [1]
-    value : Any [1]
-    valueType : String
-    @baseType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 73
-class ProductPrice <extends  \nEntity >  {
-    description : String
-    href : Uri
-    id : String
-    name : String
-    priceType : String [1]
-    recurringChargePeriod : String
-    unitOfMeasure : String
-    @baseType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 81
-class PlaceRef <extends  \nEntityRef >  <<Ref>> {
-    href : Uri
-    id : String
-    name : String
-    @baseType : String
-    @referredType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 84
-class TargetProductSchema  {
-    @schemaLocation : Uri [1]
-    @type : String [1]
-}
-
-'sequence: 97
-class PriceAlteration <extends  \nEntity >  {
-    applicationDuration : Integer
-    description : String
-    href : Uri
-    id : String
-    name : String
-    priceType : String [1]
-    priority : Integer
-    recurringChargePeriod : String
-    unitOfMeasure : String
-    @baseType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 105
-class ProductOfferingPriceRef <extends  \nEntityRef >  <<Ref>> {
-    href : Uri
-    id : String
-    name : String
-    @baseType : String
-    @referredType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 113
-class ProductRelationship <extends  \nEntity >  <<Ref>> {
-    href : Uri
-    id : String
-    product : ProductRefOrValue [1]
-    relationshipType : String [1]
-    @baseType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 123
-class Price <extends  \nEntity >  {
-    dutyFreeAmount : Money
-    href : Uri
-    id : String
-    percentage : Float
-    taxIncludedAmount : Money
-    taxRate : Float
-    @baseType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 132
-class AgreementItemRef <extends  \nEntityRef >  <<Ref>> {
-    agreementItemId : String
-    href : Uri
-    id : String
-    name : String
-    @baseType : String
-    @referredType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 134
-class RelatedPlaceRefOrValue  {
-    role : String [1]
-}
-
-'sequence: 143
-class RelatedParty <extends  \nEntityRef >  {
-    href : Uri
-    id : String [1]
-    name : String
-    role : String
-    @baseType : String
-    @referredType : String [1]
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 151
-class ResourceRef <extends  \nEntityRef >  <<Ref>> {
-    href : Uri
-    id : String
-    name : String
-    @baseType : String
-    @referredType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 161
-class ProductTerm <extends  \nEntity >  {
-    description : String
-    duration : Quantity
-    href : Uri
-    id : String
-    name : String
-    validFor : TimePeriod
-    @baseType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 169
-class ServiceRef <extends  \nEntityRef >  <<Ref>> {
-    href : Uri
-    id : String
-    name : String
-    @baseType : String
-    @referredType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 178
-class ProductSpecificationRef <extends  \nEntityRef >  <<Ref>> {
-    href : Uri
-    id : String
-    name : String
-    version : String
-    @baseType : String
-    @referredType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 185
-class Place <extends  \nEntity >  {
-    href : String
-    id : String
-    name : String
-    @baseType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 17
-'processing edges for Product
-'sequence: 188
-'rule: circle rule :: effectiveCircle = Product BillingAccountRef ProductPrice Product - free to LEFT - place [LEFT, BELOW, RIGHT] - default to LEFT
-BillingAccountRef  <-left-* Product : billingAccount
-
-'sequence: 190
-'rule: circle rule :: effectiveCircle = Product BillingAccountRef ProductPrice Product - free to LEFT - place [LEFT, BELOW, RIGHT] - default to BELOW
-BillingAccountRef  <--* ProductPrice : billingAccount
-
-'sequence: 192
-'rule: circle rule :: effectiveCircle = Product BillingAccountRef ProductPrice Product - free to LEFT - place [LEFT, BELOW, RIGHT] - default to RIGHT - override default direction - now ABOVE
-Product *-->  "0..*" ProductPrice : productPrice
-
-'sequence: 196
-Product -right[hidden]-> ProductStatusType
-
-'sequence: 198
-'rule: General above rule
-Characteristic "0..*" <--* Product : productCharacteristic
-
-'sequence: 200
-'rule: General below rule - either none already or unable to place left / right of currently placed
-Product *-->  "0..*" RelatedPlaceRefOrValue : place
-
-'sequence: 202
-'rule: General below rule - either none already or unable to place left / right of currently placed
-Product *-->   ProductSpecificationRef : productSpecification
-
-'sequence: 97
-'processing edges for PriceAlteration
-'sequence: 206
-'rule: circle rule :: effectiveCircle = ProductPrice Price PriceAlteration ProductOfferingPriceRef ProductPrice - free to LEFT - place [LEFT, BELOW, RIGHT] - default to LEFT
-Price "1" <-left-* ProductPrice : price
-
-'sequence: 208
-'rule: forceLeftRight
-ProductPrice <-left[hidden]- ProductSpecificationRef
-
-'sequence: 210
-'rule: circle rule :: effectiveCircle = ProductPrice Price PriceAlteration ProductOfferingPriceRef ProductPrice - free to LEFT - place [LEFT, BELOW, RIGHT] - default to BELOW
-Price "1" <--* PriceAlteration : price
-
-'sequence: 212
-'rule: circle rule :: effectiveCircle = ProductPrice Price PriceAlteration ProductOfferingPriceRef ProductPrice - free to LEFT - place [LEFT, BELOW, RIGHT] - default to RIGHT
-PriceAlteration *-right->  ProductOfferingPriceRef : productOfferingPrice
-
-'sequence: 214
-'rule: circle rule :: effectiveCircle = ProductPrice Price PriceAlteration ProductOfferingPriceRef ProductPrice - free to LEFT - place [LEFT, BELOW, RIGHT] - default to RIGHT - override default direction - now ABOVE
-ProductPrice *-->   ProductOfferingPriceRef : productOfferingPrice
-
-'sequence: 73
-'processing edges for ProductPrice
-'sequence: 224
-'rule: P02-2
-ProductPrice *-->  "0..*" PriceAlteration : productPriceAlteration
-
-'sequence: 241
-'rule: General above rule - direction: RIGHT
-RelatedProductOrderItem "0..*" <--* Product : productOrderItem
-
-'sequence: 243
-'rule: General above rule - direction: RIGHT
-ProductOfferingRef  <--* Product : productOffering
-
-'sequence: 245
-'rule: General above rule - direction: RIGHT
-AgreementItemRef "0..*" <--* Product : agreement
-
-'sequence: 247
-'rule: General above rule - direction: RIGHT
-RelatedParty "0..*" <--* Product : relatedParty
-
-'sequence: 249
-'rule: General above rule - direction: RIGHT
-ProductTerm "0..*" <--* Product : productTerm
-
-'sequence: 251
-'rule: General below rule - either none already or unable to place left / right of currently placed
-Product *-->  "0..*" ProductRelationship : productRelationship
-
-'sequence: 253
-'rule: General below rule - either none already or unable to place left / right of currently placed
-Product *-->  "0..*" ResourceRef : realizingResource
-
-'sequence: 255
-'rule: General below rule - either none already or unable to place left / right of currently placed
-Product *-->  "0..*" ServiceRef : realizingService
-
-'sequence: 62
-'processing edges for Characteristic
-'completed processing of edges for Characteristic
-'processing edges for Characteristic
-'sequence: 289
-'rule: General right rule
-Characteristic *-right-> "0..*" CharacteristicRelationship : characteristicRelationship
-
-'sequence: 178
-'processing edges for ProductSpecificationRef
-'completed processing of edges for ProductSpecificationRef
-'processing edges for ProductSpecificationRef
-'sequence: 293
-'rule: General below rule
-ProductSpecificationRef *-->   TargetProductSchema : targetProductSchema
-
-'sequence: 134
-'processing edges for RelatedPlaceRefOrValue
-'completed processing of edges for RelatedPlaceRefOrValue
-'processing edges for RelatedPlaceRefOrValue
-'sequence: 301
-'rule: General below rule
-RelatedPlaceRefOrValue --|> PlaceRef : allOf
-
-'sequence: 303
-'rule: General below rule
-RelatedPlaceRefOrValue --|> Place : allOf
-
-
-
-'layout of the core: [Product, PriceAlteration, Characteristic, RelatedPlaceRefOrValue, ProductPrice, ProductSpecificationRef] (seq=186)
-'finished layout of the core (seq=233)
-'y=9 : RelatedProductOrderItem (10) ProductOfferingRef (10) CharacteristicRelationship (11) Characteristic (10) AgreementItemRef (10) RelatedParty (10) ProductTerm (10) (seq=312)
-'y=10 : BillingAccountRef (9) Product (10) ProductStatusType (11) (seq=313)
-'y=11 : ProductPrice (9) Price (8) ProductRelationship (10) RelatedPlaceRefOrValue (10) ResourceRef (9) ServiceRef (8) ProductSpecificationRef (9) (seq=314)
-'y=12 : PlaceRef (10) PriceAlteration (8) TargetProductSchema (9) ProductOfferingPriceRef (9) Place (9) (seq=315)
-@enduml
-....
+image::Resource_ProductOrder.png[]
 [.text-center]
-Figure {counter:figure} - ProductOrder_Product
+Figure {counter:figure} - ProductOrder
 
+[.text-center]
+image::Resource_ProductOrder_ProductOrderItem.png[]
+[.text-center]
+Figure {counter:figure} - ProductOrderItem
 
+[.text-center]
+image::Resource_ProductOrder_Product.png[]
+[.text-center]
+Figure {counter:figure} - Product
 
 *Field descriptions*
 
@@ -1517,9 +515,11 @@ pass:q[<u>TargetProductSchema sub-resource fields</u>]
 
 *Json representation sample*
 
-We provide below the json representation of an example of a 'ProductOrder' resource object
+We provide below the json representation of an example of a 'ProductOrder' resource object.
 
-----
+[cols="100%",stripes=all]
+|===
+l|
 {
   "note": [{
     "date": "2019-04-30T08:13:59.509Z",
@@ -1748,105 +748,27 @@ We provide below the json representation of an example of a 'ProductOrder' resou
   "orderDate": "2019-04-30T08:13:59.506Z",
   "requestedCompletionDate": "2019-05-02T08:13:59.506Z"
 }
-----
+|===
 
-== CancelProductOrder resource
+==== CancelProductOrder resource
 
 Request for cancellation an existing product order.
 
-=== Resource model
+*Resource model*
+
+:puml!:
+:png:
+:svg!:
+
+
+:parts: ./
+:imagesdir: diagrams/
+
 
 [.text-center]
-[plantuml, puml, svg]
-....
-@startuml
-'
-' Resource:  CancelProductOrder
-' Source:    Product_Ordering_4.0.0_oas.yaml
-' Generated: 2020-11-18 23:09:09+0100
-'
-hide circle
-hide methods
-hide stereotype
-show <<Enumeration>> stereotype
-skinparam class {
-   backgroundColor<<Enumeration>> #E6F5F7
-   backgroundColor<<Ref>> #FFFFE0
-   backgroundColor<<Pivot>> #FFFFFFF
-   backgroundColor #FCF2E3
-   backgroundColor<<SubResource>> MistyRose
-}
-
-skinparam legend {
-   borderRoundCorner 0
-   borderColor red
-   backgroundColor white
-}
-
-'sequence: 1
-class CancelProductOrder  <<Pivot>> {
-    {field}//                                        //
-}
-
-'sequence: 9
-class ProductOrderRef <extends  \nEntityRef >  <<Ref>> {
-    href : Uri
-    id : String
-    name : String
-    @baseType : String
-    @referredType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 19
-class CancelOrder <extends  \nEntity >  {
-    cancellationReason : String
-    effectiveCancellationDate : DateTime
-    href : String
-    id : String
-    requestedCancellationDate : DateTime
-    state : TaskStateType
-    @baseType : String
-    @schemaLocation : Uri
-    @type : String
-}
-
-'sequence: 20
-class TaskStateType <<Enumeration>> {
-    inProgress
-    terminatedWithError
-    accepted
-    done
-}
-
-'sequence: 1
-'processing edges for CancelProductOrder
-'sequence: 23
-'rule: General below rule
-CancelProductOrder --|> CancelOrder : allOf
-
-'sequence: 19
-'processing edges for CancelOrder
-'sequence: 27
-CancelOrder -right[hidden]-> TaskStateType
-
-'sequence: 33
-'rule: General below rule - either none already or unable to place left / right of currently placed
-CancelProductOrder *-->  "1" ProductOrderRef : productOrder
-
-
-
-'layout of the core: [CancelProductOrder, CancelOrder] (seq=21)
-'finished layout of the core (seq=30)
-'y=10 : CancelProductOrder (10) (seq=41)
-'y=11 : ProductOrderRef (10) TaskStateType (11) CancelOrder (10) (seq=42)
-@enduml
-....
+image::Resource_CancelProductOrder.png[]
 [.text-center]
 Figure {counter:figure} - CancelProductOrder
-
-
 
 *Field descriptions*
 
@@ -1883,9 +805,11 @@ pass:q[<u>ProductOrderRef sub-resource fields</u>]
 
 *Json representation sample*
 
-We provide below the json representation of an example of a 'CancelProductOrder' resource object
+We provide below the json representation of an example of a 'CancelProductOrder' resource object.
 
-----
+[cols="100%",stripes=all]
+|===
+l|
 {
   "requestedCancellationDate": "2019-04-30T12:56:21.931Z",
   "cancellationReason": "Duplicate order",
@@ -1900,27 +824,33 @@ We provide below the json representation of an example of a 'CancelProductOrder'
   "state": "done",
   "effectiveCancellationDate": "2019-04-30T12:58:35.489Z"
 }
-----
+|===
+
+:puml!:
+:png:
+:svg!:
 
 
+:parts: ./
+:imagesdir: diagrams/
 
-== Notification Resource Models
+=== Notification Resource Models
 
-8 notifications are defined for this API."
+8 notifications are defined for this API.
 
 Notifications related to ProductOrder:
 
-* ProductOrderCreateEvent
-* ProductOrderStatechangeEvent
-* ProductOrderDeleteEvent
-* ProductOrderAttributevaluechangeEvent
-* ProductOrderInformationrequiredEvent
+* Product Order Create Event
+* Product Order Statechange Event
+* Product Order Delete Event
+* Product Order Attributevaluechange Event
+* Product Order Informationrequired Event
 
 Notifications related to CancelProductOrder:
 
-* CancelProductOrderCreateEvent
-* CancelProductOrderStatechangeEvent
-* CancelProductOrderInformationrequiredEvent
+* Cancel Product Order Create Event
+* Cancel Product Order Statechange Event
+* Cancel Product Order Informationrequired Event
 
 
 The notification structure for all notifications in this API follow the pattern depicted by the figure below.
@@ -1929,205 +859,267 @@ This notification structure owns an event payload structure ("SpecificEventPaylo
 
 [.text-center]
 image::NotificationsPattern.png[]
+[.text-center]
+Figure {counter:figure} - Notification Pattern
 
-8 notifications are defined for this API.
 
-=== Product Order Create Event
+==== Product Order Create Event
 
-Notification ProductOrderCreateEvent case for resource ProductOrder
+Notification ProductOrderCreateEvent case for resource ProductOrder.
 
 *Json representation sample*
 
-We provide below the json representation of an example of a 'ProductOrder' resource object
+We provide below the json representation of an example of a 'ProductOrderCreateEvent' notification event object.
 
-----
+
+[cols="100%",stripes=all]
+|===
+l|
 {
     "eventId": "00001",
-    "eventTime": "2020-11-21 13:26:05+0100",
+    "eventTime": "2020-11-30 14:12:36+0100",
     "eventType": "ProductOrderCreateEvent",
     "event": {
         "productOrder":
             {-- SEE ProductOrder RESOURCE SAMPLE --}
     }
 }
-----
+|===
 
-=== Product Order Statechange Event
+==== Product Order Statechange Event
 
-Notification ProductOrderStatechangeEvent case for resource ProductOrder
+Notification ProductOrderStatechangeEvent case for resource ProductOrder.
 
 *Json representation sample*
 
-We provide below the json representation of an example of a 'ProductOrder' resource object
+We provide below the json representation of an example of a 'ProductOrderStatechangeEvent' notification event object.
 
-----
+
+[cols="100%",stripes=all]
+|===
+l|
 {
     "eventId": "00001",
-    "eventTime": "2020-11-21 13:26:05+0100",
+    "eventTime": "2020-11-30 14:12:36+0100",
     "eventType": "ProductOrderStatechangeEvent",
     "event": {
         "productOrder":
             {-- SEE ProductOrder RESOURCE SAMPLE --}
     }
 }
-----
+|===
 
-=== Product Order Delete Event
+==== Product Order Delete Event
 
-Notification ProductOrderDeleteEvent case for resource ProductOrder
+Notification ProductOrderDeleteEvent case for resource ProductOrder.
 
 *Json representation sample*
 
-We provide below the json representation of an example of a 'ProductOrder' resource object
+We provide below the json representation of an example of a 'ProductOrderDeleteEvent' notification event object.
 
-----
+
+[cols="100%",stripes=all]
+|===
+l|
 {
     "eventId": "00001",
-    "eventTime": "2020-11-21 13:26:05+0100",
+    "eventTime": "2020-11-30 14:12:36+0100",
     "eventType": "ProductOrderDeleteEvent",
     "event": {
         "productOrder":
             {-- SEE ProductOrder RESOURCE SAMPLE --}
     }
 }
-----
+|===
 
-=== Product Order Attributevaluechange Event
+==== Product Order Attributevaluechange Event
 
-Notification ProductOrderAttributevaluechangeEvent case for resource ProductOrder
+Notification ProductOrderAttributevaluechangeEvent case for resource ProductOrder.
 
 *Json representation sample*
 
-We provide below the json representation of an example of a 'ProductOrder' resource object
+We provide below the json representation of an example of a 'ProductOrderAttributevaluechangeEvent' notification event object.
 
-----
+
+[cols="100%",stripes=all]
+|===
+l|
 {
     "eventId": "00001",
-    "eventTime": "2020-11-21 13:26:05+0100",
+    "eventTime": "2020-11-30 14:12:36+0100",
     "eventType": "ProductOrderAttributevaluechangeEvent",
     "event": {
         "productOrder":
             {-- SEE ProductOrder RESOURCE SAMPLE --}
     }
 }
-----
+|===
 
-=== Product Order Informationrequired Event
+==== Product Order Informationrequired Event
 
-Notification ProductOrderInformationrequiredEvent case for resource ProductOrder
+Notification ProductOrderInformationrequiredEvent case for resource ProductOrder.
 
 *Json representation sample*
 
-We provide below the json representation of an example of a 'ProductOrder' resource object
+We provide below the json representation of an example of a 'ProductOrderInformationrequiredEvent' notification event object.
 
-----
+
+[cols="100%",stripes=all]
+|===
+l|
 {
     "eventId": "00001",
-    "eventTime": "2020-11-21 13:26:05+0100",
+    "eventTime": "2020-11-30 14:12:36+0100",
     "eventType": "ProductOrderInformationrequiredEvent",
     "event": {
         "productOrder":
             {-- SEE ProductOrder RESOURCE SAMPLE --}
     }
 }
-----
+|===
 
 
-=== Cancel Product Order Create Event
 
-Notification CancelProductOrderCreateEvent case for resource CancelProductOrder
+==== Cancel Product Order Create Event
+
+Notification CancelProductOrderCreateEvent case for resource CancelProductOrder.
 
 *Json representation sample*
 
-We provide below the json representation of an example of a 'CancelProductOrder' resource object
+We provide below the json representation of an example of a 'CancelProductOrderCreateEvent' notification event object.
 
-----
+
+[cols="100%",stripes=all]
+|===
+l|
 {
     "eventId": "00001",
-    "eventTime": "2020-11-21 13:26:05+0100",
+    "eventTime": "2020-11-30 14:12:36+0100",
     "eventType": "CancelProductOrderCreateEvent",
     "event": {
         "cancelProductOrder":
             {-- SEE CancelProductOrder RESOURCE SAMPLE --}
     }
 }
-----
+|===
 
-=== Cancel Product Order Statechange Event
+==== Cancel Product Order Statechange Event
 
-Notification CancelProductOrderStatechangeEvent case for resource CancelProductOrder
+Notification CancelProductOrderStatechangeEvent case for resource CancelProductOrder.
 
 *Json representation sample*
 
-We provide below the json representation of an example of a 'CancelProductOrder' resource object
+We provide below the json representation of an example of a 'CancelProductOrderStatechangeEvent' notification event object.
 
-----
+
+[cols="100%",stripes=all]
+|===
+l|
 {
     "eventId": "00001",
-    "eventTime": "2020-11-21 13:26:05+0100",
+    "eventTime": "2020-11-30 14:12:36+0100",
     "eventType": "CancelProductOrderStatechangeEvent",
     "event": {
         "cancelProductOrder":
             {-- SEE CancelProductOrder RESOURCE SAMPLE --}
     }
 }
-----
+|===
 
-=== Cancel Product Order Informationrequired Event
+==== Cancel Product Order Informationrequired Event
 
-Notification CancelProductOrderInformationrequiredEvent case for resource CancelProductOrder
+Notification CancelProductOrderInformationrequiredEvent case for resource CancelProductOrder.
 
 *Json representation sample*
 
-We provide below the json representation of an example of a 'CancelProductOrder' resource object
+We provide below the json representation of an example of a 'CancelProductOrderInformationrequiredEvent' notification event object.
 
-----
+
+[cols="100%",stripes=all]
+|===
+l|
 {
     "eventId": "00001",
-    "eventTime": "2020-11-21 13:26:05+0100",
+    "eventTime": "2020-11-30 14:12:36+0100",
     "eventType": "CancelProductOrderInformationrequiredEvent",
     "event": {
         "cancelProductOrder":
             {-- SEE CancelProductOrder RESOURCE SAMPLE --}
     }
 }
-----
+|===
+
+== API OPERATIONS
+
+Remember the following Uniform Contract:
+
+[cols=",,",options="header",]
+|===
+|Operation on Entities |Uniform API Operation |Description
+|Query Entities |GET Resource |GET must be used to retrieve a
+representation of a resource.
+
+|Create Entity |POST Resource |POST must be used to create a new
+resource
+
+|Partial Update of an Entity |PATCH Resource |PATCH must be used to
+partially update a resource
+
+|Remove an Entity |DELETE Resource |DELETE must be used to remove a
+resource
+
+|Execute an Action on an Entity |POST on TASK Resource |POST must be
+used to execute Task Resources
+
+|Other Request Methods |POST on TASK Resource |GET and POST must not be
+used to tunnel other request methods.
+|===
+
+Filtering and attribute selection rules are described in the TMF REST
+Design Guidelines.
+
+Notifications are also described in a subsequent section.
+
+:puml!:
+:png:
+:svg!:
 
 
+:parts: ./
+:imagesdir: diagrams/
 
+=== Operations on ProductOrder
 
-== Operations on ProductOrder
-=== List or find ProductOrder objects
-   GET /productOrder
+==== List or find ProductOrder objects
+
+`*GET /productOrder*`
 
 *Description*
 
-This operation list product order entities.&#10;Attribute selection is enabled for all first level attributes.&#10;Filtering may be available depending on the compliance level supported by an implementation.
+This operation list ProductOrder entities.
+Attribute selection is enabled for all first level attributes.
+Filtering may be available depending on the compliance level supported by an implementation.
 
 *Usage samples*
 
-[cols="100%"]
+Here&#39;s an example of a request for retrieving a list of product order(s). The given criteria is the category (B2C) and state (held).
+
+[cols="100%",stripes=even]
 |===
 | *Request*
-a|----
-GET /productOrder?fields=id,href,expectedCompletionDate&category=B2C&state=held
-Content-Type: application/json
-----
-
-| *Response*
-a|----
+l|
 200
 
 [
 {
     "id": "6987",
     "href": ".../productOrderingManagement/v4/productOrder/6987",
-    "expectedCompletionDate": "2019-04-11T14:52:21.823Z"
+    "expectedCompletionDate": "2019-04-11T14:52:21.823Z" 
   },
   {
     "id": "7412",
     "href": ".../productOrderingManagement/v4/productOrder/7412",
-    "expectedCompletionDate": "2019-04-18T14:21:31.325Z"
+    "expectedCompletionDate": "2019-04-18T14:21:31.325Z"  
   },
   {
     "id": "3214",
@@ -2140,29 +1132,31 @@ a|----
     "expectedCompletionDate": "2019-04-29T10:48:28.325Z"
   }
 ]
-----
+
+| *Response*
+l|
+Unresolved directive in parts/Operations.adoc - include::../samples/Resource_ProductOrder_response_sample_1.json[]
 
 |===
 
-=== Retrieves a ProductOrder by ID
-   GET /productOrder/{id}?fields=...&{filtering}
+==== Retrieves a ProductOrder by ID
+
+`*GET /productOrder/{id}?fields&#61;...&amp;{filtering}*`
 
 *Description*
 
-This operation retrieves a product order entity.&#10;Attribute selection is enabled for all first level attributes.&#10;Filtering may be available depending on the compliance level supported by an implementation.
+This operation retrieves a ProductOrder entity.
+Attribute selection is enabled for all first level attributes.
+Filtering may be available depending on the compliance level supported by an implementation.
 
 *Usage samples*
 
-[cols="100%"]
+Here&#39;s an example of a request for retrieving a product order for use case 1. The given criteria is the product order id 30001.
+
+[cols="100%",stripes=even]
 |===
 | *Request*
-a|----
-GET /productOrder/30001
-Content-Type: application/json
-----
-
-| *Response*
-a|----
+l|
 200
 
 {
@@ -2279,7 +1273,7 @@ a|----
       {
         "id": "120",
         "quantity": 1,
-        "action": "add",
+        "action": "add", 
         "billingAccount": {
             "id": "1513",
             "href": "https://host:port/billingAccountManagement/v4/billingAccount/1513",
@@ -2353,7 +1347,7 @@ a|----
         ],
         "state": "completed",
         "@type": "ProductOrderItem"
-      },
+      },      
       {
         "id": "130",
         "quantity": 1,
@@ -2406,25 +1400,24 @@ a|----
       "name": "Jean Pontus",
       "@type": "RelatedParty",
       "@referredType": "Customer"
-    }
+    }    
   ],
   "state": "completed",
   "@type": "ProductOrder"
 }
-----
-
-|===
-
-[cols="100%"]
-|===
-| *Request*
-a|----
-GET /productOrder/3774
-Content-Type: application/json
-----
 
 | *Response*
-a|----
+l|
+Unresolved directive in parts/Operations.adoc - include::../samples/Resource_ProductOrder_response_sample_2.json[]
+
+|===
+
+Here&#39;s an example of a request for retrieving a product order for use case 2. The given criteria is the product order id 3774.
+
+[cols="100%",stripes=even]
+|===
+| *Request*
+l|
 200
 
 {
@@ -2515,271 +1508,44 @@ a|----
       "name": "Jean Pontus",
       "@type": "RelatedParty",
       "@referredType": "Customer"
-    }
+    }    
   ],
   "state": "inProgress",
   "@type": "ProductOrder"
 }
-----
+
+| *Response*
+l|
+Unresolved directive in parts/Operations.adoc - include::../samples/Resource_ProductOrder_response_sample_3.json[]
 
 |===
 
-=== Creates a ProductOrder
-   POST /productOrder
+==== Creates a ProductOrder
+
+`*POST /productOrder*`
 
 *Description*
 
-This operation creates a product order entity.
+This operation creates a ProductOrder entity.
+
+*Mandatory Attributes*
+
+[cols="35%,65%"]
+|===
+|*Mandatory Attributes*|*Rule*
+
+|productOrderItem |
+|===
+
 
 *Usage samples*
 
-[cols="100%"]
+Here&#39;s an example of a request for creating a product order for use case 1 - the resulting product order is 30001.
+
+[cols="100%",stripes=even]
 |===
 | *Request*
-a|----
-POST /productOrder
-Content-Type: application/json
-
-{
-  "category": "B2C product order",
-  "description": "Product Order illustration sample",
-  "externalId": "PO-456",
-  "priority": "1",
-  "requestedCompletionDate": "2019-05-02T08:13:59.506Z",
-  "requestedStartDate": "2019-05-03T08:13:59.506Z",
-  "channel": [
-    {
-      "id": "1",
-      "role": "Used channel for order capture",
-      "name": "Online chanel"
-    }
-  ],
-  "note": [
-    {
-      "id": "1",
-      "author": "Jean Pontus",
-      "date": "2019-04-30T08:13:59.509Z",
-      "text": "This is a TMF product order illustration"
-    }
-  ],
-  "productOrderItem": [
-    {
-      "id": "100",
-      "quantity": 1,
-      "action": "add",
-      "productOffering": {
-        "id": "14277",
-        "href": "https://host:port/productCatalogManagement/v4/productOffering/14277",
-        "name": "TMF25"
-      },
-      "productOrderItemRelationship": [
-        {
-          "id": "110",
-          "relationshipType": "bundles"
-        },
-        {
-            "id": "120",
-            "relationshipType": "bundles"
-        },
-        {
-            "id": "130",
-            "relationshipType": "bundles"
-        }
-      ],
-      "@type": "ProductOrderItem"
-    },
-    {
-        "id": "110",
-        "quantity": 1,
-        "action": "add",
-        "itemPrice": [
-          {
-            "description": "Access Fee",
-            "name": "Access Fee",
-            "priceType": "nonRecurring",
-            "price": {
-              "taxRate": 0,
-              "dutyFreeAmount": {
-                "unit": "EUR",
-                "value": 0.99
-              },
-              "taxIncludedAmount": {
-                "unit": "EUT",
-                "value": 0.99
-              }
-            }
-          }
-        ],
-        "payment": [
-          {
-            "id": "2365",
-            "href": "https://host:port/paymentManagement/v4/cashPayment/2365",
-            "name": "Cash payment for access fee",
-            "@type": "CashPayment",
-            "@referredType": "Payment"
-          }
-        ],
-        "product": {
-          "isBundle": false,
-          "@type": "Product",
-          "productCharacteristic": [
-                {
-                "name": "TEL_MSISDN",
-                "valueType": "string",
-                "value": "415 279 7439"
-                }
-            ],
-          "productSpecification": {
-            "id": "14307",
-            "href": "https://host:port/productCatalogManagement/v4/productSpecification/14307",
-            "name": "Mobile Telephony",
-            "version": "1",
-            "@type": "ProductSpecificationRef"
-          }
-        },
-        "productOffering": {
-          "id": "14305",
-          "href": "https://host:port/productCatalogManagement/v4/productOffering/14305",
-          "name": "TMF Mobile Telephony"
-        },
-        "@type": "ProductOrderItem"
-      },
-      {
-        "id": "120",
-        "quantity": 1,
-        "action": "add",
-        "billingAccount": {
-            "id": "1513",
-            "href": "https://host:port/billingAccountManagement/v4/billingAccount/1513",
-            "@type": "BillingAccount"
-          },
-        "itemPrice": [
-          {
-            "description": "Tariff plan monthly fee",
-            "name": "MonthlyFee",
-            "priceType": "recurring",
-            "recurringChargePeriod": "month",
-            "price": {
-              "taxRate": 0,
-              "dutyFreeAmount": {
-                "unit": "EUR",
-                "value": 20
-              },
-              "taxIncludedAmount": {
-                "unit": "EUR",
-                "value": 20
-              }
-            },
-            "priceAlteration": [
-              {
-                "applicationDuration": 3,
-                "description": "20% for first 3 months",
-                "name": "WelcomeDiscount",
-                "priceType": "recurring",
-                "priority": 1,
-                "recurringChargePeriod": "month",
-                "price": {
-                  "percentage": 20,
-                  "taxRate": 0,
-                  "@type": "price"
-                }
-              }
-            ]
-          }
-        ],
-        "itemTerm": [
-          {
-            "description": "Tariff plan 12 Months commitment",
-            "name": "12Months",
-            "duration": {
-              "amount": 12,
-              "units": "month"
-            }
-          }
-        ],
-        "product": {
-          "isBundle": false,
-          "@type": "Product",
-          "productSpecification": {
-            "id": "14395",
-            "href": "https://host:port/productCatalogManagement/v4/productSpecification/14395",
-            "name": "TMF Tariff plan",
-            "version": "1",
-            "@type": "ProductSpecificationRef"
-          }
-        },
-        "productOffering": {
-          "id": "14344",
-          "href": "https://host:port/productCatalogManagement/v4/productOffering/14344",
-          "name": "TMF Tariff Plan"
-        },
-        "productOrderItemRelationship": [
-          {
-            "id": "110",
-            "relationshipType": "reliesOn"
-          }
-        ],
-        "@type": "ProductOrderItem"
-      },
-      {
-        "id": "130",
-        "quantity": 1,
-        "action": "add",
-        "product": {
-          "isBundle": false,
-          "@type": "Product",
-          "productCharacteristic": [
-            {
-              "name": "CoverageOptions",
-              "valueType": "string",
-              "value": "National"
-            }
-          ],
-          "productSpecification": {
-            "id": "14353",
-            "href": "https://host:port/productCatalogManagement/v4/productSpecification/14353",
-            "name": "Coverage",
-            "version": "1",
-            "@type": "ProductSpecificationRef"
-          }
-        },
-        "productOffering": {
-          "id": "14354",
-          "href": "https://host:port/productCatalogManagement/v4/productOffering/14354",
-          "name": "Coverage Options"
-        },
-        "productOrderItemRelationship": [
-          {
-            "id": "110",
-            "relationshipType": "reliesOn"
-          }
-        ],
-        "@type": "ProductOrderItem"
-      }
-  ],
-  "relatedParty": [
-    {
-      "id": "456-dd-df45",
-      "href": "https://host:port/partyManagement/v4/individual/456-dd-df45",
-      "name": "Joe Doe",
-      "role": "Seller",
-      "@type": "RelatedParty",
-      "@referredType": "Individual"
-    },
-    {
-      "id": "ff55-hjy4",
-      "href": "https://host:port/partyRoleManagement/v4/customer/ff55-hjy4",
-      "name": "Jean Pontus",
-      "@type": "RelatedParty",
-      "@referredType": "Customer"
-    }
-  ],
-  "@type": "ProductOrder"
-}
-----
-
-| *Response*
-a|----
+l|
 201
 
 {
@@ -2895,7 +1661,7 @@ a|----
       {
         "id": "120",
         "quantity": 1,
-        "action": "add",
+        "action": "add", 
         "billingAccount": {
             "id": "1513",
             "href": "https://host:port/billingAccountManagement/v4/billingAccount/1513",
@@ -2969,7 +1735,7 @@ a|----
         ],
         "state": "acknowledged",
         "@type": "ProductOrderItem"
-      },
+      },      
       {
         "id": "130",
         "quantity": 1,
@@ -3022,81 +1788,24 @@ a|----
       "name": "Jean Pontus",
       "@type": "RelatedParty",
       "@referredType": "Customer"
-    }
+    }    
   ],
   "state": "acknowledged",
   "@type": "ProductOrder"
 }
-----
-
-|===
-
-[cols="100%"]
-|===
-| *Request*
-a|----
-POST /productOrder
-Content-Type: application/json
-
-{
-  "category": "B2B product order",
-  "description": "Product Order illustration sample",
-  "externalId": "PO-785",
-  "priority": "1",
-  "requestedCompletionDate": "2019-05-02T08:13:59.506Z",
-  "requestedStartDate": "2019-05-03T08:13:59.506Z",
-  "productOrderItem": [
-    {
-        "id": "110",
-        "quantity": 1,
-        "action": "add",
-        "product": {
-          " isBundle": false,
-          "@type": "UNI",
-            "productSpecification": {
-                "id": "dfg-56d",
-                "href": "https...",
-                "version": "v2",
-                "name": "UNI specification",
-                "targetProductSchema": {
-                  "@type": "UNI",
-                  "@schemaLocation": "https://github.com/..UNISpec.json"
-                }
-            },
-            "buyerId": "AF001",
-            "physicalLayer": "10BASE-T",
-            "synchronousModeEnabled": true,
-            "numberOfLinks": 1,
-            "tokenShareEnabled": true,
-            "uniResiliency": "NONE",
-            "maxServiceFrameSize": 1256
-            },
-        "@type": "ProductOrderItem"
-      }
-  ],
-  "relatedParty": [
-    {
-      "id": "456-dd-df45",
-      "href": "https://host:port/partyManagement/v4/individual/456-dd-df45",
-      "name": "Joe Doe",
-      "role": "Seller",
-      "@type": "RelatedParty",
-      "@referredType": "Individual"
-    },
-    {
-      "id": "ff55-hjy4",
-      "href": "https://host:port/partyRoleManagement/v4/customer/ff55-hjy4",
-      "name": "Jean Pontus",
-      "@type": "RelatedParty",
-      "@referredType": "Customer"
-    }
-  ],
-  "@type": "ProductOrder"
-}
-----
 
 | *Response*
-a|----
+l|
+Unresolved directive in parts/Operations.adoc - include::../samples/Resource_ProductOrder_response_sample_4.json[]
+
+|===
+
+Here&#39;s an example of a request for ordering a product described via schema and not using characteristic
+
+[cols="100%",stripes=even]
+|===
+| *Request*
+l|
 201
 
 {
@@ -3134,7 +1843,7 @@ a|----
             "numberOfLinks": 1,
             "tokenShareEnabled": true,
             "uniResiliency": "NONE",
-            "maxServiceFrameSize": 1256
+            "maxServiceFrameSize": 1256   
             },
         "state": "acknowledged",
         "@type": "ProductOrderItem"
@@ -3155,45 +1864,75 @@ a|----
       "name": "Jean Pontus",
       "@type": "RelatedParty",
       "@referredType": "Customer"
-    }
+    }    
   ],
   "state": "acknowledged",
   "@type": "ProductOrder"
 }
-----
+
+| *Response*
+l|
+Unresolved directive in parts/Operations.adoc - include::../samples/Resource_ProductOrder_response_sample_5.json[]
 
 |===
 
-=== Updates partially a ProductOrder
-   PATCH /productOrder/{id}?fields=...&{filtering}
+==== Updates partially a ProductOrder
+
+`*PATCH /productOrder/{id}?fields&#61;...&amp;{filtering}*`
 
 *Description*
 
-This operation allows partial updates of a product order entity. Support of json/merge (https://tools.ietf.org/html/rfc7386) is mandatory, support of json/patch (http://tools.ietf.org/html/rfc5789) is optional&#10;Note: If the update operation yields to the creation of sub-resources or relationships, the same rules concerning mandatory sub-resource attributes and default value settings in the POST operation applies to the PATCH operation. Hence these tables are not repeated here.
+This operation allows partial updates of a ProductOrder entity. Support of json/merge (https://tools.ietf.org/html/rfc7386) is mandatory, support of json/patch (http://tools.ietf.org/html/rfc5789) is optiona.
+Note: If the update operation yields to the creation of sub-resources or relationships, the same rules concerning mandatory sub-resource attributes and default value settings in the POST operation applies to the PATCH operation. Hence these tables are not repeated here.
+
+*Patchable and Non Patchable Attributes*
+
+[cols="35%,65%"]
+|===
+|*Patchable Attributes*|*Rule*
+
+|agreement |
+|billingAccount |
+|cancellationDate |
+|cancellationReason |
+|category |
+|channel |
+|completionDate |
+|description |
+|expectedCompletionDate |
+|externalId |
+|note |
+|notificationContact |
+|orderTotalPrice |
+|payment |
+|priority |
+|productOfferingQualification |
+|productOrderItem |
+|quote |
+|relatedParty |
+|requestedCompletionDate |
+|requestedStartDate |
+|state |
+|===
+
+[cols="35%,65%"]
+|===
+|*Non Patchable Attributes*|*Rule*
+
+|href |
+|id |
+|orderDate |
+|===
+
 
 *Usage samples*
 
-[cols="100%"]
+Here&#39;s an example of a request for updating a product order for use case 1 - Change value for billing account id. Assumptions: the product order state allow this on the fly modification - the full resource representation is sent in PATCH response
+
+[cols="100%",stripes=even]
 |===
 | *Request*
-a|----
-PATCH /productOrder/30001
-Content-Type: application/json-patch+json
-
-[
-  {"op":"replace",
-    "path": "/productOrderItem/billingAccount/id?productOrderItem.id=120",
-    "value": "1889"
-  },
-  {"op":"replace",
-    "path": "/productOrderItem/billingAccount/href?productOrderItem.id=120",
-    "value": "https://host:port/billingAccountManagement/v4/billingAccount/1889"
-  }
-]
-----
-
-| *Response*
-a|----
+l|
 200
 
 {
@@ -3308,7 +2047,7 @@ a|----
       {
         "id": "120",
         "quantity": 1,
-        "action": "add",
+        "action": "add", 
         "billingAccount": {
             "id": "1889",
             "href": "https://host:port/billingAccountManagement/v4/billingAccount/1889",
@@ -3384,7 +2123,7 @@ a|----
         ],
         "state": "acknowledged",
         "@type": "ProductOrderItem"
-      },
+      },      
       {
         "id": "130",
         "quantity": 1,
@@ -3436,61 +2175,24 @@ a|----
       "name": "Jean Pontus",
       "@type": "Customer",
       "@referredType": "PartyRole"
-    }
+    }    
   ],
   "state": "acknowledged",
   "@type": "ProductOrder"
 }
-----
-
-|===
-
-[cols="100%"]
-|===
-| *Request*
-a|----
-PATCH /productOrder/30001
-Content-Type: application/merge-patch+json
-
-{
-  "id": "30001",
-  "productOrderItem": [
-    {
-      "id": "100",
-      "quantity": 1,
-      "action": "add",
-      "@type": "ProductOrderItem"
-    },
-    {
-        "id": "110",
-        "quantity": 1,
-        "action": "add",
-        "@type": "ProductOrderItem"
-      },
-      {
-        "id": "120",
-        "quantity": 1,
-        "action": "add",
-        "billingAccount": {
-            "id": "1889",
-            "href": "https://host:port/billingAccountManagement/v4/billingAccount/1889",
-            "@type": "BillingAccount"
-          },
-        "@type": "ProductOrderItem"
-      },
-      {
-        "id": "130",
-        "quantity": 1,
-        "action": "add",
-        "@type": "ProductOrderItem"
-      }
-  ],
-  "@type": "ProductOrder"
-}
-----
 
 | *Response*
-a|----
+l|
+Unresolved directive in parts/Operations.adoc - include::../samples/Resource_ProductOrder_response_sample_6.json[]
+
+|===
+
+Here&#39;s an example of a request for updating a product order for use case 1 - Change value for billing account id. Assumptions: the product order state allow this on the fly modification - the full resource representation is sent in PATCH response
+
+[cols="100%",stripes=even]
+|===
+| *Request*
+l|
 200
 
 {
@@ -3605,7 +2307,7 @@ a|----
       {
         "id": "120",
         "quantity": 1,
-        "action": "add",
+        "action": "add", 
         "billingAccount": {
             "id": "1889",
             "href": "https://host:port/billingAccountManagement/v4/billingAccount/1889",
@@ -3681,7 +2383,7 @@ a|----
         ],
         "state": "acknowledged",
         "@type": "ProductOrderItem"
-      },
+      },      
       {
         "id": "130",
         "quantity": 1,
@@ -3733,60 +2435,62 @@ a|----
       "name": "Jean Pontus",
       "@type": "Customer",
       "@referredType": "PartyRole"
-    }
+    }    
   ],
   "state": "acknowledged",
   "@type": "ProductOrder"
 }
-----
+
+| *Response*
+l|
+Unresolved directive in parts/Operations.adoc - include::../samples/Resource_ProductOrder_response_sample_7.json[]
 
 |===
 
-=== Deletes a ProductOrder
-   DELETE /productOrder/{id}?fields=...&{filtering}
+==== Deletes a ProductOrder
+
+`*DELETE /productOrder/{id}?fields&#61;...&amp;{filtering}*`
 
 *Description*
 
-This operation deletes a product order entity.
+This operation deletes a ProductOrder entity.
 
 *Usage samples*
 
-[cols="100%"]
+Here&#39;s an example of a request for deleting a product order.
+
+[cols="100%",stripes=even]
 |===
 | *Request*
-a|----
-DELETE /productOrder/3774
-Content-Type: application/json
-----
-
-| *Response*
-a|----
+l|
 204
 
-----
+| *Response*
+l|
+Unresolved directive in parts/Operations.adoc - include::../samples/Resource_ProductOrder_response_sample_8.json[]
 
 |===
 
-== Operations on CancelProductOrder
-=== List or find CancelProductOrder objects
-   GET /cancelProductOrder
+=== Operations on CancelProductOrder
+
+==== List or find CancelProductOrder objects
+
+`*GET /cancelProductOrder*`
 
 *Description*
 
-This operation list cancel product order entities.&#10;Attribute selection is enabled for all first level attributes.&#10;Filtering may be available depending on the compliance level supported by an implementation.
+This operation list CancelProductOrder entities.
+Attribute selection is enabled for all first level attributes.
+Filtering may be available depending on the compliance level supported by an implementation.
 
 *Usage samples*
 
-[cols="100%"]
+Here&#39;s an example of a request for retrieving a list of product order cancel request(s). The given criteria is the cancel request state (done).
+
+[cols="100%",stripes=even]
 |===
 | *Request*
-a|----
-GET /cancelProductOrder?fields=id,productOrder.id,productOrder.href&state=done
-Content-Type: application/json
-----
-
-| *Response*
-a|----
+l|
 200
 
 [
@@ -3802,7 +2506,7 @@ a|----
     "productOrder": {
         "id": "45f-789-sdre",
         "href": "https://host:port/productOrderingManagement/v4/productOrder/45f-789-sdre"
-        }
+        }  
      },
      {
     "id": "3214",
@@ -3812,29 +2516,31 @@ a|----
         }
     }
 ]
-----
+
+| *Response*
+l|
+Unresolved directive in parts/Operations.adoc - include::../samples/Resource_CancelProductOrder_response_sample_1.json[]
 
 |===
 
-=== Retrieves a CancelProductOrder by ID
-   GET /cancelProductOrder/{id}?fields=...&{filtering}
+==== Retrieves a CancelProductOrder by ID
+
+`*GET /cancelProductOrder/{id}?fields&#61;...&amp;{filtering}*`
 
 *Description*
 
-This operation retrieves a cancel product order entity.&#10;Attribute selection is enabled for all first level attributes.&#10;Filtering may be available depending on the compliance level supported by an implementation.
+This operation retrieves a CancelProductOrder entity.
+Attribute selection is enabled for all first level attributes.
+Filtering may be available depending on the compliance level supported by an implementation.
 
 *Usage samples*
 
-[cols="100%"]
+Here&#39;s an example of a cancel product order request retrieval. The given criteria is the product order request cancel id 789-fsds5-kjp.
+
+[cols="100%",stripes=even]
 |===
 | *Request*
-a|----
-GET /cancelProductOrder/789-fsds5-kjp
-Content-Type: application/json
-----
-
-| *Response*
-a|----
+l|
 200
 
 {
@@ -3851,40 +2557,39 @@ a|----
   "state": "done",
   "@type": "CancelProductorder"
 }
-----
+
+| *Response*
+l|
+Unresolved directive in parts/Operations.adoc - include::../samples/Resource_CancelProductOrder_response_sample_2.json[]
 
 |===
 
-=== Creates a CancelProductOrder
-   POST /cancelProductOrder
+==== Creates a CancelProductOrder
+
+`*POST /cancelProductOrder*`
 
 *Description*
 
-This operation creates a cancel product order entity.
+This operation creates a CancelProductOrder entity.
+
+*Mandatory Attributes*
+
+[cols="35%,65%"]
+|===
+|*Mandatory Attributes*|*Rule*
+
+|productOrder |
+|===
+
 
 *Usage samples*
 
-[cols="100%"]
+Here&#39;s an example of a request for cancel a product order  - the resulting product order cancellation request is 789-fsds5-kjp.
+
+[cols="100%",stripes=even]
 |===
 | *Request*
-a|----
-POST /cancelProductOrder
-Content-Type: application/json
-
-{
-  "cancellationReason": "Duplicate order",
-  "requestedCancellationDate": "2019-04-30T12:56:21.931Z",
-  "productOrder": {
-    "id": "45f-98f-ss45",
-    "href": "https://host:port/productOrderingManagement/v4/productOrder/45f-98f-ss45",
-    "@referredType": "ProductOrder"
-  },
-  "@type": "CancelProductorder"
-}
-----
-
-| *Response*
-a|----
+l|
 201
 
 {
@@ -3900,6 +2605,167 @@ a|----
   "state": "done",
   "@type": "CancelProductorder"
 }
-----
 
+| *Response*
+l|
+Unresolved directive in parts/Operations.adoc - include::../samples/Resource_CancelProductOrder_response_sample_3.json[]
+
+|===
+
+== API NOTIFICATIONS
+
+For every single of operation on the entities use the following
+templates and provide sample REST notification POST calls.
+
+It is assumed that the Pub/Sub uses the Register and UnRegister
+mechanisms described in the REST Guidelines reproduced below.
+
+=== Register listener
+
+*POST /hub*
+
+*Description*
+
+Sets the communication endpoint address the service instance must use to
+deliver information about its health state, execution state, failures
+and metrics. Subsequent POST calls will be rejected by the service if it
+does not support multiple listeners. In this case DELETE /api/hub/\{id}
+must be called before an endpoint can be created again.
+
+*Behavior*
+
+Returns HTTP/1.1 status code 204 if the request was successful.
+
+Returns HTTP/1.1 status code 409 if request is not successful.
+
+*Usage Samples*
+
+Here's an example of a request for registering a listener.
+
+[cols="",options="header",stripes=even]
+|===
+|*Request*
+l|
+POST /api/hub
+
+Accept: application/json
+
+{
+    "callback": "http://in.listener.com"
+}
+
+|*Response*
+l|
+201
+
+Content-Type: application/json
+
+Location: /api/hub/42
+
+{
+    "id":"42",
+    "callback": "http://in.listener.com",
+    "query":""
+}
+
+|===
+
+=== Unregister listener
+
+*DELETE /hub/\{id}*
+
+*Description*
+
+Clears the communication endpoint address that was set by creating the
+Hub..
+
+*Behavior*
+
+Returns HTTP/1.1 status code 204 if the request was successful.
+
+Returns HTTP/1.1 status code 404 if the resource is not found.
+
+*Usage Samples*
+
+Here's an example of a request for un-registering a listener.
+
+[cols="",options="header",stripes=even]
+|===
+|*Request*
+l|
+DELETE /api/hub/42
+
+Accept: application/json
+
+|*Response*
+l|
+204
+|===
+
+=== Publish Event to listener
+
+*POST /client/listener*
+
+*Description*
+
+Clears the communication endpoint address that was set by creating the
+Hub.
+
+Provides to a registered listener the description of the event that was
+raised. The /client/listener url is the callback url passed when
+registering the listener.
+
+*Behavior*
+
+Returns HTTP/1.1 status code 201 if the service is able to set the
+configuration.
+
+*Usage Samples*
+
+Here's an example of a notification received by the listener. In this
+example “EVENT TYPE” should be replaced by one of the notification types
+supported by this API (see Notification resources Models section) and
+EVENT BODY refers to the data structure of the given notification type.
+
+[cols="",options="header",stripes=even]
+|===
+|*Request*
+l|
+POST /client/listener
+
+Accept: application/json
+
+{
+    "event": {
+        EVENT BODY
+    },
+    "eventType": "EVENT_TYPE"
+}
+
+|*Response*
+l|201
+|===
+
+For detailed examples on the general TM Forum notification mechanism,
+see the TMF REST Design Guidelines.
+
+== Acknowledgements
+
+=== Release History
+
+[cols="15%,15%,30%,40%",]
+|===
+|*Release Number* |*Date* |*Release led by:* |*Description*
+|                 |       |                  |
+
+|                 |       |                  |
+
+|===
+
+=== Contributors to Document
+
+[cols=",",]
+|===
+| |
+| |
 |===

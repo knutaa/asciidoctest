@@ -24,22 +24,17 @@ jobs:
     # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
     # change this to (see https://github.com/ruby/setup-ruby#versioning):
       uses: ruby/setup-ruby@v1.51.1
-    # uses: ruby/setup-ruby@ec106b438a1ff6ff109590de34ddc62c540232e0
       with:
         ruby-version: 2.6
     - name: Install dependencies
       run: bundle install
-    #- name: Run tests
-    #  run: bundle exec rake
     - name: Generate combined adoc for Github presentation
       run: ruby combine.ry userguide.adoc -o userguide_github.adoc
-    - name: test
-      run: wc userguide.adoc
-    - name: Update resources
+    - name: Combined .adoc for Github presentation
       uses: test-room-7/action-update-file@v1
       with:
           file-path: userguide_github.adoc
-          commit-msg: Update resources
+          commit-msg: Combined .adoc for Github presentation
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
 
