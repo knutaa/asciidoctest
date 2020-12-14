@@ -28,6 +28,9 @@ jobs:
         ruby-version: 2.6
     - name: Install dependencies
       run: bundle install
+    - name: List path
+      run: |
+        git diff --name-only ${{ github.event.before }} ${{ github.sha }} | cut -d/ -f1 | sort -u
     - name: Generate combined adoc for Github presentation
       run: ruby combine.ry userguide.adoc -o userguide_github.adoc
     - name: Combined .adoc for Github presentation
